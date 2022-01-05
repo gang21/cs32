@@ -12,9 +12,9 @@
 #include <utility>
 #include <cstdlib>
 #include <cstring>
-
+//
 using namespace std;
-
+//
   // Return a uniformly distributed random int from min to max, inclusive
 int randInt(int min, int max)
 {
@@ -46,6 +46,10 @@ void clearScreen()
 
 #else  // not _WIN32
 
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+
 void clearScreen()  // will just write a newline in an Xcode output window
 {
     static const char* term = getenv("TERM");
@@ -59,4 +63,3 @@ void clearScreen()  // will just write a newline in an Xcode output window
 }
 
 #endif
-

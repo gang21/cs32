@@ -7,7 +7,7 @@
 
 #include "gark.h"
 #include "mesa.h"
-#include "utilities.cpp"
+#include "globals.h"
 #include <iostream>
 
 using namespace std;

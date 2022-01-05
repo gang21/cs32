@@ -8,7 +8,7 @@
 #include "game.h"
 #include "mesa.h"
 #include "player.h"
-#include "utilities.cpp"
+#include "globals.h"
 #include <iostream>
 
 

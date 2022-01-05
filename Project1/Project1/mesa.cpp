@@ -8,7 +8,7 @@
 #include "mesa.h"
 #include "gark.h"
 #include "player.h"
-#include "utilities.cpp"
+#include "globals.h"
 
 # include <iostream>
 
