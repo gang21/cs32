@@ -5,8 +5,8 @@
 //  Created by Gabriella Ang on 1/5/22.
 //
 
-#include "player.h"
-#include "mesa.h"
+#include "Player.h"
+#include "Mesa.h"
 #include <iostream>
 
 using namespace std;

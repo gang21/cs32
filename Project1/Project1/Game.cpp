@@ -5,10 +5,10 @@
 //  Created by Gabriella Ang on 1/5/22.
 //
 
-#include "game.h"
-#include "mesa.h"
-#include "player.h"
-#include "globals.h"
+#include "Game.h"
+#include "Mesa.h"
+#include "Player.h"
+
 #include <iostream>
 
 

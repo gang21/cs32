@@ -5,9 +5,8 @@
 //  Created by Gabriella Ang on 1/5/22.
 //
 
-#include "gark.h"
-#include "mesa.h"
-#include "globals.h"
+#include "Gark.h"
+#include "Mesa.h"
 #include <iostream>
 
 using namespace std;
