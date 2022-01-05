@@ -8,13 +8,14 @@
 #include "Mesa.h"
 #include "Gark.h"
 #include "Player.h"
+#include "History.h"
 
 # include <iostream>
 
 using namespace std;
 
 Mesa::Mesa(int nRows, int nCols)
- : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nGarks(0)
+ : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nGarks(0), m_his(nRows, nCols)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -22,6 +23,7 @@ Mesa::Mesa(int nRows, int nCols)
              << nCols << "!" << endl;
         exit(1);
     }
+   // m_his = new History(nRows, nCols);
 }
 
 Mesa::~Mesa()
@@ -29,6 +31,7 @@ Mesa::~Mesa()
     for (int k = 0; k < m_nGarks; k++)
         delete m_garks[k];
     delete m_player;
+   // delete m_his;
 }
 
 int Mesa::rows() const
@@ -164,12 +167,17 @@ bool Mesa::attackGarkAt(int r, int c, int dir)
       // Attack one gark.  Returns true if a gark was attacked and destroyed,
       // false otherwise (no gark there, or the attack did not destroy the
       // gark).
+    
     int k = 0;
     for ( ; k < m_nGarks; k++)
     {
         if (m_garks[k]->row() == r  &&  m_garks[k]->col() == c)
             break;
     }
+    
+    //records attack in history object
+    m_his.record(m_player->row(), m_player->col());
+    
     if (k < m_nGarks  &&  m_garks[k]->getAttacked(dir))  // gark dies
     {
         delete m_garks[k];
@@ -192,4 +200,8 @@ bool Mesa::moveGarks()
 
       // return true if the player is still alive, false otherwise
     return ! m_player->isDead();
+}
+
+History& Mesa::history() {
+    return m_his;
 }

@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include "globals.h"
+#include "History.h"
+
 class Player;
 class Gark;
 
@@ -28,6 +30,7 @@ class Mesa
     int     numGarksAt(int r, int c) const;
     bool    determineNewPosition(int& r, int& c, int dir) const;
     void    display() const;
+    History& history();
 
         // Mutators
     bool   addGark(int r, int c);
@@ -41,6 +44,7 @@ class Mesa
     Player* m_player;
     Gark*   m_garks[MAXGARKS];
     int     m_nGarks;
+    History m_his;
 };
 
 #endif /* MESA_H */
