@@ -1,8 +1,4 @@
-// garks.cpp
-
-#include "game.h"
-using namespace std;
-
+#include "Game.h"
 int main()
 {
       // Create a game
@@ -13,6 +9,3 @@ int main()
     g.play();
 }
 
-//#include "Gark.h"
-//    int main()
-//    {}

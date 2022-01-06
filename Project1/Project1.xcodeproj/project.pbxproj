@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		AF6B8F4327765A5500B61D05 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6B8F4227765A5500B61D05 /* main.cpp */; };
+		AF9C9C6927863C9E00E900D5 /* Mesa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C6727863C9E00E900D5 /* Mesa.cpp */; };
+		AF9C9C6C27863DA300E900D5 /* Gark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C6A27863DA300E900D5 /* Gark.cpp */; };
+		AF9C9C6F27863E6B00E900D5 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C6D27863E6B00E900D5 /* Player.cpp */; };
+		AF9C9C7227863F0D00E900D5 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C7027863F0D00E900D5 /* Game.cpp */; };
+		AF9C9C752786440700E900D5 /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C742786440700E900D5 /* utilities.cpp */; };
+		AF9C9C782786523B00E900D5 /* History.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF9C9C762786523B00E900D5 /* History.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +31,18 @@
 /* Begin PBXFileReference section */
 		AF6B8F3F27765A5500B61D05 /* Project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Project1; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6B8F4227765A5500B61D05 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AF9C9C6727863C9E00E900D5 /* Mesa.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mesa.cpp; sourceTree = "<group>"; };
+		AF9C9C6827863C9E00E900D5 /* Mesa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mesa.h; sourceTree = "<group>"; };
+		AF9C9C6A27863DA300E900D5 /* Gark.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Gark.cpp; sourceTree = "<group>"; };
+		AF9C9C6B27863DA300E900D5 /* Gark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Gark.h; sourceTree = "<group>"; };
+		AF9C9C6D27863E6B00E900D5 /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		AF9C9C6E27863E6B00E900D5 /* Player.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		AF9C9C7027863F0D00E900D5 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		AF9C9C7127863F0D00E900D5 /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		AF9C9C732786426F00E900D5 /* globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
+		AF9C9C742786440700E900D5 /* utilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utilities.cpp; sourceTree = "<group>"; };
+		AF9C9C762786523B00E900D5 /* History.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = History.cpp; sourceTree = "<group>"; };
+		AF9C9C772786523B00E900D5 /* History.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +76,18 @@
 			isa = PBXGroup;
 			children = (
 				AF6B8F4227765A5500B61D05 /* main.cpp */,
+				AF9C9C762786523B00E900D5 /* History.cpp */,
+				AF9C9C772786523B00E900D5 /* History.h */,
+				AF9C9C742786440700E900D5 /* utilities.cpp */,
+				AF9C9C7027863F0D00E900D5 /* Game.cpp */,
+				AF9C9C7127863F0D00E900D5 /* Game.h */,
+				AF9C9C6D27863E6B00E900D5 /* Player.cpp */,
+				AF9C9C6E27863E6B00E900D5 /* Player.h */,
+				AF9C9C6A27863DA300E900D5 /* Gark.cpp */,
+				AF9C9C6B27863DA300E900D5 /* Gark.h */,
+				AF9C9C6727863C9E00E900D5 /* Mesa.cpp */,
+				AF9C9C6827863C9E00E900D5 /* Mesa.h */,
+				AF9C9C732786426F00E900D5 /* globals.h */,
 			);
 			path = Project1;
 			sourceTree = "<group>";
@@ -119,7 +149,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF9C9C752786440700E900D5 /* utilities.cpp in Sources */,
+				AF9C9C6F27863E6B00E900D5 /* Player.cpp in Sources */,
 				AF6B8F4327765A5500B61D05 /* main.cpp in Sources */,
+				AF9C9C6927863C9E00E900D5 /* Mesa.cpp in Sources */,
+				AF9C9C7227863F0D00E900D5 /* Game.cpp in Sources */,
+				AF9C9C6C27863DA300E900D5 /* Gark.cpp in Sources */,
+				AF9C9C782786523B00E900D5 /* History.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
