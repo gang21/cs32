@@ -35,7 +35,7 @@ private:
         KeyType key;
         ValueType value;
     };
-    int count;
+    int index;
     KeyValues map[DEFAULT_MAX_ITEMS];
 };
 
