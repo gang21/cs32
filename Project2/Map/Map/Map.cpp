@@ -1,15 +1,14 @@
 #include "Map.h"
 #include <string>
 
+#include <iostream>
 
 Map::Map() {
-    // Create an empty map (i.e., one with no key/value pairs)
     KeyValues map[] = {};
     count = 0;
 }
 
 const bool Map::empty() {
-    //check if the map is empty
     if (count == 0)
         return true;
     return false;
@@ -20,11 +19,6 @@ const int Map::size() {
 }
 
 bool Map::insert(const KeyType& key, const ValueType& value) {
-      // If key is not equal to any key currently in the map, and if the
-      // key/value pair can be added to the map, then do so and return true.
-      // Otherwise, make no change to the map and return false (indicating
-      // that either the key is already in the map, or the map has a fixed
-      // capacity and is full).
     if (count >= DEFAULT_MAX_ITEMS)
         return false;
     int i;
@@ -40,10 +34,6 @@ bool Map::insert(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::update(const KeyType& key, const ValueType& value) {
-      // If key is equal to a key currently in the map, then make that key no
-      // longer map to the value that it currently maps to, but instead map to
-      // the value of the second parameter; return true in this case.
-      // Otherwise, make no change to the map and return false.
     for (int i = 0; i < count; i++) {
         if (map[i].key == key) {
             map[i].value = value;
@@ -54,14 +44,14 @@ bool Map::update(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
-      // If key is equal to a key currently in the map, then make that key no
-      // longer map to the value that it currently maps to, but instead map to
-      // the value of the second parameter; return true in this case.
-      // If key is not equal to any key currently in the map and if the
-      // key/value pair can be added to the map, then do so and return true.
-      // Otherwise, make no change to the map and return false (indicating
-      // that the key is not already in the map and the map has a fixed
-      // capacity and is full).
+    bool insert = Map::insert(key, value);
+    if (insert)
+        return true;
+    else {
+        bool update = Map::update(key, value);
+        if (update)
+            return true;
+    }
     return false;
 }
 
@@ -69,12 +59,30 @@ bool Map::erase(const KeyType& key) {
       // If key is equal to a key currently in the map, remove the key/value
       // pair with that key from the map and return true.  Otherwise, make
       // no change to the map and return false.
-    return false;
+    int pos = -1;
+    for (int i = 0; i < count; i++) {
+        if (map[i].key == key) {
+            pos = i;
+        }
+    }
+    
+    if (pos == -1)
+        return false;
+    
+    for ( ; pos < count - 1; pos++) {
+        map[pos] = map[pos+1];
+    }
+    count--;
+    return true;
 }
      
 const bool Map::contains(const KeyType& key) {
       // Return true if key is equal to a key currently in the map, otherwise
       // false.
+    for (int i = 0; i < count; i++) {
+        if (map[i].key == key)
+            return true;
+    }
     return false;
 }
      
@@ -99,5 +107,28 @@ void Map::swap(Map& other) {
 }
 
 int main() {
+    Map mn;
+    std::cout << mn.empty()<< std::endl;
+    mn.insert("Lucy", 3.53);
+    std::cout<< mn.empty() << std::endl;
+    mn.insert("Dan", 2.7);
+    mn.insert("Mark", 4.3);
+    mn.insert("lucy", 3.8);
+    mn.insert("Dan", 3.71);
+    std::cout << "Size: " <<mn.size() << std::endl;
+    mn.update("Mark", 3.8);
+    mn.insertOrUpdate("Ben", 1.234);
+    std::cout << "Size: " <<mn.size() << std::endl;
+    mn.insert("lucy", 3.86);
+    std::cout << "Size: " <<mn.size() << std::endl;
+    std::cout << "Contains: " << mn.contains("Ben") << std::endl;
+    std::cout << "Contains: " << mn.contains("ben") << std::endl;
+    std::cout << "Erase: " << mn.erase("Mark") << std::endl;
+    std::cout << "Size: " <<mn.size() << std::endl;
+    std::cout << "Contains: " << mn.contains("Mark") << std::endl;
+    std::cout << "Contains: " << mn.contains("Dan") << std::endl;
+    std::cout << "Contains: " << mn.contains("Lucy") << std::endl;
+    std::cout << "Erase: " << mn.erase("poppy") << std::endl;
+    
     
 }
