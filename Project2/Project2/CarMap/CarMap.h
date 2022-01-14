@@ -11,14 +11,16 @@
 #include <stdio.h>
 #include "Map.h"
 
+using namespace std;
+
 
 class CarMap
 {
   public:
     CarMap();
-    bool addCar(std::string license);
-    double miles(std::string license) const;
-    bool drive(std::string license, double distance);
+    bool addCar(string license);
+    double miles(string license) const;
+    bool drive(string license, double distance);
     int fleetSize() const;
     void print() const;
 

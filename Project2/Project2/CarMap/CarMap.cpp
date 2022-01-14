@@ -11,7 +11,7 @@ CarMap::CarMap() {
     Map cars = {};
 }
 
-bool CarMap::addCar(std::string license) {
+bool CarMap::addCar(string license) {
           // If a car with the given license plate is not currently in the map,
           // and there is room in the map, add an entry for that car recording
           // that it has been driven 0 miles, and return true.  Otherwise,
@@ -19,17 +19,18 @@ bool CarMap::addCar(std::string license) {
     return cars.insert(license, 0);
 }
 
-double CarMap::miles(std::string license) const {
+double CarMap::miles(string license) const {
           // If a car with the given license plate is in the map, return how
           // many miles it has been driven; otherwise, return -1.
     double miles = 0;
     if(cars.contains(license)) {
-         return cars.get(license, miles);
+        cars.get(license, miles);
+        return miles;
     }
     return -1;
 }
 
-bool CarMap::drive(std::string license, double distance) {
+bool CarMap::drive(string license, double distance) {
           // If no car with the given license plate is in the map or if
           // distance is negative, make no change to the map and return
           // false.  Otherwise, increase by the distance parameter the number
@@ -49,11 +50,11 @@ void CarMap::print() const {
           // consists of the car's license plate, followed by one space,
           // followed by the number of miles that car has been driven.  Write
           // no other text.  The lines need not be in any particular order.
-    std::string licensePlate = "";
-    std::string miles = 0;
+    string licensePlate = "";
+    double miles = 0;
     for (int i = 0; i < cars.size(); i++) {
         cars.get(i, licensePlate, miles);
-        std::cout << licensePlate << " " << miles << std::endl;
+        cout << licensePlate << " " << miles << endl;
     }
 }
 
