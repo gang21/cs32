@@ -10,13 +10,13 @@ Map::Map() {
     index = 0;
 }
 
-const bool Map::empty() {
+bool Map::empty() const {
     if (index == 0)
         return true;
     return false;
 }
 
-const int Map::size() {
+int Map::size() const {
     return index;
 }
 
@@ -65,6 +65,7 @@ bool Map::erase(const KeyType& key) {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key) {
             pos = i;
+            break;
         }
     }
     
@@ -78,7 +79,7 @@ bool Map::erase(const KeyType& key) {
     return true;
 }
      
-const bool Map::contains(const KeyType& key) {
+bool Map::contains(const KeyType& key) const {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key)
             return true;
@@ -98,8 +99,8 @@ bool Map::get(const KeyType& key, ValueType& value) {
      
 bool Map::get(int i, KeyType& key, ValueType& value) {
     if (i >= 0 && i < this->size()) {
-        map[i].key = key;
-        map[i].value = value;
+        key = map[i].key;
+        value = map[i].value;
         return true;
     }
     return false;
@@ -108,52 +109,84 @@ bool Map::get(int i, KeyType& key, ValueType& value) {
 void Map::swap(Map& other) {
     KeyValues tempMap[DEFAULT_MAX_ITEMS] = {};
     int otherCount = other.size();
+    int indexCount = index;
     
-    for (int i = 0; i < other.size(); i++) {
-        other.get(i, tempMap[i].key, tempMap[i].value);
+    for (int i = 0; i <= otherCount; i++) {
+        other.get(0, tempMap[i].key, tempMap[i].value);
         other.erase(tempMap[i].key);
     }
-    for (int j = 0; j < this->size(); j++) {
-        other.insert(map[j].key, map[j].value);
-        this->erase(map[j].key);
+
+    for (int j = 0; j < indexCount; j++) {
+        other.insert(map[0].key, map[0].value);
+        this->erase(map[0].key);
     }
     for (int k = 0; k < otherCount; k++) {
         this->insert(tempMap[k].key, tempMap[k].value);
     }
+    
+    other.index = other.size();
+    this->index = otherCount;
 
 }
 
+void Map::dump() const {
+    for (int i = 0; i < index; i++) {
+        cerr << "Key: " << map[i].key << " Value: " << map[i].value << endl;
+    }
+}
+
 int main() {
-    Map mn;
-    cout << mn.empty()<< endl;
-    mn.insert("Lucy", 3.53);
-    cout<< mn.empty() << endl;
-    mn.insert("Dan", 2.7);
-    mn.insert("Mark", 4.3);
-    mn.insert("lucy", 3.3);
-    mn.insert("Dan", 3.71);
-    cout << "Size: " <<mn.size() << endl;
-    mn.update("Mark", 3.8);
-    mn.insertOrUpdate("Ben", 1.234);
-    cout << "Size: " <<mn.size() << endl;
-    mn.insert("lucy", 3.86);
-    cout << "Size: " <<mn.size() << endl;
-    cout << "Contains: " << mn.contains("Ben") << endl;
-    cout << "Contains: " << mn.contains("ben") << endl;
-    cout << "Erase: " << mn.erase("Mark") << endl;
-    cout << "Size: " <<mn.size() << endl;
-    cout << "Contains: " << mn.contains("Mark") << endl;
-    cout << "Contains: " << mn.contains("Dan") << endl;
-    cout << "Contains: " << mn.contains("Lucy") << endl;
-    cout << "Erase: " << mn.erase("poppy") << endl;
-    double gpa = 4.00;
-    mn.get("lucy", gpa);
-    cout << "New GPA: " << gpa << endl;
+
+    Map femalesGPA;
+    assert(femalesGPA.empty());
+    assert(femalesGPA.size() == 0);
+    femalesGPA.insert("Aileen", 3.9);
+    femalesGPA.insert("Chloe", 4.002);
+    assert(femalesGPA.size() == 2 && !femalesGPA.empty());
+    femalesGPA.insert("aileen", 3.23);
+    femalesGPA.insert("Aileen", 3.1);
+    assert(femalesGPA.size() == 3);
+    femalesGPA.update("Chloe", 4.12);
+    femalesGPA.update("Bianca", 2.1);
+    assert(femalesGPA.size() == 3);
+    femalesGPA.insertOrUpdate("Bianca", 2.1);
+    femalesGPA.insertOrUpdate("aileen", 3.75);
+    assert(femalesGPA.size() == 4);
+    assert(femalesGPA.contains("aileen"));
+    assert(!femalesGPA.contains("aIleen"));
+    femalesGPA.erase("Abby");
+    assert(femalesGPA.size() == 4);
+    femalesGPA.erase("Aileen");
+    assert(femalesGPA.size() == 3 && !femalesGPA.contains("Aileen"));
     KeyType name = "Rose";
-    ValueType herGpa = 4.71;
-    mn.get(1, name, herGpa);
-    cout << name << " " << herGpa << endl;
-    cout << "Contains: " << mn.contains("Rose") << endl;
-    cout << "Contains: " << mn.contains("Dan") << endl;
-    cout << "Size: " <<mn.size() << endl;
+    ValueType gpa = 3.91;
+    femalesGPA.get("Chloe", gpa);
+    assert(gpa == 4.12);
+    assert(femalesGPA.get(2, name, gpa) && name == "Bianca" && gpa == 2.1);
+    assert(!femalesGPA.get(3, name, gpa));
+//    femalesGPA.dump();
+    
+    Map malesGPA;
+    assert(malesGPA.empty() && malesGPA.size() == 0);
+    malesGPA.insert("Seth", 3.69);
+    malesGPA.insert("Enoch", 3.80);
+    malesGPA.insert("Trevor", 4.9);
+    malesGPA.insert("Stephen", 3.93);
+    malesGPA.insert("Bryan", 3.32);
+    assert(malesGPA.size() == 5);
+//    malesGPA.dump();
+    
+    malesGPA.swap(femalesGPA);
+    assert(malesGPA.contains("Chloe") && malesGPA.size() == 3);
+    assert(femalesGPA.contains("Seth"));
+    assert(femalesGPA.size() == 5);
+    assert(femalesGPA.contains("Bryan"));
+    assert(!femalesGPA.contains("Chloe"));
+    assert(!femalesGPA.contains("aileen"));
+    assert(!femalesGPA.contains("Bianca"));
+    assert(!malesGPA.contains("Enoch"));
+    assert(!malesGPA.contains("Trevor"));
+    assert(!malesGPA.contains("Stephen"));
+    
+    cout << "passed all tests" << endl;
 }
