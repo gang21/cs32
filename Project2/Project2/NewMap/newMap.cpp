@@ -4,23 +4,41 @@
 using namespace std;
 
 
-newMap::newMap() {
-    KeyValues map[] = {};
+Map::Map() {
+    map = new KeyValues[DEFAULT_MAX_ITEMS];
     index = 0;
+    maxValue = DEFAULT_MAX_ITEMS;
 }
 
-bool newMap::empty() const {
-    if (index == 0)
-        return true;
-    return false;
+Map::Map(int max) {
+    map = new KeyValues[max];
+    index = 0;
+    maxValue = max;
 }
 
-int newMap::size() const {
+Map::Map (const Map& old) {
+    index = old.index;
+    maxValue = old.maxValue;
+    map = new KeyValues[maxValue];
+    for (int i = 0; i < maxValue; i++) {
+        map[i] = old.map[i];
+    }
+}
+
+Map::~Map() {
+    delete [] map;
+}
+
+bool Map::empty() const {
+    return (index == 0);
+}
+
+int Map::size() const {
     return index;
 }
 
-bool newMap::insert(const KeyType& key, const ValueType& value) {
-    if (index >= DEFAULT_MAX_ITEMS)
+bool Map::insert(const KeyType& key, const ValueType& value) {
+    if (index >= maxValue)
         return false;
     int i;
     for (i = 0; i < index; i++) {
@@ -34,7 +52,7 @@ bool newMap::insert(const KeyType& key, const ValueType& value) {
     return true;
 }
 
-bool newMap::update(const KeyType& key, const ValueType& value) {
+bool Map::update(const KeyType& key, const ValueType& value) {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key) {
             map[i].value = value;
@@ -44,22 +62,20 @@ bool newMap::update(const KeyType& key, const ValueType& value) {
     return false;
 }
 
-bool newMap::insertOrUpdate(const KeyType& key, const ValueType& value) {
-    bool insert = newMap::insert(key, value);
+bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
+    bool insert = Map::insert(key, value);
     if (insert)
         return true;
     else {
-        bool update = newMap::update(key, value);
+        bool update = Map::update(key, value);
         if (update)
             return true;
     }
     return false;
 }
 
-bool newMap::erase(const KeyType& key) {
-      // If key is equal to a key currently in the map, remove the key/value
-      // pair with that key from the map and return true.  Otherwise, make
-      // no change to the map and return false.
+bool Map::erase(const KeyType& key) {
+    
     int pos = -1;
     for (int i = 0; i < index; i++) {
         if (map[i].key == key) {
@@ -78,7 +94,7 @@ bool newMap::erase(const KeyType& key) {
     return true;
 }
      
-bool newMap::contains(const KeyType& key) const {
+bool Map::contains(const KeyType& key) const {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key)
             return true;
@@ -86,7 +102,7 @@ bool newMap::contains(const KeyType& key) const {
     return false;
 }
      
-bool newMap::get(const KeyType& key, ValueType& value) const {
+bool Map::get(const KeyType& key, ValueType& value) const {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key) {
             value = map[i].value;
@@ -96,7 +112,7 @@ bool newMap::get(const KeyType& key, ValueType& value) const {
     return false;
 }
      
-bool newMap::get(int i, KeyType& key, ValueType& value) const {
+bool Map::get(int i, KeyType& key, ValueType& value) const {
     if (i >= 0 && i < this->size()) {
         key = map[i].key;
         value = map[i].value;
@@ -105,31 +121,20 @@ bool newMap::get(int i, KeyType& key, ValueType& value) const {
     return false;
 }
 
-void newMap::swap(newMap& other) {
-    KeyValues tempMap[DEFAULT_MAX_ITEMS] = {};
-    int otherCount = other.size();
-    int indexCount = index;
-
-    for (int i = 0; i <= otherCount; i++) {
-        other.get(0, tempMap[i].key, tempMap[i].value);
-        other.erase(tempMap[i].key);
-    }
-
-    for (int j = 0; j < indexCount; j++) {
-        other.insert(map[0].key, map[0].value);
-        this->erase(map[0].key);
-    }
-    for (int k = 0; k < otherCount; k++) {
-        this->insert(tempMap[k].key, tempMap[k].value);
-    }
-
-    other.index = other.size();
-    this->index = otherCount;
-
+void Map::swap(Map& other) {
+    int otherSize = other.size();
+    int thisSize = size();
+    
+    KeyValues * tempOther = other.map;
+    other.map = map;
+    map = tempOther;
+    
+    other.index = thisSize;
+    index = otherSize;
 }
 
-void newMap::dump() const {
+void Map::dump() const {
     for (int i = 0; i < index; i++) {
-        cerr << "Key: " << map[i].key << " Value: " << map[i].value << endl;
+        cerr << map[i].key << " - " << map[i].value << endl;
     }
 }

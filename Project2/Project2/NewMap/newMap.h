@@ -10,17 +10,42 @@
 
 #include <string>
 #include <stdio.h>
-#include "newMap.h"
 
 using KeyType = std::string;
 using ValueType = double;
 
 const int DEFAULT_MAX_ITEMS = 260;
 
-class newMap
+class Map
 {
+  private:
+    struct KeyValues {
+        KeyType key;
+        ValueType value;
+    };
+    
+    int index;
+    KeyValues * map;
+    int maxValue;
+    
+    
   public:
-    newMap();
+    Map();
+    Map(int max);
+    Map (const Map& old);
+    Map & operator= (const Map &src) {
+        if (&src == this)
+            return *this;
+        delete [] map;
+        maxValue = src.maxValue;
+        index = src.index;
+        map = new KeyValues[maxValue];
+        for (int i = 0; i < src.maxValue; i++) {
+            map[i] = src.map[i];
+       }
+        return *this;
+    }
+    ~Map();
     bool empty() const;
     int size() const;
     bool insert(const KeyType& key, const ValueType& value);
@@ -30,16 +55,9 @@ class newMap
     bool contains(const KeyType& key) const;
     bool get(const KeyType& key, ValueType& value) const;
     bool get(int i, KeyType& key, ValueType& value) const;
-    void swap(newMap& other);
+    void swap(Map& other);
     void dump() const;
-
-private:
-    struct KeyValues {
-        KeyType key;
-        ValueType value;
-    };
-    int index;
-    KeyValues map[DEFAULT_MAX_ITEMS];
+    
 };
 
 
