@@ -67,17 +67,17 @@ bool Map::erase(const KeyType& key) {
             break;
         }
     }
-
+    
     if (pos == -1)
         return false;
-
+    
     for ( ; pos < index - 1; pos++) {
         map[pos] = map[pos+1];
     }
     index--;
     return true;
 }
-
+     
 bool Map::contains(const KeyType& key) const {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key)
@@ -85,7 +85,7 @@ bool Map::contains(const KeyType& key) const {
     }
     return false;
 }
-
+     
 bool Map::get(const KeyType& key, ValueType& value) const {
     for (int i = 0; i < index; i++) {
         if (map[i].key == key) {
@@ -95,7 +95,7 @@ bool Map::get(const KeyType& key, ValueType& value) const {
     }
     return false;
 }
-
+     
 bool Map::get(int i, KeyType& key, ValueType& value) const {
     if (i >= 0 && i < this->size()) {
         key = map[i].key;
