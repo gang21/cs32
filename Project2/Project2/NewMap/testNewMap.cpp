@@ -19,15 +19,15 @@ int main() {
         dogBreeds.insert(breed[i], rating[i]);
     }
     assert(dogBreeds.size() == 6);
-
-    Map a(dogBreeds);
-    assert(a.size() == 6);
-    assert(a.contains("yorkie"));
-    assert(a.contains("golden doodle"));
-    assert(a.contains("husky"));
-    assert(a.contains("border collie"));
-    assert(a.contains("pug"));
-    assert(a.contains("maltese"));
+    Map a(1000);
+    Map b(5);
+    Map c;
+    ValueType v = 13;
+    for (int n = 0; n < 5; n++)
+        assert(b.insert(breed[n], v));
+    assert(!b.insert(breed[5], v));
+    a.swap(b);
+    assert(!a.insert(breed[5], v)  &&  b.insert(breed[5], v));
 
     Map myFavoriteColors(5);
     assert(myFavoriteColors.size() == 0 && myFavoriteColors.empty());

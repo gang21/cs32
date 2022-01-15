@@ -124,6 +124,8 @@ bool Map::get(int i, KeyType& key, ValueType& value) const {
 void Map::swap(Map& other) {
     int otherSize = other.size();
     int thisSize = size();
+    int otherMax = other.maxValue;
+    int thisMax = maxValue;
     
     KeyValues * tempOther = other.map;
     other.map = map;
@@ -131,6 +133,8 @@ void Map::swap(Map& other) {
     
     other.index = thisSize;
     index = otherSize;
+    other.maxValue = thisMax;
+    maxValue = otherMax;
 }
 
 void Map::dump() const {
