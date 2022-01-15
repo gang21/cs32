@@ -33,18 +33,7 @@ class Map
     Map();
     Map(int max);
     Map (const Map& old);
-    Map & operator= (const Map &src) {
-        if (&src == this)
-            return *this;
-        delete [] map;
-        maxValue = src.maxValue;
-        index = src.index;
-        map = new KeyValues[maxValue];
-        for (int i = 0; i < src.maxValue; i++) {
-            map[i] = src.map[i];
-       }
-        return *this;
-    }
+    Map & operator= (const Map &src);
     ~Map();
     bool empty() const;
     int size() const;

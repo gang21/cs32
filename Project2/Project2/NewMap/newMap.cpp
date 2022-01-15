@@ -25,6 +25,19 @@ Map::Map (const Map& old) {
     }
 }
 
+Map &Map::operator=(const Map &src) {
+    if (&src == this)
+        return *this;
+    delete [] map;
+    maxValue = src.maxValue;
+    index = src.index;
+    map = new KeyValues[maxValue];
+    for (int i = 0; i < src.maxValue; i++) {
+        map[i] = src.map[i];
+    }
+    return *this;
+}
+
 Map::~Map() {
     delete [] map;
 }
