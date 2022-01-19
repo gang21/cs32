@@ -80,6 +80,37 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::erase(const KeyType& key) {
+    if (head == nullptr)
+        return false;
+    else if (head->key == key) { //if it is the first one in the list
+        KeyValues * destroy = head;
+        head = head->next;
+        delete destroy;
+        numItems--;
+        return true;
+    }
+    else if (tail->key == key) { //last one in the list
+        KeyValues * destroy = tail;
+        tail = tail->prev;
+        delete destroy;
+        numItems--;
+        return true;
+    }
+    KeyValues * p;
+    p = head;
+    while (p != nullptr) { //in the middle of the list
+        if (p->next != nullptr && p->key == key)
+            break;
+        p = p->next;
+    }
+    if (p != nullptr) {
+        KeyValues *destroy = p->next;
+        p->next = destroy->next;
+        destroy->next->prev = p;
+        delete destroy;
+        numItems--;
+        return true;
+    }
     return false;
 }
 
