@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF61D5EA2797F8D6004B1E7C /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF61D5E92797F8D6004B1E7C /* Map.cpp */; };
+		AF61D5F22798BF51004B1E7C /* testMapLL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF61D5F12798BF51004B1E7C /* testMapLL.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,7 @@
 		AF61D5E62797F8D6004B1E7C /* Map */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Map; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF61D5E92797F8D6004B1E7C /* Map.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		AF61D5F02797F8F3004B1E7C /* Map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		AF61D5F12798BF51004B1E7C /* testMapLL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testMapLL.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				AF61D5E92797F8D6004B1E7C /* Map.cpp */,
 				AF61D5F02797F8F3004B1E7C /* Map.h */,
+				AF61D5F12798BF51004B1E7C /* testMapLL.cpp */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -121,6 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF61D5F22798BF51004B1E7C /* testMapLL.cpp in Sources */,
 				AF61D5EA2797F8D6004B1E7C /* Map.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
