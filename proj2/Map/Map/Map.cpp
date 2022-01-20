@@ -23,7 +23,12 @@ Map::Map(const Map &src) {
 //}
 
 Map::~Map() {
-    
+    KeyValues * p = head;
+    while (p != nullptr) {
+        KeyValues * n = p->next;
+        delete p;
+        p = n;
+    }
 }
 
 bool Map::empty() const {
@@ -55,6 +60,7 @@ bool Map::insert(const KeyType& key, const ValueType& value) {
         head = p;
         tail = p;
         numItems++;
+        return true;
     }
     
     else {  //objects exist in this list already (add to end)
@@ -67,11 +73,19 @@ bool Map::insert(const KeyType& key, const ValueType& value) {
         newItem->prev = tail;
         tail = newItem;
         numItems++;
+        return true;
     }
-    return true;
 }
 
 bool Map::update(const KeyType& key, const ValueType& value) {
+    KeyValues * p = head;
+    while (p != nullptr) {
+        if (p->key == key) {
+            p->value = value;
+            return true;
+        }
+        p = p->next;
+    }
     return false;
 }
 
@@ -135,4 +149,12 @@ bool Map::get(int i, KeyType& key, ValueType& value) const {
 
 void Map::swap(Map& other) {
     
+}
+
+void Map::dump() const {
+    KeyValues * p = head;
+    while (p != nullptr) {
+        std::cerr << p->key << " - " << p->value << std::endl;
+        p = p->next;
+    }
 }
