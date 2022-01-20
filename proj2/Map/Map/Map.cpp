@@ -78,6 +78,8 @@ bool Map::insert(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::update(const KeyType& key, const ValueType& value) {
+    if (head == nullptr)
+        return false;
     KeyValues * p = head;
     while (p != nullptr) {
         if (p->key == key) {
@@ -90,6 +92,18 @@ bool Map::update(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
+    if (head == nullptr) {
+        insert(key, value);
+        return true;
+    }
+    bool insert = Map::insert(key, value);
+    if (insert)
+        return true;
+    else {
+        bool update = Map::update(key, value);
+        if (update)
+            return true;
+    }
     return false;
 }
 
@@ -140,14 +154,41 @@ bool Map::contains(const KeyType& key) const {
 }
 
 bool Map::get(const KeyType& key, ValueType& value) const {
+    KeyValues * p = head;
+    while (p != nullptr) {
+        if (p->key == key) {
+            value = p->value;
+            return true;
+        }
+        p = p->next;
+    }
     return false;
 }
 
 bool Map::get(int i, KeyType& key, ValueType& value) const {
+    if (i >= 0 && i < numItems) {
+        KeyValues * p = head;
+        int a = 0;
+        while (a < i && p != nullptr) {
+            p = p->next;
+            a++;
+        }
+        key = p->key;
+        value = p->value;
+        return true;
+    }
     return false;
 }
 
 void Map::swap(Map& other) {
+    KeyValues * tempHead = other.head;
+    KeyValues * tempTail = other.tail;
+    
+    other.head = head;
+    other.tail = tail;
+    
+    head = tempHead;
+    tail = tempTail;
     
 }
 

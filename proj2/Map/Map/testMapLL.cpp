@@ -35,6 +35,9 @@ int main() {
     assert(creatures.size() == 8);
     assert(creatures.update("Crab", 34));
     assert(!creatures.update("Vulture", 24));
+    assert(creatures.insertOrUpdate("Manatee", 22));
+    assert(creatures.insertOrUpdate("", 2));
+    assert(creatures.insertOrUpdate("crab", 32));
     creatures.dump();
     
     cerr << "All tests suceeded" << endl;
