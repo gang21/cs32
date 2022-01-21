@@ -42,4 +42,7 @@ class Map
     KeyValues * tail;
 };
 
+bool merge(const Map& m1, const Map& m2, Map& result);
+void reassign(const Map& m, Map& result);
+
 #endif /* Map_h */

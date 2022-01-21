@@ -87,7 +87,13 @@ int main() {
     assert(animals.contains("Persian"));
     //checking assignment operator
     cats = creatures;
-//   cats.dump();
+//    creatures.dump();
+    //checking merge function
+    Map results;
+    merge(creatures, cats, results); //basic test
+    results.dump();
+    
+    
     
     cerr << "All tests suceeded" << endl;
 }

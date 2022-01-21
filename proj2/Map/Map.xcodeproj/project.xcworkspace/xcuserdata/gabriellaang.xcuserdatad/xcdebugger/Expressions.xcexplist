@@ -13,5 +13,16 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "Map::get(int, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;&amp;, double&amp;) const:Map.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m2.size();">
+            </PersistentString>
+            <PersistentString
+               value = "numItems">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

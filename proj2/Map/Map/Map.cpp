@@ -14,6 +14,7 @@ Map::Map() {
     numItems = 0;
 }
 
+//copy constructor
 Map::Map(const Map &src) {
     head = new KeyValues;
     KeyValues * p = src.head;
@@ -29,14 +30,17 @@ Map::Map(const Map &src) {
     }
 }
 
+//assignment operator
 Map& Map::operator= (const Map &src) {
     if (&src == this)
         return *this;
     Map temp = Map(src);
     swap(temp);
+    numItems = src.size();
     return *this;
 }
 
+//destructor
 Map::~Map() {
     KeyValues * p = nullptr;
     p = head;
@@ -252,4 +256,34 @@ void Map::dump() const {
         q = q->prev;
     }
     std::cerr << std::endl;
+}
+
+bool merge(const Map& m1, const Map& m2, Map& result) {
+    //clearing result list
+    for (int i = 0; i < result.size(); i++) {
+        KeyType destroyKey;
+        ValueType destroyValue;
+        result.get(i, destroyKey, destroyValue);
+        result.erase(destroyKey);
+    }
+    
+    //merging two lists together
+    KeyType tempKey;
+    ValueType tempValue;
+    for (int i = 0; i < m1.size(); i++) {
+        m1.get(i, tempKey, tempValue);
+        result.insert(tempKey, tempValue);
+    }
+    for (int j = 0; j < m2.size(); j++) {
+        m2.get(j, tempKey, tempValue);
+        result.insert(tempKey, tempValue);
+    }
+    return true;
+    
+    //checking for duplicates
+    return false;
+}
+
+void reassign(const Map& m, Map& result) {
+    
 }
