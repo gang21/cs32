@@ -15,15 +15,31 @@ Map::Map() {
 }
 
 Map::Map(const Map &src) {
+    head = new KeyValues;
+    KeyValues * p = src.head;
+    head->key = p->key;
+    head->value = p->value;
+    head->prev = nullptr;
+    head->next = nullptr;
+    tail = head;
     
+    while (p != nullptr) {
+        insert(p->key, p->value);
+        p = p->next;
+    }
 }
 
-//Map& Map::operator= (const Map &src) {
-//
-//}
+Map& Map::operator= (const Map &src) {
+    if (&src == this)
+        return *this;
+    Map temp = Map(src);
+    swap(temp);
+    return *this;
+}
 
 Map::~Map() {
-    KeyValues * p = head;
+    KeyValues * p = nullptr;
+    p = head;
     while (p != nullptr) {
         KeyValues * n = p->next;
         delete p;
@@ -210,6 +226,11 @@ void Map::swap(Map& other) {
     
     head = tempHead;
     tail = tempTail;
+    
+    //swapping numItems
+    int temp = other.numItems;
+    other.numItems = numItems;
+    numItems = temp;
     
 }
 

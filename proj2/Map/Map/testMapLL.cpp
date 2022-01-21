@@ -45,7 +45,6 @@ int main() {
     //checking contains function
     assert(creatures.contains("Aardvark")); //checking contains
     assert(!creatures.contains("")); //checking false case
-    creatures.dump();
     //checking get function (two parameters)
     double result;
     creatures.get("Bear", result);
@@ -61,8 +60,34 @@ int main() {
     assert(creatures.get(7, animal, count));
     assert(animal == "Penguin" && count == 12); //checking that it works
     assert(!creatures.get(8, animal, count)); //checking out of bounds
-    
-    
+    //checking swap function
+    Map cats;
+    cats.insert("Siamese", 4);
+    cats.insert("Sphinx", 3);
+    cats.insert("Tabby", 2);
+    cats.insert("Persian", 5);
+    cats.swap(creatures);
+    assert(cats.contains("Aardvark"));
+    assert(cats.contains("Bear"));
+    assert(cats.contains("Bee"));
+    assert(cats.contains("Boar"));
+    assert(cats.contains("Mammoth"));
+    assert(cats.contains("Monkey"));
+    assert(cats.contains("Narwal"));
+    assert(cats.contains("Penguin"));
+    assert(creatures.contains("Siamese"));
+    assert(creatures.contains("Sphinx"));
+    assert(creatures.contains("Tabby"));
+    assert(creatures.contains("Persian"));
+    //checking copy constructor
+    Map animals = creatures;
+    assert(animals.contains("Siamese"));
+    assert(animals.contains("Sphinx"));
+    assert(animals.contains("Tabby"));
+    assert(animals.contains("Persian"));
+    //checking assignment operator
+    cats = creatures;
+//   cats.dump();
     
     cerr << "All tests suceeded" << endl;
 }
