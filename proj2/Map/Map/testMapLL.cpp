@@ -137,7 +137,26 @@ int main() {
     boys.insert("Baron", 12);
     boys.insert("Ian", 11);
     merge(girls, boys, students); //checking with existing values in result
-    students.dump();
+//    students.dump();
+    
+    Map blues;
+    Map reds;
+    Map mix;
+    blues.insert("cyan", 1);
+    blues.insert("baby blue", 1);
+    blues.insert("navy", 1);
+    blues.insert("purple", 1);
+    blues.insert("turquoise", 1);
+    blues.insert("pastel", 1);
+    blues.insert("blue", 1);
+    reds.insert("red", 2);
+    reds.insert("pink", 2);
+    reds.insert("purple", 2);
+    reds.insert("maroon", 2);
+    merge(blues, reds, mix); //checking with duplicate keys, different values
+    mix.dump();
+    
+    //multiple duplicates
 
     
     cerr << "All tests suceeded" << endl;

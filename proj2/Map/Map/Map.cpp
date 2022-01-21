@@ -150,7 +150,9 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
 bool Map::erase(const KeyType& key) {
     if (head == nullptr) //empty list
         return false;
-    else if (numItems == 1) { //only one item in the list
+    
+    //only one item in the list
+    else if (numItems == 1) {
         KeyValues * destroy = head;
         head = nullptr;
         tail = nullptr;
@@ -159,7 +161,8 @@ bool Map::erase(const KeyType& key) {
         return true;
     }
     
-    else if (head->key == key) { //first one in the list
+    //first one in the list
+    else if (head->key == key) {
         KeyValues * destroy = head;
         head = head->next;
         delete destroy;
@@ -167,7 +170,9 @@ bool Map::erase(const KeyType& key) {
         numItems--;
         return true;
     }
-    else if (tail->key == key) { //last one in the list
+    
+    //last one in the list
+    else if (tail->key == key) {
         KeyValues * destroy = tail;
         tail = tail->prev;
         delete destroy;
@@ -175,9 +180,11 @@ bool Map::erase(const KeyType& key) {
         numItems--;
         return true;
     }
+    
+    //in the middle of the list
     KeyValues * p;
     p = head;
-    while (p != nullptr) { //in the middle of the list
+    while (p != nullptr) {
         if (p->next != nullptr && p->next->key == key)
             break;
         p = p->next;
@@ -273,29 +280,45 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
     int size = result.size();
     KeyType destroyKey;
     ValueType destroyValue;
-    for (int i = 0; i < size - 1; i++) {
+    for (int i = 0; i < size; i++) {
         result.get(0, destroyKey, destroyValue);
         result.erase(destroyKey);
     }
     
-    result.get(0, destroyKey, destroyValue);
-    result.erase(destroyKey);
-    
+    //checking for duplicates
+    bool diffValues = false;
+    KeyType checkKey;
+    ValueType m1Value;
+    for (int a = 0; a < m1.size(); a++) {
+        m1.get(a, checkKey, m1Value);
+        if(m2.contains(checkKey)) {
+            ValueType m2Value;
+            m2.get(checkKey, m2Value);
+            diffValues = (m1Value != m2Value);
+            break;
+        }
+    }
+
     //merging two lists together
     KeyType tempKey;
     ValueType tempValue;
     for (int i = 0; i < m1.size(); i++) {
         m1.get(i, tempKey, tempValue);
+        if (diffValues == true && (tempKey == checkKey))
+            continue;
         result.insert(tempKey, tempValue);
     }
     for (int j = 0; j < m2.size(); j++) {
         m2.get(j, tempKey, tempValue);
+        if (diffValues == true && (tempKey == checkKey))
+            continue;
         result.insert(tempKey, tempValue);
     }
+    
+    if (diffValues)
+        return false;
     return true;
     
-    //checking for duplicates
-    return false;
 }
 
 void reassign(const Map& m, Map& result) {
