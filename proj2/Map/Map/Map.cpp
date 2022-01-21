@@ -26,7 +26,7 @@ Map::~Map() {
     KeyValues * p = head;
     while (p != nullptr) {
         KeyValues * n = p->next;
-        delete p;
+        delete p; //FIXME: something wrong here
         p = n;
     }
 }
@@ -49,36 +49,56 @@ bool Map::insert(const KeyType& key, const ValueType& value) {
         check = check->next;
     }
     
-    //adding the object into the linked list
-    if (head == nullptr) { //no objects in the list yet
-        KeyValues * p;
-        p = new KeyValues;
-        p->key = key;
-        p->value = value;
-        p->next = nullptr;
-        p->prev = nullptr;
-        head = p;
-        tail = p;
-        numItems++;
-        return true;
+  //adding the object into the linked list in order
+    //creating the object
+    KeyValues * newItem;
+    newItem = new KeyValues;
+    newItem->key = key;
+    newItem->value = value;
+    newItem->next = nullptr;
+    newItem->prev = nullptr;
+    
+    if (head == nullptr) { //no items
+        newItem->next = nullptr;
+        newItem->prev = nullptr;
+        head = newItem;
+        tail = newItem;
     }
     
-    else {  //objects exist in this list already (add to end)
-        KeyValues * newItem;
-        newItem = new KeyValues;
-        newItem->key = key;
-        newItem->value = value;
+    else if (key <= head->key) { //add items to front
+        newItem->prev = nullptr;
+        head->prev = newItem;
+        newItem->next = head;
+        head = newItem;
+        
+    }
+    
+    else if (key >= tail->key){  //add items to end
         tail->next = newItem;
         newItem->next = nullptr;
         newItem->prev = tail;
         tail = newItem;
-        numItems++;
-        return true;
     }
+    else { //add items in the middle
+        KeyValues * p = head;
+        KeyValues * q = tail;
+        while (p != nullptr && key > p->next->key) {
+            p = p->next;
+        }
+        while (q != nullptr && key < q->prev->key) {
+            q = q->prev;
+        }
+        p->next = newItem;
+        newItem->next = q;
+        q->prev = newItem;
+        newItem->prev = p;
+    }
+    numItems++;
+    return true;
 }
 
 bool Map::update(const KeyType& key, const ValueType& value) {
-    if (head == nullptr)
+    if (head == nullptr) //making sure there are objects in the list
         return false;
     KeyValues * p = head;
     while (p != nullptr) {
@@ -110,10 +130,11 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
 bool Map::erase(const KeyType& key) {
     if (head == nullptr)
         return false;
-    else if (head->key == key) { //if it is the first one in the list
+    else if (head->key == key) { //first one in the list
         KeyValues * destroy = head;
         head = head->next;
         delete destroy;
+        head->prev = nullptr;
         numItems--;
         return true;
     }
@@ -121,18 +142,19 @@ bool Map::erase(const KeyType& key) {
         KeyValues * destroy = tail;
         tail = tail->prev;
         delete destroy;
+        tail->next = nullptr;
         numItems--;
         return true;
     }
     KeyValues * p;
     p = head;
     while (p != nullptr) { //in the middle of the list
-        if (p->next != nullptr && p->key == key)
+        if (p->next != nullptr && p->next->key == key)
             break;
         p = p->next;
     }
     if (p != nullptr) {
-        KeyValues *destroy = p->next;
+        KeyValues * destroy = p->next;
         p->next = destroy->next;
         destroy->next->prev = p;
         delete destroy;
@@ -194,8 +216,20 @@ void Map::swap(Map& other) {
 
 void Map::dump() const {
     KeyValues * p = head;
+    KeyValues * q = tail;
+    
+    std::cerr << "Forward: " << std::endl;
     while (p != nullptr) {
         std::cerr << p->key << " - " << p->value << std::endl;
+        
         p = p->next;
     }
+    
+    std::cerr << std::endl << "Backwards: " << std::endl;
+    while (q != nullptr) {
+        std::cerr << q->key << " - " << q->value << std::endl;
+        
+        q = q->prev;
+    }
+    std::cerr << std::endl;
 }

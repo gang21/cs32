@@ -14,31 +14,18 @@ using namespace std;
 
 int main() {
     Map creatures;
-    assert(creatures.empty() && creatures.size() == 0);
-    assert(creatures.insert("Monkey", 12));
-    assert(creatures.insert("Penguin", 1));
-    assert(creatures.size() == 2 && !creatures.empty());
-    assert(creatures.erase("Monkey"));
-    assert(creatures.size() == 1);
-    assert(!creatures.contains("Monkey"));
-    assert(creatures.contains("Penguin"));
-    assert(creatures.insert("", 11));
-    assert(!creatures.insert("Penguin", 5));
-    assert(creatures.size() == 2);
-    assert(creatures.insert("Barnacle", 23));
-    assert(creatures.insert("Crab", 3));
-    assert(creatures.insert("Lamb", 10));
-    assert(creatures.insert("Aardvark", 31));
-    assert(creatures.insert("Beetle", 1));
-    assert(creatures.insert("Manatee", 2));
-    assert(!creatures.insert("Manatee", 2));
-    assert(creatures.size() == 8);
-    assert(creatures.update("Crab", 34));
-    assert(!creatures.update("Vulture", 24));
-    assert(creatures.insertOrUpdate("Manatee", 22));
-    assert(creatures.insertOrUpdate("", 2));
-    assert(creatures.insertOrUpdate("crab", 32));
-    creatures.dump();
+    assert(creatures.empty() && creatures.size() == 0); //checking that the list is empty empty
+    assert(creatures.insert("Penguin", 12)); //checking insert
+    assert(creatures.insert("Monkey", 1)); //checking insert add to front
+    assert(creatures.insert("Bee", 102)); //checking insert add to front
+    assert(creatures.insert("Aardvark", 2)); //checking insert add to front
+    assert(creatures.insert("aardvark", 403)); //checking insert adding to end
+    assert(creatures.insert("zebra", 403)); //checking insert adding to end
+    assert(creatures.insert("Narwal", 37)); //checking insert adding to middle
+    assert(creatures.insert("Mammoth", 98)); //checking insert adding to middle
+    assert(creatures.insert("Bear", 7)); //checking insert adding to middle
     
+    creatures.dump();
+
     cerr << "All tests suceeded" << endl;
 }
