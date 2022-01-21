@@ -28,6 +28,7 @@ Map::Map(const Map &src) {
         insert(p->key, p->value);
         p = p->next;
     }
+    numItems = src.numItems;
 }
 
 //assignment operator
@@ -147,8 +148,17 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
 }
 
 bool Map::erase(const KeyType& key) {
-    if (head == nullptr)
+    if (head == nullptr) //empty list
         return false;
+    else if (numItems == 1) { //only one item in the list
+        KeyValues * destroy = head;
+        head = nullptr;
+        tail = nullptr;
+        delete destroy;
+        numItems--;
+        return true;
+    }
+    
     else if (head->key == key) { //first one in the list
         KeyValues * destroy = head;
         head = head->next;
@@ -260,12 +270,16 @@ void Map::dump() const {
 
 bool merge(const Map& m1, const Map& m2, Map& result) {
     //clearing result list
-    for (int i = 0; i < result.size(); i++) {
-        KeyType destroyKey;
-        ValueType destroyValue;
-        result.get(i, destroyKey, destroyValue);
+    int size = result.size();
+    KeyType destroyKey;
+    ValueType destroyValue;
+    for (int i = 0; i < size - 1; i++) {
+        result.get(0, destroyKey, destroyValue);
         result.erase(destroyKey);
     }
+    
+    result.get(0, destroyKey, destroyValue);
+    result.erase(destroyKey);
     
     //merging two lists together
     KeyType tempKey;

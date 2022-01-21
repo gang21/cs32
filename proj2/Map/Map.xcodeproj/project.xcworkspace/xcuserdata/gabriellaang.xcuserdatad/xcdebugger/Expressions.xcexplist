@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "merge(Map const&amp;, Map const&amp;, Map&amp;):Map.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "result.size()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Map::erase(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Map.cpp">
          <PersistentStrings>
             <PersistentString
