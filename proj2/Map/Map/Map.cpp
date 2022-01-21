@@ -26,7 +26,7 @@ Map::~Map() {
     KeyValues * p = head;
     while (p != nullptr) {
         KeyValues * n = p->next;
-        delete p; //FIXME: something wrong here
+        delete p;
         p = n;
     }
 }
@@ -120,9 +120,8 @@ bool Map::insertOrUpdate(const KeyType& key, const ValueType& value) {
     if (insert)
         return true;
     else {
-        bool update = Map::update(key, value);
-        if (update)
-            return true;
+        Map::update(key, value);
+        return true;
     }
     return false;
 }
