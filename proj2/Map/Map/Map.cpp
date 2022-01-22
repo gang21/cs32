@@ -319,6 +319,7 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
             result.get(tempKey, resultValue);
             if (tempValue != resultValue) {
                 result.erase(tempKey);
+                noRepeats = false;
                 break;
             }
         }

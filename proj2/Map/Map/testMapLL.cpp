@@ -168,7 +168,14 @@ int main() {
     lake.insert("plankton", 403);
     lake.insert("people", 12);
     lake.insert("algae", 32);
-    merge(ocean, lake, water); //returns false bc different values for duplicate keys
-    water.dump();
+    assert(!merge(ocean, lake, water)); //returns false bc different values for duplicate keys
+//    water.dump();
+    //merging empty maps
+    Map z;
+    z.insert("stuff", 34);
+    Map y;
+    Map x;
+    assert(merge(x,y,z));
+    
     cerr << "All tests suceeded" << endl;
 }
