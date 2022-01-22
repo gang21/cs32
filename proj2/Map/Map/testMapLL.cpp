@@ -177,7 +177,7 @@ int main() {
     Map x;
     assert(merge(x,y,z));
     assert(merge(blues, water, water));
-//    blues.dump();
+    water.dump();
     
     //checking reassign function
     Map aacf;
@@ -193,9 +193,9 @@ int main() {
     x.insert("Barb", 3);
     reassign(x, y);
 //    y.dump();
-    aacf.dump();
+//    aacf.dump();
     reassign(aacf, aacf);
-    aacf.dump();
+//    aacf.dump();
     
     cerr << "All tests suceeded" << endl;
 }

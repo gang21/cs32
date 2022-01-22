@@ -277,12 +277,14 @@ void Map::dump() const {
 
 bool merge(const Map& m1, const Map& m2, Map& result) {
     //clearing result list
-    int size = result.size();
-    KeyType destroyKey;
-    ValueType destroyValue;
-    for (int i = 0; i < size; i++) {
-        result.get(0, destroyKey, destroyValue);
-        result.erase(destroyKey);
+    if (&m1 != &result && &m2 != &result) {
+        int size = result.size();
+        KeyType destroyKey;
+        ValueType destroyValue;
+        for (int i = 0; i < size; i++) {
+            result.get(0, destroyKey, destroyValue);
+            result.erase(destroyKey);
+        }
     }
 
     //merging two lists together
