@@ -311,12 +311,14 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
 
 void reassign(const Map& m, Map& result) {
     //clearing result list
-    int size = result.size();
-    KeyType destroyKey;
-    ValueType destroyValue;
-    for (int i = 0; i < size; i++) {
-        result.get(0, destroyKey, destroyValue);
-        result.erase(destroyKey);
+    if (&m != &result) {
+        int size = result.size();
+        KeyType destroyKey;
+        ValueType destroyValue;
+        for (int i = 0; i < size; i++) {
+            result.get(0, destroyKey, destroyValue);
+            result.erase(destroyKey);
+        }
     }
     KeyType tempKey;
     ValueType tempValue;
@@ -326,19 +328,21 @@ void reassign(const Map& m, Map& result) {
     
     if (m.size() == 1) { //one item in m
         m.get(0, tempKey, tempValue);
-        result.insert(tempKey, tempValue);
+        result.insertOrUpdate(tempKey, tempValue);
         return;
     }
     
     //swapping values
-    KeyType offKey;
+    KeyType offKey, lastKey;
+    ValueType firstValue;
+    m.get(m.size() - 1, lastKey, firstValue);
+    m.get(0, offKey, firstValue);
     for (int i = 0; i < m.size() - 1; i++) {
         m.get(i, tempKey, tempValue);
         m.get(i+1, offKey, tempValue);
-        result.insert(tempKey, tempValue);
+        result.insertOrUpdate(tempKey, tempValue);
     }
-    m.get(m.size() - 1, tempKey, tempValue);
-    m.get(0, offKey, tempValue);
-    result.insert(tempKey, tempValue);
+    result.insertOrUpdate(lastKey, firstValue);
     return;
+    
 }
