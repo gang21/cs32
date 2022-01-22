@@ -286,38 +286,45 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
     }
     
     //checking for duplicates
-    bool diffValues = false;
-    KeyType checkKey;
-    ValueType m1Value;
-    for (int a = 0; a < m1.size(); a++) {
-        m1.get(a, checkKey, m1Value);
-        if(m2.contains(checkKey)) {
-            ValueType m2Value;
-            m2.get(checkKey, m2Value);
-            diffValues = (m1Value != m2Value);
-            break;
-        }
-    }
+//    bool diffValues = false;
+//    KeyType checkKey;
+//    ValueType m1Value;
+//    for (int a = 0; a < m1.size(); a++) {
+//        m1.get(a, checkKey, m1Value);
+//        if(m2.contains(checkKey)) {
+//            ValueType m2Value;
+//            m2.get(checkKey, m2Value);
+//            diffValues = (m1Value != m2Value);
+//            break;
+//        }
+//    }
 
     //merging two lists together
     KeyType tempKey;
     ValueType tempValue;
     for (int i = 0; i < m1.size(); i++) {
         m1.get(i, tempKey, tempValue);
-        if (diffValues == true && (tempKey == checkKey))
-            continue;
+//        if (diffValues == true && (tempKey == checkKey))
+//            continue;
         result.insert(tempKey, tempValue);
     }
+    bool noRepeats = true;
     for (int j = 0; j < m2.size(); j++) {
         m2.get(j, tempKey, tempValue);
-        if (diffValues == true && (tempKey == checkKey))
-            continue;
+//        if (diffValues == true && (tempKey == checkKey))
+//            continue;
         result.insert(tempKey, tempValue);
+        for (int k = 0; k < m1.size(); k++) {
+            ValueType resultValue;
+            result.get(tempKey, resultValue);
+            if (tempValue != resultValue) {
+                result.erase(tempKey);
+                break;
+            }
+        }
     }
     
-    if (diffValues)
-        return false;
-    return true;
+    return noRepeats;
     
 }
 

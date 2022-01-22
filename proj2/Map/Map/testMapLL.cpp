@@ -154,10 +154,21 @@ int main() {
     reds.insert("purple", 2);
     reds.insert("maroon", 2);
     merge(blues, reds, mix); //checking with duplicate keys, different values
-    mix.dump();
+//    mix.dump();
     
-    //multiple duplicates
-
-    
+    //multiple duplicates, different values
+    Map water;
+    Map ocean;
+    ocean.insert("water", 10000);
+    ocean.insert("fish", 200);
+    ocean.insert("algae", 1257);
+    ocean.insert("sharks", 53);
+    Map lake;
+    lake.insert("water", 5000);
+    lake.insert("plankton", 403);
+    lake.insert("people", 12);
+    lake.insert("algae", 32);
+    merge(ocean, lake, water); //returns false bc different values for duplicate keys
+    water.dump();
     cerr << "All tests suceeded" << endl;
 }
