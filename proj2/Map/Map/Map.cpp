@@ -284,35 +284,17 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
         result.get(0, destroyKey, destroyValue);
         result.erase(destroyKey);
     }
-    
-    //checking for duplicates
-//    bool diffValues = false;
-//    KeyType checkKey;
-//    ValueType m1Value;
-//    for (int a = 0; a < m1.size(); a++) {
-//        m1.get(a, checkKey, m1Value);
-//        if(m2.contains(checkKey)) {
-//            ValueType m2Value;
-//            m2.get(checkKey, m2Value);
-//            diffValues = (m1Value != m2Value);
-//            break;
-//        }
-//    }
 
     //merging two lists together
     KeyType tempKey;
     ValueType tempValue;
     for (int i = 0; i < m1.size(); i++) {
         m1.get(i, tempKey, tempValue);
-//        if (diffValues == true && (tempKey == checkKey))
-//            continue;
         result.insert(tempKey, tempValue);
     }
     bool noRepeats = true;
     for (int j = 0; j < m2.size(); j++) {
         m2.get(j, tempKey, tempValue);
-//        if (diffValues == true && (tempKey == checkKey))
-//            continue;
         result.insert(tempKey, tempValue);
         for (int k = 0; k < m1.size(); k++) {
             ValueType resultValue;
@@ -324,11 +306,39 @@ bool merge(const Map& m1, const Map& m2, Map& result) {
             }
         }
     }
-    
     return noRepeats;
-    
 }
 
 void reassign(const Map& m, Map& result) {
+    //clearing result list
+    int size = result.size();
+    KeyType destroyKey;
+    ValueType destroyValue;
+    for (int i = 0; i < size; i++) {
+        result.get(0, destroyKey, destroyValue);
+        result.erase(destroyKey);
+    }
+    KeyType tempKey;
+    ValueType tempValue;
     
+    if (m.size() == 0) //no items in m
+        return;
+    
+    if (m.size() == 1) { //one item in m
+        m.get(0, tempKey, tempValue);
+        result.insert(tempKey, tempValue);
+        return;
+    }
+    
+    //swapping values
+    KeyType offKey;
+    for (int i = 0; i < m.size() - 1; i++) {
+        m.get(i, tempKey, tempValue);
+        m.get(i+1, offKey, tempValue);
+        result.insert(tempKey, tempValue);
+    }
+    m.get(m.size() - 1, tempKey, tempValue);
+    m.get(0, offKey, tempValue);
+    result.insert(tempKey, tempValue);
+    return;
 }

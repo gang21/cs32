@@ -177,5 +177,16 @@ int main() {
     Map x;
     assert(merge(x,y,z));
     
+    //checking reassign function
+    Map aacf;
+    aacf.insert("Christiana", 1);
+    aacf.insert("Stephanie", 3);
+    aacf.insert("Tiffany", 4);
+    aacf.insert("Elaine", 2);
+    aacf.dump();
+    Map goc;
+    reassign(aacf, goc);
+    goc.dump();
+    
     cerr << "All tests suceeded" << endl;
 }
