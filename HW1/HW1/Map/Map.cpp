@@ -97,12 +97,11 @@ bool Map::get(const KeyType& key, ValueType& value) const {
 }
 
 bool Map::get(int i, KeyType& key, ValueType& value) const {
-    if (i >= 0 && i < this->size()) {
+        if (i < 0  ||  i >= index)
+            return false;
         key = map[i].key;
         value = map[i].value;
         return true;
-    }
-    return false;
 }
 
 void Map::swap(Map& other) {
