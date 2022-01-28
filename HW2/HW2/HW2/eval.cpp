@@ -8,8 +8,11 @@
 #include <stdio.h>
 #include "Map.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
+
+string clearSpaces(string infix);
 
 int evaluate(string infix, const Map& values, string& postfix, int& result) {
     // Evaluates an integer arithmetic expression
@@ -29,7 +32,30 @@ int evaluate(string infix, const Map& values, string& postfix, int& result) {
     //   set to the value of the expression and the function returns 0.
     
     
-    //return 1 if is it is not just single lower case letters (not valid integer expression)
+    //return 1 if it's not valid infix expression
+    if (infix == "")
+        return 1;
+    for (int i = 0; i < infix.size(); i++) {
+        if (!isalpha(infix[i])
+            && !islower(infix[i])
+            && infix[i] != '+'
+            && infix[i] != '-'
+            && infix[i] != '*'
+            && infix[i] != '/'
+            && infix[i] != '('
+            && infix[i] != ')') {
+            return 1;
+        }
+        if (infix[i] == '(') {
+            bool endParentheses = false;
+            for (int j = i; j < infix.size(); j++) {
+                if (infix[j] == ')')
+                    endParentheses = true;
+            }
+            if (!endParentheses)
+                return 1;
+        }
+    }
        
     //return 2 if syntatically valid but no corresponding key/value in map
     
@@ -61,5 +87,5 @@ string clearSpaces(string infix) {
 }
 
 int main() {
-    
+    cout << clearSpaces("  a +   ( d   * d)");
 }
