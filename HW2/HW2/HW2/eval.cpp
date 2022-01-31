@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <cassert>
+#include <cctype>
 
 using namespace std;
 
@@ -73,14 +74,18 @@ bool isValidInfix(string infix) {
     int openParen = 0;
     int closeParen = 0;
     for (int i = 0; i < cleanedInfix.size(); i++) {
-        if (isalpha(cleanedInfix[i] == 0)
-            && isupper(cleanedInfix[i] != 0)
-            && cleanedInfix[i] != '+'
-            && cleanedInfix[i] != '-'
-            && cleanedInfix[i] != '*'
-            && cleanedInfix[i] != '/'
-            && cleanedInfix[i] != '('
-            && cleanedInfix[i] != ')') {
+        //checking if it's an alphabet letter
+        if (isalpha(cleanedInfix[i]) != 0) {
+            if (isupper(cleanedInfix[i]) != 0)
+                return false;
+        }
+        //checking if it's an operator
+        else if (cleanedInfix[i] != '+'
+                 && cleanedInfix[i] != '-'
+                 && cleanedInfix[i] != '*'
+                 && cleanedInfix[i] != '/'
+                 && cleanedInfix[i] != '('
+                 && cleanedInfix[i] != ')') {
             return false;
         }
         //checking for correct number of parentheses
@@ -107,15 +112,28 @@ bool isValidInfix(string infix) {
                 || cleanedInfix[i+1] == '/'))
                 return false;
         }
+        //checking for an operator after a ')' or before a '('
+        if (cleanedInfix[i] == '(' && i != 0) {
+            if(cleanedInfix[i-1] != '+'
+               && cleanedInfix[i-1] != '-'
+               && cleanedInfix[i-1] != '*'
+               && cleanedInfix[i-1] != '/'
+               && cleanedInfix[i-1] != '(') {
+                return false;
+            }
+        }
+            
+        if (cleanedInfix[i] == ')' && i != cleanedInfix.size() - 1) {
+            if(cleanedInfix[i+1] != '+'
+                && cleanedInfix[i+1] != '-'
+                && cleanedInfix[i+1] != '*'
+                && cleanedInfix[i+1] != '/'
+                && cleanedInfix[i+1] != ')') {
+                return false;
+            }
+        }
     }
-    if ((isalpha(cleanedInfix[0]) == 0
-        && cleanedInfix[0] != '(')
-        || cleanedInfix[cleanedInfix.size() - 1] == '+'
-        || cleanedInfix[cleanedInfix.size() - 1] == '-'
-        || cleanedInfix[cleanedInfix.size() - 1] == '*'
-        || cleanedInfix[cleanedInfix.size() - 1] == '/') {
-        return false;
-    }
+
     //if infix is valid
     return true;
 }
