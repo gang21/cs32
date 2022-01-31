@@ -11,11 +11,13 @@
 #include <iostream>
 #include <cassert>
 #include <cctype>
+#include <stack>
 
 using namespace std;
 
 string clearSpaces(string infix);
 bool isValidInfix(string infix);
+bool isPrecedent(char current, char top);
 
 int evaluate(string infix, const Map& values, string& postfix, int& result) {
     // Evaluates an integer arithmetic expression
@@ -97,9 +99,21 @@ bool isValidInfix(string infix) {
     for (int i = 0; i < cleanedInfix.size(); i++) {
         //checking if it's an alphabet letter
         if (isalpha(cleanedInfix[i]) != 0) {
-            if (isupper(cleanedInfix[i]) != 0)
+            if (isupper(cleanedInfix[i]) != 0) {
                 return false;
+            }
+            if (i < cleanedInfix.size() - 1) {
+                if (isalpha(cleanedInfix[i+1]) != 0) {
+                    return false;
+                }
+            }
         }
+        //checking if two letters are next to each other
+//        if (i < cleanedInfix.size() - 1) {
+//            if (isalpha(cleanedInfix[i+1]) != 0) {
+//                return false;
+//            }
+//        }
         //checking if it's an operator
         else if (cleanedInfix[i] != '+'
                  && cleanedInfix[i] != '-'
@@ -162,8 +176,67 @@ bool isValidInfix(string infix) {
     return true;
 }
 
+string infixToPostfix(string infix) {
+    stack<char> operators;
+    string postFix = "";
+    for (int i = 0; i < infix.size(); i++) {
+        if (isalpha(infix[i]) != 0) {
+            postFix += infix[i];
+        }
+        else if (infix[i] == '(') {
+            operators.push(infix[i]);
+        }
+        else if (infix[i] == ')') {
+            char pop = operators.top();
+            while (pop != '(') {
+                operators.pop();
+                if (pop != '(') {
+                    postFix += pop;
+                }
+            }
+        }
+        else {  //current item is an operator
+            if (operators.empty()) {
+                operators.push(infix[i]);
+            }
+            else if (operators.top() == '(') {
+                operators.push(infix[i]);
+            }
+            else if (isPrecedent(infix[i], operators.top())) {
+                operators.push(infix[i]);
+            }
+            else if (!isPrecedent(infix[i], operators.top())) {
+                char pop = operators.top();
+                operators.pop();
+                postFix += pop;
+            }
+        }
+    }
+    
+    while(!operators.empty()) {
+        char pop = operators.top();
+        operators.pop();
+        postFix += pop;
+    }
+    return postFix;
+}
+
+bool isPrecedent(char current, char top) {
+    if (current == '+' || current == '-') {
+        if (top == '*' || top == '/') {
+            return false;
+        }
+    }
+    else if (current == '*' || current == '/') {
+        if (top == '+' || top == '-') {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main() {
-    cerr << clearSpaces("  a +   ( d   * d)");
+    assert(clearSpaces("  a +   ( d   * d)") == "a+(d*d)");
     assert(isValidInfix("a+b"));
     assert(!isValidInfix(""));
     assert(isValidInfix("a+  b"));
@@ -174,6 +247,7 @@ int main() {
     assert(!isValidInfix("E"));
     assert(!isValidInfix("((a+b)c) + d"));
     assert(isValidInfix("((a+b) * c) + d"));
+    assert(!isValidInfix("ab"));
     
     Map m;
     string postfix;
@@ -184,5 +258,7 @@ int main() {
     assert(evaluate("a+  b", m, postfix, result) == 0);
     assert(evaluate("a+  (b", m, postfix, result) == 1);
     assert(evaluate("e+b", m, postfix, result) == 2);
+    
+    cout << infixToPostfix("a+b+t");
     
 }
