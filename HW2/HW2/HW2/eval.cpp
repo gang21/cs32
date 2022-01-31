@@ -140,13 +140,16 @@ bool isValidInfix(string infix) {
             if ((cleanedInfix[i] == '+'
                 || cleanedInfix[i] == '-'
                 || cleanedInfix[i] == '*'
-                || cleanedInfix[i] == '/')
+                || cleanedInfix[i] == '/'
+                 || cleanedInfix[i] == '(')
                 && (cleanedInfix[i+1] == '+'
                 || cleanedInfix[i+1] == '-'
                 || cleanedInfix[i+1] == '*'
-                || cleanedInfix[i+1] == '/'))
+                || cleanedInfix[i+1] == '/'
+                || cleanedInfix[i+1] == ')'))
                 return false;
         }
+        
         //checking for an operator after a ')' or before a '('
         if (cleanedInfix[i] == '(' && i != 0) {
             if(cleanedInfix[i-1] != '+'
@@ -189,6 +192,7 @@ string infixToPostfix(string infix) {
         else if (infix[i] == ')') {
             char pop = operators.top();
             while (pop != '(') {
+                pop = operators.top();
                 operators.pop();
                 if (pop != '(') {
                     postFix += pop;
@@ -209,11 +213,12 @@ string infixToPostfix(string infix) {
                 char pop = operators.top();
                 operators.pop();
                 postFix += pop;
+                operators.push(infix[i]);
             }
         }
     }
     
-    while(!operators.empty()) {
+    while(operators.size() != 0) {
         char pop = operators.top();
         operators.pop();
         postFix += pop;
@@ -239,7 +244,7 @@ int main() {
     assert(clearSpaces("  a +   ( d   * d)") == "a+(d*d)");
     assert(isValidInfix("a+b"));
     assert(!isValidInfix(""));
-    assert(isValidInfix("a+  b"));
+    assert(!isValidInfix("y(*o)"));
     assert(isValidInfix("a+(b)"));
     assert(!isValidInfix("a+(b"));
     assert(!isValidInfix("a+)b"));
@@ -259,6 +264,12 @@ int main() {
     assert(evaluate("a+  (b", m, postfix, result) == 1);
     assert(evaluate("e+b", m, postfix, result) == 2);
     
-    cout << infixToPostfix("a+b+t");
+    assert(infixToPostfix("a*b*c") == "ab*c*");
+    assert(infixToPostfix("a+a*e") == "aae*+");
+    assert(infixToPostfix("(z+e)*c") == "ze+c*");
+    assert(infixToPostfix("(a-b)*(c/d)") == "ab-cd/*");
+    assert(infixToPostfix("((a/z*d)+c)") == "az/d*c+");
+    
+    cerr << "all tests suceeded" << endl;
     
 }
