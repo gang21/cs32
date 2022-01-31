@@ -15,6 +15,7 @@
 using namespace std;
 
 string clearSpaces(string infix);
+bool isValidInfix(string infix);
 
 int evaluate(string infix, const Map& values, string& postfix, int& result) {
     // Evaluates an integer arithmetic expression
@@ -33,17 +34,37 @@ int evaluate(string infix, const Map& values, string& postfix, int& result) {
     //   is unchanged and the function returns 3; otherwise, result is
     //   set to the value of the expression and the function returns 0.
     
-    
-    
-       
+    //checking if it's a valid string
+    postfix = "";
+    int returnVal = 0;
+    string modInfix = clearSpaces(infix);
+    if (!isValidInfix(modInfix)) {
+        return 1;
+    }
+
     //return 2 if syntatically valid but no corresponding key/value in map
+    char key;
+    int value;
+    bool found = false;
+    for (int i = 0; i < modInfix.size(); i++) {
+        if (isalpha(modInfix[i]) != 0) {
+            for (int j = 0; j < values.size(); j++) {
+                values.get(j, key, value);
+                if (modInfix[i] == key) {
+                    found = true;
+                }
+            }
+            if (!found)
+                returnVal = 2;
+        }
+    }
     
     //return 3 if it attempts to divide by 0
     
     
     //return 0 if all things go right
     
-    return -1;
+    return returnVal;
 }
 
 string clearSpaces(string infix) {
@@ -133,22 +154,35 @@ bool isValidInfix(string infix) {
             }
         }
     }
-
+    //checking for the same number of open and close parentheses
     //if infix is valid
+    if (openParen != closeParen) {
+        return false;
+    }
     return true;
 }
 
 int main() {
-    cout << clearSpaces("  a +   ( d   * d)");
+    cerr << clearSpaces("  a +   ( d   * d)");
     assert(isValidInfix("a+b"));
     assert(!isValidInfix(""));
     assert(isValidInfix("a+  b"));
     assert(isValidInfix("a+(b)"));
-    assert(isValidInfix("a+(b"));
+    assert(!isValidInfix("a+(b"));
     assert(!isValidInfix("a+)b"));
     assert(isValidInfix("(a+b) * (c/d)"));
     assert(!isValidInfix("E"));
     assert(!isValidInfix("((a+b)c) + d"));
     assert(isValidInfix("((a+b) * c) + d"));
+    
+    Map m;
+    string postfix;
+    int result;
+    m.insert('a', 2);
+    m.insert('b', 3);
+    m.insert('c', 4);
+    assert(evaluate("a+  b", m, postfix, result) == 0);
+    assert(evaluate("a+  (b", m, postfix, result) == 1);
+    assert(evaluate("e+b", m, postfix, result) == 2);
     
 }
