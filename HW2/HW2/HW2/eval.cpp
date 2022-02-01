@@ -18,6 +18,7 @@ using namespace std;
 string clearSpaces(string infix);
 bool isValidInfix(string infix);
 bool isPrecedent(char current, char top);
+string infixToPostfix(string infix);
 
 int evaluate(string infix, const Map& values, string& postfix, int& result) {
     // Evaluates an integer arithmetic expression
@@ -43,7 +44,10 @@ int evaluate(string infix, const Map& values, string& postfix, int& result) {
     if (!isValidInfix(modInfix)) {
         return 1;
     }
-
+    
+    //converting to postfix
+    postfix = infixToPostfix(modInfix);
+    
     //return 2 if syntatically valid but no corresponding key/value in map
     char key;
     int value;
@@ -54,14 +58,47 @@ int evaluate(string infix, const Map& values, string& postfix, int& result) {
                 values.get(j, key, value);
                 if (modInfix[i] == key) {
                     found = true;
+                    break;
                 }
+                else
+                    found = false;
             }
             if (!found)
-                returnVal = 2;
+                return 2;
         }
     }
     
-    //return 3 if it attempts to divide by 0
+    //evaluating postfix
+    stack<int> evaluate;
+    int v1;
+    int v2;
+    for (int i = 0; i < postfix.size(); i++) {
+        if (isalpha(postfix[i]) != 0) {
+            int num;
+            values.get(postfix[i], num);
+            evaluate.push(num);
+        }
+        else {
+            v2 = evaluate.top();
+            evaluate.pop();
+            v1 = evaluate.top();
+            evaluate.pop();
+            if (postfix[i] == '+')
+                result = v1 + v2;
+            else if (postfix[i] == '-')
+                result = v1 - v2;
+            else if (postfix[i] == '*')
+                result = v1 * v2;
+            else {//postfix[i] == '/'
+                //return 3 if it attempts to divide by 0
+                if (v2 != 0)
+                    result = v1 / v2;
+                else
+                    return 3;
+            }
+            evaluate.push(result);
+        }
+    }
     
     
     //return 0 if all things go right
@@ -269,7 +306,12 @@ int main() {
     assert(infixToPostfix("(z+e)*c") == "ze+c*");
     assert(infixToPostfix("(a-b)*(c/d)") == "ab-cd/*");
     assert(infixToPostfix("((a/z*d)+c)") == "az/d*c+");
-    
+    assert(evaluate("a*b*c", m, postfix, result) == 0 && postfix == "ab*c*" && result == 24);
+    assert(evaluate("a+a*z", m, postfix, result) == 2 && postfix == "aaz*+" && result == 24);
+    m.insert('d', 15);
+    m.insert('e', 0);
+    assert(evaluate("(a-b)*(c/d)", m, postfix, result) == 0 && postfix == "ab-cd/*" && result == 0);
+    assert(evaluate("c/e", m, postfix, result) == 3 && postfix == "ce/" && result == 0);
     cerr << "all tests suceeded" << endl;
     
 }
