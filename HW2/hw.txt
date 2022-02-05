@@ -1,0 +1,39 @@
+﻿Gabriella Ang
+005677251
+Professor Nachenberg
+
+
+HW2
+
+
+2. 
+(4,6)
+(3,6)
+(5,6)
+(5,7)
+(5,8)
+(6,8)
+(7,8)
+(8,8)
+(8,7)
+(6,6)
+(4,5)
+(4,4)
+
+
+4. 
+(4,6)
+(4,5)
+(5,6)
+(3,6)
+(4,4)
+(6,6)
+(5,7)
+(4,3)
+(5,4)
+(5,8)
+(4,2)
+(6,4)
+
+
+The difference between these two algorithms is that the stack uses a depth first search while the queue uses a breadth first search. The stack is taking the last value that was pushed onto it and going off of that coordinate, thus causing it to follow one path until it either reaches the end or a dead end. On the other hand, the queue is using the first value pushed onto it, thus causing it to spread out one coordinate at a time in each possible direction.

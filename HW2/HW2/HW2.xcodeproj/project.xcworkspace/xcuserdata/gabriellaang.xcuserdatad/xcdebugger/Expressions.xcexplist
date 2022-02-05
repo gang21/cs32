@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "evaluate(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, Map const&amp;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;&amp;, int&amp;):eval.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "modInfix">
+            </PersistentString>
+            <PersistentString
+               value = "values">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "isValidInfix(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):eval.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "infix">
+            </PersistentString>
+            <PersistentString
+               value = "clearSpaces(infix)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
