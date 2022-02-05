@@ -24,17 +24,15 @@ public:
     {
         m_name = name;
         m_distance = distance;
-        m_icon = "a skier with a rifle";
     }
     ~Biathlon() {
         cout << "Destroying the Biathlon object named " << m_name << ", distance " << m_distance << " km." << endl;
     }
     virtual const string name() const {return m_name;}
-    virtual const string icon() const {return m_icon;}
+    virtual const string icon() const {return "a skier with a rifle";}
     virtual const bool isOutdoor() const {return true;}
     
 private:
-    string m_icon;
     string m_name;
     double m_distance;
 };
@@ -44,17 +42,15 @@ public:
     Snowboarding(string name):Sport(name)
     {
         m_name = name;
-        m_icon = "a descending snowboarder";
     }
     ~Snowboarding() {
         cout << "Destroying the Snowboarding object named " << m_name << "." << endl;
     }
     virtual const string name() const {return m_name;}
-    virtual const string icon() const {return m_icon;}
+    virtual const string icon() const {return "a descending snowboarder";}
     virtual const bool isOutdoor() const {return true;}
     
 private:
-    string m_icon;
     string m_name;
 };
 
@@ -63,17 +59,15 @@ public:
     FigureSkating(string name):Sport(name)
     {
         m_name = name;
-        m_icon = "a skater in the Biellmann position";
     }
     ~FigureSkating() {
         cout << "Destroying the FigureSkating object named " << m_name << "." << endl;
     }
     virtual const string name() const {return m_name;}
-    virtual const string icon() const {return m_icon;}
+    virtual const string icon() const {return "a skater in the Biellmann position";}
     virtual const bool isOutdoor() const {return false;}
     
 private:
-    string m_icon;
     string m_name;
 };
 
