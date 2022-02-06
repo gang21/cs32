@@ -29,7 +29,7 @@ bool somePredicate(double x) {
   int countFalse(const double a[], int n)
   {
       if (n <= 0)
-          return false;
+          return 0;
       if (n == 1 && !somePredicate(a[0]))
           return 1;
       if (!somePredicate(a[n-1]))
@@ -43,7 +43,20 @@ bool somePredicate(double x) {
     // element, return -1.
   int firstTrue(const double a[], int n)
   {
-      return -999;  // This is incorrect.
+      if (n <= 0)
+          return -1;
+      if (n == 1) {
+          if (somePredicate(a[0]))
+              return 0;
+          return -1;
+      }
+      if (firstTrue(a, n-1) == -1) {
+          if (somePredicate(a[n-1]))
+              return n-1;
+          else
+              return -1;
+      }
+      return firstTrue(a, n-1);
   }
 
     // Return the subscript of the largest element in the array (i.e.,
@@ -78,15 +91,17 @@ bool somePredicate(double x) {
 
 int main() {
     double a[] = {};
-    assert(countFalse(a, 0) == 0);
+    assert(firstTrue(a, 0) == -1);
     double b[1] = {-1};
-    assert(countFalse(b, 1) == 1);
+    assert(firstTrue(b, 1) == -1);
     double c[1] = {2};
-    assert(countFalse(c, 1) == 0);
+    assert(firstTrue(c, 1) == 0);
     double d[2] = {3, -1};
-    assert(countFalse(d, 2) == 1);
+    assert(firstTrue(d, 2) == 0);
     double e[3] = {-1, 5, -6};
-    assert(countFalse(e, 3) == 2);
+    assert(firstTrue(e, 3) == 1);
+    double f[3] = {-1, 5, 3};
+    assert(firstTrue(f, 3) == 1);
     
     std::cout << "all tests suceeded" << std::endl;
 }
