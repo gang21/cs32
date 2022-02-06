@@ -65,7 +65,13 @@ bool somePredicate(double x) {
     // return -1.
   int locateMax(const double a[], int n)
   {
-      return -999;  // This is incorrect.
+      if (n <= 0)
+          return -1;
+      if (n == 1)
+          return 0;
+      if (a[n-1] > a[locateMax(a, n-1)])
+          return n-1;
+      return locateMax(a, n-1);
   }
 
     // If all n2 elements of a2 appear in the n1 element array a1, in
@@ -91,17 +97,17 @@ bool somePredicate(double x) {
 
 int main() {
     double a[] = {};
-    assert(firstTrue(a, 0) == -1);
+    assert(locateMax(a, 0) == -1);
     double b[1] = {-1};
-    assert(firstTrue(b, 1) == -1);
+    assert(locateMax(b, 1) == 0);
     double c[1] = {2};
-    assert(firstTrue(c, 1) == 0);
-    double d[2] = {3, -1};
-    assert(firstTrue(d, 2) == 0);
+    assert(locateMax(c, 1) == 0);
+    double d[2] = {-1, 3};
+    assert(locateMax(d, 2) == 1);
     double e[3] = {-1, 5, -6};
-    assert(firstTrue(e, 3) == 1);
+    assert(locateMax(e, 3) == 1);
     double f[3] = {-1, 5, 3};
-    assert(firstTrue(f, 3) == 1);
+    assert(locateMax(f, 3) == 1);
     
     std::cout << "all tests suceeded" << std::endl;
 }
