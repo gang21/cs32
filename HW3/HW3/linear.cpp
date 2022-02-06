@@ -1,16 +1,4 @@
-//
-//  linear.cpp
-//  HW3
-//
-//  Created by Gabriella Ang on 2/5/22.
-//
 
-#include <stdio.h>
-#include <iostream>
-
-bool somePredicate(double x) {
-    return x > 0;
-}
 
 // Return true if the somePredicate function returns false for at
     // least one of the array elements, false otherwise.
@@ -91,23 +79,19 @@ bool somePredicate(double x) {
     //    10 20 20
   bool contains(const double a1[], int n1, const double a2[], int n2)
   {
-      return false;  // This is not always correct.
+      if (n1 < 0)
+          return false;
+      if (n2 == 0)
+          return true;
+      if (n1 == 0 && n2 != 0)
+          return false;
+      if (n1 == 0 && n2 == 0)
+          return true;
+      
+      else {
+          if (a2[0] == a1[0])
+                return contains(a1 + 1, n1 - 1, a2 + 1, n2 - 1);
+          else
+                return contains(a1 + 1, n1 - 1, a2, n2);
+          }
   }
-
-
-int main() {
-    double a[] = {};
-    assert(locateMax(a, 0) == -1);
-    double b[1] = {-1};
-    assert(locateMax(b, 1) == 0);
-    double c[1] = {2};
-    assert(locateMax(c, 1) == 0);
-    double d[2] = {-1, 3};
-    assert(locateMax(d, 2) == 1);
-    double e[3] = {-1, 5, -6};
-    assert(locateMax(e, 3) == 1);
-    double f[3] = {-1, 5, 3};
-    assert(locateMax(f, 3) == 1);
-    
-    std::cout << "all tests suceeded" << std::endl;
-}
