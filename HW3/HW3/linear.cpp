@@ -17,7 +17,7 @@ bool somePredicate(double x) {
   bool anyFalse(const double a[], int n)
   {
       if(n <= 0)
-          return false;
+          return 0;
       if (n == 1)
           return !somePredicate(a[0]);
       
@@ -28,7 +28,14 @@ bool somePredicate(double x) {
     // somePredicate function returns false.
   int countFalse(const double a[], int n)
   {
-      return -999;  // This is incorrect.
+      if (n <= 0)
+          return false;
+      if (n == 1 && !somePredicate(a[0]))
+          return 1;
+      if (!somePredicate(a[n-1]))
+          return 1 + countFalse(a, n-1);
+      else
+          return countFalse(a, n-1);
   }
 
     // Return the subscript of the first element in the array for which
@@ -71,11 +78,15 @@ bool somePredicate(double x) {
 
 int main() {
     double a[] = {};
-    std::cout << anyFalse(a, 0) << std::endl;
-    double b[2] = {1, -2};
-    std::cout << anyFalse(b, 2) << std::endl;
-    double c[2] = {1, 1};
-    std::cout << anyFalse(c, 2) << std::endl;
-    double d[3]{-1, 2, 3};
-    std::cout << anyFalse(d, 3) << std::endl;
+    assert(countFalse(a, 0) == 0);
+    double b[1] = {-1};
+    assert(countFalse(b, 1) == 1);
+    double c[1] = {2};
+    assert(countFalse(c, 1) == 0);
+    double d[2] = {3, -1};
+    assert(countFalse(d, 2) == 1);
+    double e[3] = {-1, 5, -6};
+    assert(countFalse(e, 3) == 2);
+    
+    std::cout << "all tests suceeded" << std::endl;
 }
