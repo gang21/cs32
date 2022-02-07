@@ -1,13 +1,3 @@
-//
-//  tree.cpp
-//  HW3
-//
-//  Created by Gabriella Ang on 2/6/22.
-//
-
-#include <stdio.h>
-#include <iostream>
-
 // Return the number of ways that all n2 elements of a2 appear in
      // the n1 element array a1 in the same order (though not necessarily
      // consecutively).  The empty sequence (i.e. one where n2 is 0)
@@ -59,7 +49,7 @@ void exchange(double& x, double& y) {
      // All the elements < separator end up in no particular order.
 void separate(double a[], int n, double separator, int& firstNotGreater, int& firstLess) {
     if (n < 0)
-    n = 0;
+        n = 0;
    
          // It will always be the case that just before evaluating the loop
          // condition:
@@ -90,26 +80,21 @@ void separate(double a[], int n, double separator, int& firstNotGreater, int& fi
            firstUnknown++;
        }
     }
-   }
+}
 
      // Rearrange the elements of the array so that
      // a[0] >= a[1] >= a[2] >= ... >= a[n-2] >= a[n-1]
      // If n <= 1, do nothing.
-   void order(double a[], int n)
-   {
-       return;  // This is not always correct.
-   }
-
-int main() {
-    double a1[] = {10, 50, 40, 20, 50, 40, 30};
-    double a2[] = {10, 20, 40};
-    double a3[] = {10, 40, 30};
-    double a4[] = {20, 10, 40};
-    double a5[] = {50, 40, 30};
-    assert(countContains(a1, 7, a2, 3) == 1);
-    assert(countContains(a1, 7, a3, 3) == 2);
-    assert(countContains(a1, 7, a4, 3) == 0);
-    assert(countContains(a1, 7, a5, 3) == 3);
+void order(double a[], int n) {
+    if (n <= 1)
+        return;
+    double middle = a[n/2];
+    int firstNotGreater;
+    int firstLess;
+    separate(a, n, middle, firstNotGreater, firstLess);
+    if (n == 2)
+        return;
+    order(a, firstNotGreater + 1);
+    order(a, n - firstLess);
     
-    std::cout << "all tests passed" << std::endl;
 }
