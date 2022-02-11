@@ -8,7 +8,7 @@
           return 0;
       if (n == 1)
           return !somePredicate(a[0]);
-      
+
       return (!somePredicate(a[n-1]) || anyFalse(a, n-1));
   }
 
@@ -87,7 +87,7 @@
           return false;
       if (n1 == 0 && n2 == 0)
           return true;
-      
+
       else {
           if (a2[0] == a1[0])
                 return contains(a1 + 1, n1 - 1, a2 + 1, n2 - 1);
