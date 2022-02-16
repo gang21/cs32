@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF2C11AF27BAFB6A0039EA19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11AE27BAFB6A0039EA19 /* main.cpp */; };
+		AF2C11C327BAFB8F0039EA19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11B527BAFB8F0039EA19 /* main.cpp */; };
+		AF2C11C427BAFB8F0039EA19 /* GameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11BC27BAFB8F0039EA19 /* GameController.cpp */; };
+		AF2C11C527BAFB8F0039EA19 /* GameWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11BD27BAFB8F0039EA19 /* GameWorld.cpp */; };
+		AF2C11C627BAFB8F0039EA19 /* StudentWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11BE27BAFB8F0039EA19 /* StudentWorld.cpp */; };
+		AF2C11C727BAFB8F0039EA19 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11BF27BAFB8F0039EA19 /* Actor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +28,20 @@
 
 /* Begin PBXFileReference section */
 		AF2C11AB27BAFB6A0039EA19 /* proj3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = proj3; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF2C11AE27BAFB6A0039EA19 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AF2C11B527BAFB8F0039EA19 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "../../SuperPeachSisters 2/SuperPeachSisters/main.cpp"; sourceTree = "<group>"; };
+		AF2C11B627BAFB8F0039EA19 /* GraphObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphObject.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/GraphObject.h"; sourceTree = "<group>"; };
+		AF2C11B727BAFB8F0039EA19 /* SpriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteManager.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/SpriteManager.h"; sourceTree = "<group>"; };
+		AF2C11B827BAFB8F0039EA19 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/Level.h"; sourceTree = "<group>"; };
+		AF2C11B927BAFB8F0039EA19 /* GameConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameConstants.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/GameConstants.h"; sourceTree = "<group>"; };
+		AF2C11BA27BAFB8F0039EA19 /* SoundFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundFX.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/SoundFX.h"; sourceTree = "<group>"; };
+		AF2C11BB27BAFB8F0039EA19 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameController.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/GameController.h"; sourceTree = "<group>"; };
+		AF2C11BC27BAFB8F0039EA19 /* GameController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameController.cpp; path = "../../SuperPeachSisters 2/SuperPeachSisters/GameController.cpp"; sourceTree = "<group>"; };
+		AF2C11BD27BAFB8F0039EA19 /* GameWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameWorld.cpp; path = "../../SuperPeachSisters 2/SuperPeachSisters/GameWorld.cpp"; sourceTree = "<group>"; };
+		AF2C11BE27BAFB8F0039EA19 /* StudentWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StudentWorld.cpp; path = "../../SuperPeachSisters 2/SuperPeachSisters/StudentWorld.cpp"; sourceTree = "<group>"; };
+		AF2C11BF27BAFB8F0039EA19 /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Actor.cpp; path = "../../SuperPeachSisters 2/SuperPeachSisters/Actor.cpp"; sourceTree = "<group>"; };
+		AF2C11C027BAFB8F0039EA19 /* GameWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameWorld.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/GameWorld.h"; sourceTree = "<group>"; };
+		AF2C11C127BAFB8F0039EA19 /* StudentWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudentWorld.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/StudentWorld.h"; sourceTree = "<group>"; };
+		AF2C11C227BAFB8F0039EA19 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Actor.h; path = "../../SuperPeachSisters 2/SuperPeachSisters/Actor.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +74,20 @@
 		AF2C11AD27BAFB6A0039EA19 /* proj3 */ = {
 			isa = PBXGroup;
 			children = (
-				AF2C11AE27BAFB6A0039EA19 /* main.cpp */,
+				AF2C11BF27BAFB8F0039EA19 /* Actor.cpp */,
+				AF2C11C227BAFB8F0039EA19 /* Actor.h */,
+				AF2C11B927BAFB8F0039EA19 /* GameConstants.h */,
+				AF2C11BC27BAFB8F0039EA19 /* GameController.cpp */,
+				AF2C11BB27BAFB8F0039EA19 /* GameController.h */,
+				AF2C11BD27BAFB8F0039EA19 /* GameWorld.cpp */,
+				AF2C11C027BAFB8F0039EA19 /* GameWorld.h */,
+				AF2C11B627BAFB8F0039EA19 /* GraphObject.h */,
+				AF2C11B827BAFB8F0039EA19 /* Level.h */,
+				AF2C11B527BAFB8F0039EA19 /* main.cpp */,
+				AF2C11BA27BAFB8F0039EA19 /* SoundFX.h */,
+				AF2C11B727BAFB8F0039EA19 /* SpriteManager.h */,
+				AF2C11BE27BAFB8F0039EA19 /* StudentWorld.cpp */,
+				AF2C11C127BAFB8F0039EA19 /* StudentWorld.h */,
 			);
 			path = proj3;
 			sourceTree = "<group>";
@@ -119,7 +149,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF2C11AF27BAFB6A0039EA19 /* main.cpp in Sources */,
+				AF2C11C627BAFB8F0039EA19 /* StudentWorld.cpp in Sources */,
+				AF2C11C327BAFB8F0039EA19 /* main.cpp in Sources */,
+				AF2C11C427BAFB8F0039EA19 /* GameController.cpp in Sources */,
+				AF2C11C527BAFB8F0039EA19 /* GameWorld.cpp in Sources */,
+				AF2C11C727BAFB8F0039EA19 /* Actor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
