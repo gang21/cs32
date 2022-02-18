@@ -11,7 +11,7 @@ class StudentWorld : public GameWorld
 {
 public:
   StudentWorld(std::string assetPath);
-  virtual int init();
+//  virtual int init();
   virtual int move();
   virtual void cleanUp();
 

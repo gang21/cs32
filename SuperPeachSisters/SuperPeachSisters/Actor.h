@@ -2,39 +2,49 @@
 #define ACTOR_H_
 
 #include "GraphObject.h"
+#include "StudentWorld.h"
 
 // Students:  Add code to this file, Actor.cpp, StudentWorld.h, and StudentWorld.cpp
 
-class Actor:public GraphObject {
+class Actor : public GraphObject {
 public:
-    Actor(int x, int y, int ID, int dir, int depth, int size, bool state);
+    Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state);
     virtual void doSomething() = 0;
-    int getStartPositionX() {return m_x;}
-    int getStartPositionY() {return m_y;}
     int getImageID() {return m_imageID;}
-    int getDirection() {return m_direction;}
     int getDepth() {return m_depth;}
-    int getSize() {return m_size;}
     bool isAlive() {return m_state;}
-    ~Actor();
+    StudentWorld* getWorld() {return m_world;}
+    ~Actor() {return;}
 private:
-    int m_x;
-    int m_y;
+    StudentWorld* m_world;
     int m_imageID;
-    int m_direction;
     int m_depth;
-    int m_size;
     bool m_state;
 };
 
 class Block:public Actor {
 public:
-    Block(int x, int y, int goodie);
+    Block(int x, int y, int goodie = -1);
     virtual void doSomething(){return;}
     void getBonked();
 private:
     int m_goodie;
 
+};
+
+class Peach:public Actor {
+public:
+    Peach(int x, int y);
+    virtual void doSomething();
+    bool gainTempInvincibility();
+    
+private:
+    int m_healthPts;
+    bool m_starPower;
+    bool m_shootPower;
+    bool m_jumpPower;
+    bool m_tempInvincibility;
+    int m_recharge;
 };
 
 #endif // ACTOR_H_

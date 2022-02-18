@@ -1,6 +1,7 @@
 #include "StudentWorld.h"
 #include "GameConstants.h"
 #include <string>
+#include "Actor.h"
 using namespace std;
 
 GameWorld* createStudentWorld(string assetPath)
@@ -17,6 +18,9 @@ StudentWorld::StudentWorld(string assetPath)
 
 int StudentWorld::init()
 {
+    if (getLevel() == 1) {
+        Block * blocks = new Block[
+    }
     return GWSTATUS_CONTINUE_GAME;
 }
 
@@ -31,3 +35,4 @@ int StudentWorld::move()
 void StudentWorld::cleanUp()
 {
 }
+
