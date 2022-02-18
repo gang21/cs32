@@ -22,9 +22,9 @@ private:
     bool m_state;
 };
 
-class Block:public Actor {
+class Block : public Actor {
 public:
-    Block(int x, int y, int goodie = -1);
+    Block(StudentWorld * sw, int x, int y, int goodie = -1);
     virtual void doSomething(){return;}
     void getBonked();
 private:
@@ -34,7 +34,7 @@ private:
 
 class Peach:public Actor {
 public:
-    Peach(int x, int y);
+    Peach(StudentWorld * sw, int x, int y);
     virtual void doSomething();
     bool gainTempInvincibility();
     
