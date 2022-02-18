@@ -22,6 +22,25 @@ private:
     bool m_state;
 };
 
+//Peach Class
+class Peach:public Actor {
+public:
+    Peach(StudentWorld * sw, int x, int y);
+    virtual void doSomething();
+    bool gainTempInvincibility();
+    void jump();
+    
+private:
+    int m_healthPts;
+    bool m_starPower;
+    bool m_shootPower;
+    bool m_jumpPower;
+    bool m_tempInvincibility;
+    int m_recharge;
+    int m_remaining_jump_distance;
+};
+
+//Block Class
 class Block : public Actor {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
@@ -31,20 +50,4 @@ private:
     int m_goodie;
 
 };
-
-class Peach:public Actor {
-public:
-    Peach(StudentWorld * sw, int x, int y);
-    virtual void doSomething();
-    bool gainTempInvincibility();
-    
-private:
-    int m_healthPts;
-    bool m_starPower;
-    bool m_shootPower;
-    bool m_jumpPower;
-    bool m_tempInvincibility;
-    int m_recharge;
-};
-
 #endif // ACTOR_H_

@@ -37,7 +37,7 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
     m_starPower = false;
     m_shootPower = false;
     m_jumpPower = false;
-    
+    m_remaining_jump_distance = 12;
 }
 
 bool Peach::gainTempInvincibility() {
@@ -50,12 +50,40 @@ bool Peach::gainTempInvincibility() {
     return false; //FIXME: fix this lol
 }
 
+void Peach::jump() {
+    if(m_jumpPower)
+        m_remaining_jump_distance *= 2;
+    if (m_remaining_jump_distance > 0)
+        moveTo(getX(), getY() + 4);
+    m_remaining_jump_distance -= 4;
+}
 
 void Peach::doSomething() {
     //checking if she's alive
     if (!isAlive())
         return;
-
+    //moving if key is pressed
+    int keyPressed;
+    getWorld()->getKey(keyPressed);
+    jump();
+    switch (keyPressed) {
+        case KEY_PRESS_RIGHT:
+            setDirection(0);
+            moveTo(getX() + 4, getY());
+            break;
+        case KEY_PRESS_LEFT:
+            setDirection(180);
+            moveTo(getX() - 4, getY());
+            break;
+        case KEY_PRESS_UP:
+            m_remaining_jump_distance = 12;
+            jump();
+            break;
+            
+        default:
+            break;
+    }
+    
     //checking current invincibility
     if (m_starPower) {
         //TODO: decrement tick by 1 (figure out how to do this)
