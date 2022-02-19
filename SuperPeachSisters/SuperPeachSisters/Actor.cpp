@@ -50,19 +50,20 @@ bool Peach::gainTempInvincibility() {
     return false; //FIXME: fix this lol
 }
 
-//void Peach::jump() {
-//    if(m_jumpPower)
-//        m_remaining_jump_distance *= 2;
-//    if (m_remaining_jump_distance > 0)
-//        moveTo(getX(), getY() + 4);
-//    m_remaining_jump_distance -= 4;
-//}
+void Peach::jump() {
+    if(m_jumpPower)
+        m_remaining_jump_distance *= 2;
+    if (m_remaining_jump_distance > 0)
+        moveTo(getX(), getY() + 4);
+    m_remaining_jump_distance -= 4;
+}
 
 void Peach::doSomething() {
     //checking if she's alive
     if (!isAlive())
         return;
     //moving if key is pressed
+    jump();
     int keyPressed;
     getWorld()->getKey(keyPressed);
     switch (keyPressed) {
@@ -74,10 +75,10 @@ void Peach::doSomething() {
             setDirection(180);
             moveTo(getX() - 4, getY());
             break;
-//        case KEY_PRESS_UP:
-//            m_remaining_jump_distance = 12;
-//            jump();
-//            break;
+        case KEY_PRESS_UP:
+            m_remaining_jump_distance = 24;
+            jump();
+            break;
             
         default:
             break;

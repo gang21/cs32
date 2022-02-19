@@ -20,12 +20,45 @@ StudentWorld::StudentWorld(string assetPath)
 {
     
 }
+//int StudentWorld::getBlockAt(int x, int y) {
+//    for (Actor* i : actors) {
+//        if ((i->getX() < x && i->getX() + SPRITE_WIDTH - 1 > x
+//            && i->getY() < y && i->getY() + SPRITE_HEIGHT - 1 > y)
+//            || (i->getX() + SPRITE_WIDTH - 1 < x && i->getX() + SPRITE_WIDTH - 1> x + SPRITE_WIDTH - 1
+//            && i->getY() < y  + SPRITE_HEIGHT - 1 && i->getY() + SPRITE_HEIGHT - 1 > y + SPRITE_HEIGHT - 1))
+//        {
+//            return i->getImageID();
+//        }
+//    }
+//    return -1;
+//}
+
+bool StudentWorld::overlap() {
+    int aLeftBound = player->getX();
+    int aRightBound = player->getX() + SPRITE_WIDTH - 1;
+    int aUpperBound = player->getY();
+    int aLowerBound = player->getY() + SPRITE_HEIGHT - 1;
+    
+    for (Actor * b : actors) {
+    int bLeftBound = b->getX();
+    int bRightBound = b->getX() + SPRITE_WIDTH - 1;
+    int bUpperBound = b->getY();
+    int bLowerBound = b->getY() + SPRITE_HEIGHT - 1;
+    //checking if one rectangle is on the left side of the other
+    if (aLeftBound > bRightBound || bLeftBound > aRightBound)
+        return false;
+    //checking if one rectangle is above the other
+    if (aUpperBound < bLowerBound || bUpperBound < aLowerBound)
+        return false;
+    }
+    return true;
+}
 
 int StudentWorld::init()
 {
     Level lev(assetPath());
-    string level_file = "level03.txt";
-    lev.loadLevel(level_file);
+    levelFile = "level01.txt";
+    lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {
             //Block Object

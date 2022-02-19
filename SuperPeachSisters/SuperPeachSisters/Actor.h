@@ -53,3 +53,4 @@ private:
 
 };
 #endif // ACTOR_H_
+*

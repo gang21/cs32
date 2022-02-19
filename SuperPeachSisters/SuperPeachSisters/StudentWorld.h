@@ -20,14 +20,14 @@ public:
     virtual int init();
     virtual int move();
     virtual void cleanUp();
-    int getBlockAt(int x, int y);
-//    bool overlap(Actor a, Actor b);
+    bool overlap();
         
 
 
 private:
     Peach* player;
     vector<Actor*> actors;
+    string levelFile;
 };
 
 #endif // STUDENTWORLD_H_
