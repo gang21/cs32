@@ -24,19 +24,20 @@ StudentWorld::StudentWorld(string assetPath)
 int StudentWorld::init()
 {
     Level lev(assetPath());
-    string level_file = "level01.txt";
-    Level::LoadResult result = lev.loadLevel(level_file);
-    vector<Block> blocks;
-//    for (int i = 0; i < GRID_WIDTH; i++) {
-//        for (int j = 0; j < GRID_HEIGHT; j++) {
-//            //Block Object
-//            if (result.getContentsOf(i, j) == '#') {
-//                Block b(this, i, j);
-//                blocks.push_back(b);
-//            }
-//            //Peach object
-//        }
-//    }
+    string level_file = "level03.txt";
+    lev.loadLevel(level_file);
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
+            //Block Object
+            if (lev.getContentsOf(i, j) == Level::block) {
+                Block * b = new Block(this, i*SPRITE_WIDTH, j*SPRITE_HEIGHT);
+                actors.push_back(b);
+            }
+            //Peach object
+            if (lev.getContentsOf(i, j) == Level::peach)
+                player = new Peach(this, i*SPRITE_WIDTH, j*SPRITE_HEIGHT);
+        }
+    }
         
     return GWSTATUS_CONTINUE_GAME;
 }

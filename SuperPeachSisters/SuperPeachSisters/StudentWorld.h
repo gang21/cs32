@@ -4,8 +4,12 @@
 #include "GameWorld.h"
 #include "Level.h"
 #include <string>
+#include <vector>
+
+using namespace std;
 
 // Students:  Add code to this file, StudentWorld.cpp, Actor.h, and Actor.cpp
+class Actor;
 class Peach;
 class Block;
 
@@ -23,6 +27,7 @@ public:
 
 private:
     Peach* player;
+    vector<Actor*> actors;
 };
 
 #endif // STUDENTWORLD_H_
