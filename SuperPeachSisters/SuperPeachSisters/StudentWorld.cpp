@@ -2,14 +2,18 @@
 #include "GameConstants.h"
 #include "Actor.h"
 #include <string>
+#include "Level.h"
+#include <vector>
 using namespace std;
 
 
 // Students:  Add code to this file, StudentWorld.h, Actor.h, and Actor.cpp
+
 GameWorld* createStudentWorld(string assetPath)
 {
     return new StudentWorld(assetPath);
 }
+
 
 StudentWorld::StudentWorld(string assetPath)
 : GameWorld(assetPath)
@@ -19,9 +23,21 @@ StudentWorld::StudentWorld(string assetPath)
 
 int StudentWorld::init()
 {
-    if (getLevel() == 1) {
-        player = new Peach(this, VIEW_WIDTH/2, 3);
-    }
+    Level lev(assetPath());
+    string level_file = "level01.txt";
+    Level::LoadResult result = lev.loadLevel(level_file);
+    vector<Block> blocks;
+//    for (int i = 0; i < GRID_WIDTH; i++) {
+//        for (int j = 0; j < GRID_HEIGHT; j++) {
+//            //Block Object
+//            if (result.getContentsOf(i, j) == '#') {
+//                Block b(this, i, j);
+//                blocks.push_back(b);
+//            }
+//            //Peach object
+//        }
+//    }
+        
     return GWSTATUS_CONTINUE_GAME;
 }
 

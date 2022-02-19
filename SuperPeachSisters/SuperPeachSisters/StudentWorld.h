@@ -12,10 +12,14 @@ class Block;
 class StudentWorld : public GameWorld
 {
 public:
-  StudentWorld(std::string assetPath);
-  virtual int init();
-  virtual int move();
-  virtual void cleanUp();
+    StudentWorld(std::string assetPath);
+    virtual int init();
+    virtual int move();
+    virtual void cleanUp();
+    int getBlockAt(int x, int y);
+//    bool overlap(Actor a, Actor b);
+        
+
 
 private:
     Peach* player;
