@@ -2,11 +2,10 @@
 #include "StudentWorld.h"
 
 //Actor class implementation
-
 //constructor
-Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) : GraphObject(ID, x, y)
+Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  GraphObject(ID, x, y), m_world(sw)
 {
-    m_world = sw;
+//    m_world = sw;
     setSize(1);
     setDirection(0);
     m_imageID = ID;
@@ -52,7 +51,7 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
 
 void Peach::jump() {
     if(m_jumpPower)
-        m_remaining_jump_distance *= 2;
+        m_remaining_jump_distance += 4;
     if (m_remaining_jump_distance > 0)
         moveTo(getX(), getY() + 4);
     m_remaining_jump_distance -= 4;
@@ -67,11 +66,15 @@ void Peach::move() {
             //checking for overlap
             if (!getWorld()->overlap(getX() + 4, getY()))
                 moveTo(getX() + 4, getY());
+            else
+                getWorld()->playSound(SOUND_PLAYER_BONK);
             break;
         case KEY_PRESS_LEFT:
             setDirection(180);
             if (!getWorld()->overlap(getX() - 4, getY()))
                 moveTo(getX() - 4, getY());
+            else
+                getWorld()->playSound(SOUND_PLAYER_BONK);
             break;
         case KEY_PRESS_UP:
             m_remaining_jump_distance = 24;

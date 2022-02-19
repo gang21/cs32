@@ -43,10 +43,10 @@ bool StudentWorld::overlap(int x, int y) {
     int bRightBound = b->getX() + SPRITE_WIDTH - 1;
     int bUpperBound = b->getY();
     int bLowerBound = b->getY() + SPRITE_HEIGHT - 1;
-    //checking if one rectangle is on the left side of the other
+    //checking if one sprite is on the left side of the other
     if (aLeftBound > bRightBound || bLeftBound > aRightBound)
         return false;
-    //checking if one rectangle is above the other
+    //checking if one sprite is above the other
     if (aUpperBound < bLowerBound || bUpperBound < aLowerBound)
         return false;
     }
