@@ -37,7 +37,7 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
     m_starPower = false;
     m_shootPower = false;
     m_jumpPower = false;
-    m_remaining_jump_distance = 12;
+    m_remaining_jump_distance = 0;
 }
 
 bool Peach::gainTempInvincibility() {
@@ -51,11 +51,14 @@ bool Peach::gainTempInvincibility() {
 }
 
 void Peach::jump() {
+    
     if(m_jumpPower)
         m_remaining_jump_distance *= 2;
     if (m_remaining_jump_distance > 0)
         moveTo(getX(), getY() + 4);
     m_remaining_jump_distance -= 4;
+    //go down until it hits a block
+    
 }
 
 void Peach::doSomething() {

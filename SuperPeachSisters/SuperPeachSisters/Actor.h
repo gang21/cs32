@@ -14,6 +14,7 @@ public:
     int getDepth() {return m_depth;}
     bool isAlive() {return m_state;}
     StudentWorld* getWorld() {return m_world;}
+    virtual void getBonked() = 0;
     ~Actor() {return;}
 private:
     StudentWorld* m_world;
@@ -29,6 +30,7 @@ public:
     virtual void doSomething();
     bool gainTempInvincibility();
     void jump();
+    virtual void getBonked();
     
 private:
     int m_healthPts;
@@ -45,7 +47,7 @@ class Block : public Actor {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
     virtual void doSomething(){return;}
-    void getBonked();
+    virtual void getBonked();
 private:
     int m_goodie;
 
