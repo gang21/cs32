@@ -1,18 +1,16 @@
 #include "StudentWorld.h"
 #include "GameConstants.h"
 #include "Actor.h"
-#include <string>
 #include "Level.h"
-#include <vector>
-using namespace std;
+#include <string>
 
 
 // Students:  Add code to this file, StudentWorld.h, Actor.h, and Actor.cpp
 
-GameWorld* createStudentWorld(string assetPath)
-{
-    return new StudentWorld(assetPath);
-}
+//GameWorld* StudentWorld::createStudentWorld(string assetPath)
+//{
+//    return new StudentWorld(assetPath);
+//}
 
 
 StudentWorld::StudentWorld(string assetPath)
@@ -33,11 +31,12 @@ StudentWorld::StudentWorld(string assetPath)
 //    return -1;
 //}
 
-bool StudentWorld::overlap() {
-    int aLeftBound = player->getX();
-    int aRightBound = player->getX() + SPRITE_WIDTH - 1;
-    int aUpperBound = player->getY();
-    int aLowerBound = player->getY() + SPRITE_HEIGHT - 1;
+//checking for any overlap between Peach and actors
+bool StudentWorld::overlap(int x, int y) {
+    int aLeftBound = x;
+    int aRightBound = x + SPRITE_WIDTH - 1;
+    int aUpperBound = y;
+    int aLowerBound = y + SPRITE_HEIGHT - 1;
     
     for (Actor * b : actors) {
     int bLeftBound = b->getX();

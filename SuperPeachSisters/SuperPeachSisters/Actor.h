@@ -15,7 +15,7 @@ public:
     bool isAlive() {return m_state;}
     StudentWorld* getWorld() {return m_world;}
     virtual void getBonked() = 0;
-    ~Actor() {return;}
+    virtual ~Actor() {return;}
 private:
     StudentWorld* m_world;
     int m_imageID;
@@ -31,6 +31,7 @@ public:
     bool gainTempInvincibility();
     void jump();
     virtual void getBonked();
+    void move();
     
 private:
     int m_healthPts;

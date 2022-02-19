@@ -16,11 +16,11 @@ class Block;
 class StudentWorld : public GameWorld
 {
 public:
-    StudentWorld(std::string assetPath);
+    StudentWorld(string assetPath);
     virtual int init();
     virtual int move();
     virtual void cleanUp();
-    bool overlap();
+    bool overlap(int x, int y);
         
 
 

@@ -40,15 +40,15 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
     m_remaining_jump_distance = 0;
 }
 
-bool Peach::gainTempInvincibility() {
-    if (m_jumpPower || m_shootPower) {
-        //if this is equal to some other attacker
-            //lose power
-            //gain temp invisibility for some ticks
-            //return true
-    }
-    return false; //FIXME: fix this lol
-}
+//bool Peach::gainTempInvincibility() {
+//    if (m_jumpPower || m_shootPower) {
+//        //if this is equal to some other attacker
+//            //lose power
+//            //gain temp invisibility for some ticks
+//            //return true
+//    }
+//    return false; //FIXME: fix this lol
+//}
 
 void Peach::jump() {
     if(m_jumpPower)
@@ -58,22 +58,20 @@ void Peach::jump() {
     m_remaining_jump_distance -= 4;
 }
 
-void Peach::doSomething() {
-    //checking if she's alive
-    if (!isAlive())
-        return;
-    //moving if key is pressed
-    jump();
+void Peach::move() {
     int keyPressed;
     getWorld()->getKey(keyPressed);
     switch (keyPressed) {
         case KEY_PRESS_RIGHT:
             setDirection(0);
-            moveTo(getX() + 4, getY());
+            //checking for overlap
+            if (!getWorld()->overlap(getX() + 4, getY()))
+                moveTo(getX() + 4, getY());
             break;
         case KEY_PRESS_LEFT:
             setDirection(180);
-            moveTo(getX() - 4, getY());
+            if (!getWorld()->overlap(getX() - 4, getY()))
+                moveTo(getX() - 4, getY());
             break;
         case KEY_PRESS_UP:
             m_remaining_jump_distance = 24;
@@ -83,6 +81,13 @@ void Peach::doSomething() {
         default:
             break;
     }
+}
+void Peach::doSomething() {
+    //checking if she's alive
+    if (!isAlive())
+        return;
+    //moving if key is pressed
+    move();
 //
 //    //checking current invincibility
 //    if (m_starPower) {
