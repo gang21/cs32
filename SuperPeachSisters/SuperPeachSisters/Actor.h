@@ -1,16 +1,22 @@
 #ifndef ACTOR_H_
 #define ACTOR_H_
 
+
+//#include "StudentWorld.h"
 #include "GraphObject.h"
-#include "StudentWorld.h"
+#include "GameConstants.h"
 
 class StudentWorld;
+using namespace std;
+//class StudentWorld;
 
 // Students:  Add code to this file, Actor.cpp, StudentWorld.h, and StudentWorld.cpp
+
 
 class Actor : public GraphObject {
 public:
     Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state);
+    
     virtual void doSomething() = 0;
     int getImageID() {return m_imageID;}
     int getDepth() {return m_depth;}
@@ -48,9 +54,12 @@ private:
 //Block Class
 class Block : public Actor {
 public:
-    Block(StudentWorld * sw, int x, int y, int goodie = -1);
+    Block(StudentWorld * sw, int x, int y, int goodie = -1) : Actor(sw, x, y, IID_BLOCK, 2, true) {
+        m_goodie = goodie;
+    }
     virtual void doSomething(){return;}
     virtual void getBonked();
+    
 private:
     int m_goodie;
 

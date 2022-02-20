@@ -1,11 +1,14 @@
 #include "Actor.h"
 #include "StudentWorld.h"
+#include "GameConstants.h"
+
+//class StudentWorld;
 
 //Actor class implementation
 //constructor
-Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  GraphObject(ID, x, y), m_world(sw)
+Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  GraphObject(ID, x, y), m_world(sw), m_imageID(ID), m_depth(depth), m_state(state)
 {
-//    m_world = sw;
+    m_world = sw;
     setSize(1);
     setDirection(0);
     m_imageID = ID;
@@ -13,10 +16,12 @@ Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  
     m_state = state;
 }
 
+
+
 //Block class implementation
-Block::Block(StudentWorld * sw, int x, int y, int goodie) : Actor(sw, x, y, IID_BLOCK, 2, true) {
-    m_goodie = goodie;
-}
+//Block::Block(StudentWorld * sw, int x, int y, int goodie) : Actor(sw, x, y, IID_BLOCK, 2, true) {
+//    m_goodie = goodie;
+//}
 
 void Block::getBonked() {
     if (m_goodie == -1) {
@@ -39,23 +44,23 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
     m_remaining_jump_distance = 0;
 }
 
-//bool Peach::gainTempInvincibility() {
-//    if (m_jumpPower || m_shootPower) {
-//        //if this is equal to some other attacker
-//            //lose power
-//            //gain temp invisibility for some ticks
-//            //return true
-//    }
-//    return false; //FIXME: fix this lol
-//}
-
-void Peach::jump() {
-    if(m_jumpPower)
-        m_remaining_jump_distance += 4;
-    if (m_remaining_jump_distance > 0)
-        moveTo(getX(), getY() + 4);
-    m_remaining_jump_distance -= 4;
+bool Peach::gainTempInvincibility() {
+    if (m_jumpPower || m_shootPower) {
+        //if this is equal to some other attacker
+            //lose power
+            //gain temp invisibility for some ticks
+            //return true
+    }
+    return false; //FIXME: fix this lol
 }
+
+//void Peach::jump() {
+//    if(m_jumpPower)
+//        m_remaining_jump_distance += 4;
+//    if (m_remaining_jump_distance > 0)
+//        moveTo(getX(), getY() + 4);
+//    m_remaining_jump_distance -= 4;
+//}
 
 void Peach::move() {
     int keyPressed;
@@ -64,23 +69,23 @@ void Peach::move() {
         case KEY_PRESS_RIGHT:
             setDirection(0);
             //checking for overlap
-            if (!getWorld()->overlap(getX() + 4, getY()))
+//            if (!getWorld()->overlap(getX() + 4, getY()))
                 moveTo(getX() + 4, getY());
-            else
-                getWorld()->playSound(SOUND_PLAYER_BONK);
+//            else
+//                getWorld()->playSound(SOUND_PLAYER_BONK);
             break;
         case KEY_PRESS_LEFT:
             setDirection(180);
-            if (!getWorld()->overlap(getX() - 4, getY()))
+//            if (!getWorld()->overlap(getX() - 4, getY()))
                 moveTo(getX() - 4, getY());
-            else
-                getWorld()->playSound(SOUND_PLAYER_BONK);
+//            else
+//                getWorld()->playSound(SOUND_PLAYER_BONK);
             break;
-        case KEY_PRESS_UP:
-            m_remaining_jump_distance = 24;
-            jump();
-            break;
-            
+//        case KEY_PRESS_UP:
+//            m_remaining_jump_distance = 24;
+//            jump();
+//            break;
+
         default:
             break;
     }

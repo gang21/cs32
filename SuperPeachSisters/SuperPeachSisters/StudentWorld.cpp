@@ -3,6 +3,8 @@
 #include "Actor.h"
 #include "Level.h"
 #include <string>
+#include <vector>
+
 
 
 // Students:  Add code to this file, StudentWorld.h, Actor.h, and Actor.cpp
@@ -13,10 +15,12 @@
 //}
 
 
+
+
 StudentWorld::StudentWorld(string assetPath)
-: GameWorld(assetPath)
+: GameWorld(assetPath), player(nullptr), actors(), levelFile("")
 {
-    
+
 }
 //int StudentWorld::getBlockAt(int x, int y) {
 //    for (Actor* i : actors) {
@@ -32,26 +36,26 @@ StudentWorld::StudentWorld(string assetPath)
 //}
 
 //checking for any overlap between Peach and actors
-bool StudentWorld::overlap(int x, int y) {
-    int aLeftBound = x;
-    int aRightBound = x + SPRITE_WIDTH - 1;
-    int aUpperBound = y;
-    int aLowerBound = y + SPRITE_HEIGHT - 1;
-    
-    for (Actor * b : actors) {
-    int bLeftBound = b->getX();
-    int bRightBound = b->getX() + SPRITE_WIDTH - 1;
-    int bUpperBound = b->getY();
-    int bLowerBound = b->getY() + SPRITE_HEIGHT - 1;
-    //checking if one sprite is on the left side of the other
-    if (aLeftBound > bRightBound || bLeftBound > aRightBound)
-        return false;
-    //checking if one sprite is above the other
-    if (aUpperBound < bLowerBound || bUpperBound < aLowerBound)
-        return false;
-    }
-    return true;
-}
+//bool StudentWorld::overlap(int x, int y) {
+//    int aLeftBound = x;
+//    int aRightBound = x + SPRITE_WIDTH - 1;
+//    int aUpperBound = y;
+//    int aLowerBound = y + SPRITE_HEIGHT - 1;
+//
+//    for (Actor * b : actors) {
+//    int bLeftBound = b->getX();
+//    int bRightBound = b->getX() + SPRITE_WIDTH - 1;
+//    int bUpperBound = b->getY();
+//    int bLowerBound = b->getY() + SPRITE_HEIGHT - 1;
+//    //checking if one sprite is on the left side of the other
+//    if (aLeftBound > bRightBound || bLeftBound > aRightBound)
+//        return false;
+//    //checking if one sprite is above the other
+//    if (aUpperBound < bLowerBound || bUpperBound < aLowerBound)
+//        return false;
+//    }
+//    return true;
+//}
 
 int StudentWorld::init()
 {
@@ -62,7 +66,7 @@ int StudentWorld::init()
         for (int j = 0; j < GRID_HEIGHT; j++) {
             //Block Object
             if (lev.getContentsOf(i, j) == Level::block) {
-                Block * b = new Block(this, i*SPRITE_WIDTH, j*SPRITE_HEIGHT);
+                Block * b = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
                 actors.push_back(b);
             }
             //Peach object
@@ -79,7 +83,6 @@ int StudentWorld::move()
     // This code is here merely to allow the game to build, run, and terminate after you hit enter.
     // Notice that the return value GWSTATUS_PLAYER_DIED will cause our framework to end the current level.
     player->doSomething();
-//    decLives();
     return GWSTATUS_CONTINUE_GAME;
 }
 

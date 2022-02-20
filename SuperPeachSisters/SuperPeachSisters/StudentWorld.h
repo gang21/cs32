@@ -3,15 +3,16 @@
 
 #include "GameWorld.h"
 #include "Level.h"
+#include "Actor.h"
 #include <string>
 #include <vector>
 
 using namespace std;
 
 // Students:  Add code to this file, StudentWorld.cpp, Actor.h, and Actor.cpp
-class Actor;
-class Peach;
-class Block;
+//class Actor;
+//class Peach;
+//class Block;
 
 class StudentWorld : public GameWorld
 {
@@ -20,7 +21,7 @@ public:
     virtual int init();
     virtual int move();
     virtual void cleanUp();
-    bool overlap(int x, int y);
+//    bool overlap(int x, int y);
         
 
 

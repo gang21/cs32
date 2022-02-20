@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AF2C11D527BFA06D0039EA19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11D427BFA06D0039EA19 /* main.cpp */; };
+		AF2C11DF27BFA0A30039EA19 /* StudentWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11DC27BFA0A30039EA19 /* StudentWorld.cpp */; };
+		AF2C11E027BFA0A30039EA19 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF2C11DD27BFA0A30039EA19 /* Actor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		AF2C11D127BFA06D0039EA19 /* testPeachSisters */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testPeachSisters; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2C11D427BFA06D0039EA19 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AF2C11DB27BFA0A30039EA19 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Actor.h; path = "../../../../../Downloads/demo 2/Actor.h"; sourceTree = "<group>"; };
+		AF2C11DC27BFA0A30039EA19 /* StudentWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StudentWorld.cpp; path = "../../../../../Downloads/demo 2/StudentWorld.cpp"; sourceTree = "<group>"; };
+		AF2C11DD27BFA0A30039EA19 /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Actor.cpp; path = "../../../../../Downloads/demo 2/Actor.cpp"; sourceTree = "<group>"; };
+		AF2C11DE27BFA0A30039EA19 /* StudentWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudentWorld.h; path = "../../../../../Downloads/demo 2/StudentWorld.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,10 @@
 		AF2C11D327BFA06D0039EA19 /* testPeachSisters */ = {
 			isa = PBXGroup;
 			children = (
+				AF2C11DD27BFA0A30039EA19 /* Actor.cpp */,
+				AF2C11DB27BFA0A30039EA19 /* Actor.h */,
+				AF2C11DC27BFA0A30039EA19 /* StudentWorld.cpp */,
+				AF2C11DE27BFA0A30039EA19 /* StudentWorld.h */,
 				AF2C11D427BFA06D0039EA19 /* main.cpp */,
 			);
 			path = testPeachSisters;
@@ -119,6 +129,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF2C11E027BFA0A30039EA19 /* Actor.cpp in Sources */,
+				AF2C11DF27BFA0A30039EA19 /* StudentWorld.cpp in Sources */,
 				AF2C11D527BFA06D0039EA19 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
