@@ -17,6 +17,8 @@ public:
     bool isAlive() {return m_state;}
     StudentWorld* getWorld() {return m_world;}
     virtual void getBonked() = 0;
+    void setState(bool state);
+    bool getState();
 private:
     StudentWorld* m_world;
     int m_imageID;
@@ -47,10 +49,11 @@ private:
 //Immovable Class
 class Immovable : public Actor {
 public:
-    Immovable(StudentWorld * sw, int x, int y, int ID);
+    Immovable(StudentWorld * sw, int x, int y, int ID, int depth);
     virtual void doSomething() {return;}
     virtual void getBonked();
     virtual bool isDamagable();
+    virtual bool blocksMovement();
 private:
     bool m_damage;
     
@@ -69,6 +72,17 @@ private:
 class Pipe : public Immovable {
 public:
     Pipe(StudentWorld * sw, int x, int y);
+};
+
+//Goal Class
+class Goal : public Immovable {
+public:
+    Goal(StudentWorld * sw, int x, int y, int ID, bool lastLev);
+    virtual void doSomething();
+    virtual bool blocksMovement();
+    bool isLastLevel();
+private:
+    bool m_lastLevel;
 };
 
 #endif // ACTOR_H_

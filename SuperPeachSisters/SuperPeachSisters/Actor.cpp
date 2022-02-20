@@ -14,8 +14,15 @@ Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  
     m_depth = depth;
     m_state = state;
 }
+void Actor::setState(bool state) {
+    m_state = state;
+}
+
+bool Actor::getState() {
+    return m_state;
+}
 //Immovable class implementation
-Immovable::Immovable(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 2, true) {
+Immovable::Immovable(StudentWorld * sw, int x, int y, int ID, int depth) : Actor(sw, x, y, ID, depth, true) {
     m_damage = false;
 }
 
@@ -23,12 +30,17 @@ bool Immovable::isDamagable() {
     return m_damage;
 }
 
+bool Immovable::blocksMovement() {
+    return true;
+}
+
+
 void Immovable::getBonked() {
     getWorld()->playSound(SOUND_PLAYER_BONK);
 }
 
 //Block class implementation
-Block::Block(StudentWorld * sw, int x, int y, int goodie) : Immovable(sw, x, y, IID_BLOCK) {
+Block::Block(StudentWorld * sw, int x, int y, int goodie) : Immovable(sw, x, y, IID_BLOCK, 2) {
     m_goodie = goodie;
 }
 
@@ -41,11 +53,29 @@ void Block::getBonked() {
 }
 
 //Pipe class implementation
-Pipe::Pipe(StudentWorld * sw, int x, int y) : Immovable(sw, x, y, IID_PIPE)
+Pipe::Pipe(StudentWorld * sw, int x, int y) : Immovable(sw, x, y, IID_PIPE, 2)
 {
 }
 
+//Goal class implementation
+Goal::Goal(StudentWorld * sw, int x, int y, int ID, bool lastLev) : Immovable(sw, x, y, ID, 1)
+{
+    m_lastLevel = lastLev;
+}
 
+bool Goal::isLastLevel() {
+    return m_lastLevel;
+}
+
+void Goal::doSomething() {
+    if (!isAlive())
+        return;
+    //TODO: check overlap
+    getWorld()->increaseScore(1000);
+    setState(false);
+//    if (!isLastLevel())
+
+}
 //Peach class implementation
 Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, true) {
     m_healthPts = 1;
