@@ -67,6 +67,10 @@ bool Goal::isLastLevel() {
     return m_lastLevel;
 }
 
+bool Goal::blocksMovement() {
+    return false;
+}
+
 void Goal::doSomething() {
     if (!isAlive())
         return;
@@ -76,6 +80,17 @@ void Goal::doSomething() {
 //    if (!isLastLevel())
 
 }
+
+//Flag Class Implementation
+Flag::Flag(StudentWorld * sw, int x, int y) : Goal(sw, x, y, IID_FLAG, false)
+{
+}
+
+//Mario Class Implementation
+Mario::Mario(StudentWorld * sw, int x, int y) : Goal(sw, x, y, IID_MARIO, true)
+{
+}
+
 //Peach class implementation
 Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, true) {
     m_healthPts = 1;

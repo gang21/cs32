@@ -85,4 +85,16 @@ private:
     bool m_lastLevel;
 };
 
+//Flag Class
+class Flag : public Goal {
+public:
+    Flag(StudentWorld * sw, int x, int y);
+};
+
+//Mario Class
+class Mario : public Goal {
+public:
+    Mario(StudentWorld * sw, int x, int y);
+};
+
 #endif // ACTOR_H_

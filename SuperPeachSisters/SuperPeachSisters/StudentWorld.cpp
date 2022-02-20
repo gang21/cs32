@@ -41,6 +41,16 @@ int StudentWorld::init()
             //Peach object
             if (lev.getContentsOf(i, j) == Level::peach)
                 player = new Peach(this, i*SPRITE_WIDTH, j*SPRITE_HEIGHT);
+            //Flag object
+            if (lev.getContentsOf(i, j) == Level::flag) {
+                Flag * f = new Flag(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(f);
+            }
+            //Mario object
+            if (lev.getContentsOf(i, j) == Level::mario) {
+                Mario * m = new Mario(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(m);
+            }
         }
     }
         
