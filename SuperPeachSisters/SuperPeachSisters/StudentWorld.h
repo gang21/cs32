@@ -23,9 +23,6 @@ public:
     virtual void cleanUp();
     bool overlap(int x, int y);
     
-        
-
-
 private:
     Peach* player;
     vector<Actor*> actors;

@@ -30,8 +30,13 @@ int StudentWorld::init()
         for (int j = 0; j < GRID_HEIGHT; j++) {
             //Block Object
             if (lev.getContentsOf(i, j) == Level::block) {
-                Block * b = new Block(this, i*SPRITE_WIDTH, j*SPRITE_HEIGHT);
+                Block * b = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
                 actors.push_back(b);
+            }
+            //Pipe object
+            if (lev.getContentsOf(i, j) == Level::pipe) {
+                Pipe * p = new Pipe(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(p);
             }
             //Peach object
             if (lev.getContentsOf(i, j) == Level::peach)

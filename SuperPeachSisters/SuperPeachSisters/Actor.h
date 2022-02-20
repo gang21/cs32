@@ -30,7 +30,7 @@ public:
     Peach(StudentWorld * sw, int x, int y);
     virtual void doSomething();
     bool gainTempInvincibility();
-//    void jump();
+    void jump();
     virtual void getBonked();
     void move();
 
@@ -44,14 +44,31 @@ private:
     int m_remaining_jump_distance;
 };
 
+//Immovable Class
+class Immovable : public Actor {
+public:
+    Immovable(StudentWorld * sw, int x, int y, int ID);
+    virtual void doSomething() {return;}
+    virtual void getBonked();
+    virtual bool isDamagable();
+private:
+    bool m_damage;
+    
+};
+
 //Block Class
-class Block : public Actor {
+class Block : public Immovable {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
-    virtual void doSomething(){return;}
     virtual void getBonked();
 private:
     int m_goodie;
+};
+
+//Pipe Class
+class Pipe : public Immovable {
+public:
+    Pipe(StudentWorld * sw, int x, int y);
 };
 
 #endif // ACTOR_H_

@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>299F35CF-A61E-467D-93FE-21EF3D169785</key>
+		<key>66A6ADD9-9670-43E9-BA6D-70B08509CF67</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.tool</string>
 			<key>fileName</key>
-			<string>299F35CF-A61E-467D-93FE-21EF3D169785.xcactivitylog</string>
+			<string>66A6ADD9-9670-43E9-BA6D-70B08509CF67.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -26,13 +26,13 @@
 			<key>signature</key>
 			<string>SuperPeachSisters-gjehbukobjwlbwhabupebnmzfzon</string>
 			<key>timeStartedRecording</key>
-			<real>667038091.89019203</real>
+			<real>667041971.46821702</real>
 			<key>timeStoppedRecording</key>
-			<real>667038092.50412798</real>
+			<real>667041972.06163299</real>
 			<key>title</key>
 			<string>Build target SuperPeachSisters</string>
 			<key>uniqueIdentifier</key>
-			<string>299F35CF-A61E-467D-93FE-21EF3D169785</string>
+			<string>66A6ADD9-9670-43E9-BA6D-70B08509CF67</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

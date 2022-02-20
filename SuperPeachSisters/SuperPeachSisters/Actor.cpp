@@ -14,22 +14,37 @@ Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  
     m_depth = depth;
     m_state = state;
 }
+//Immovable class implementation
+Immovable::Immovable(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 2, true) {
+    m_damage = false;
+}
+
+bool Immovable::isDamagable() {
+    return m_damage;
+}
+
+void Immovable::getBonked() {
+    getWorld()->playSound(SOUND_PLAYER_BONK);
+}
 
 //Block class implementation
-Block::Block(StudentWorld * sw, int x, int y, int goodie) : Actor(sw, x, y, IID_BLOCK, 2, true) {
+Block::Block(StudentWorld * sw, int x, int y, int goodie) : Immovable(sw, x, y, IID_BLOCK) {
     m_goodie = goodie;
 }
 
 void Block::getBonked() {
-    if (m_goodie == -1) {
+    if (m_goodie == -1)
         getWorld()->playSound(SOUND_PLAYER_BONK);
-    }
-    else {
-        getWorld()->playSound(SOUND_POWERUP_APPEARS);
-        //TODO: function for object to release
-    }
-    return;
+    else
+        //TODO: fix this part lol
+        getWorld()->playSound(SOUND_PLAYER_POWERUP);
 }
+
+//Pipe class implementation
+Pipe::Pipe(StudentWorld * sw, int x, int y) : Immovable(sw, x, y, IID_PIPE)
+{
+}
+
 
 //Peach class implementation
 Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, true) {
@@ -41,17 +56,23 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
     m_remaining_jump_distance = 0;
 }
 
-//void Peach::jump() {
-//    if(m_jumpPower)
-//        m_remaining_jump_distance += 4;
-//    if (m_remaining_jump_distance > 0)
-//        moveTo(getX(), getY() + 4);
-//    m_remaining_jump_distance -= 4;
-//}
+void Peach::jump() {
+    if(m_jumpPower)
+        m_remaining_jump_distance += 4;
+    if (m_remaining_jump_distance > 0) {
+        if (!getWorld()->overlap(getX(), getY() + 4))
+            moveTo(getX(), getY() + 4);
+        else {
+            getWorld()->playSound(SOUND_PLAYER_BONK);
+        }
+    }
+    m_remaining_jump_distance -= 4;
+}
 
 void Peach::move() {
     int keyPressed;
     getWorld()->getKey(keyPressed);
+    jump();
     switch (keyPressed) {
         case KEY_PRESS_RIGHT:
             setDirection(0);
@@ -68,10 +89,10 @@ void Peach::move() {
             else
                 moveTo(getX() - 4, getY());
             break;
-//        case KEY_PRESS_UP:
-//            m_remaining_jump_distance = 24;
-//            jump();
-//            break;
+        case KEY_PRESS_UP:
+            m_remaining_jump_distance = 24;
+            jump();
+            break;
             
         default:
             break;
