@@ -41,7 +41,7 @@ void Block::bonk() {
         getWorld()->playSound(SOUND_PLAYER_BONK);
     else {
         releaseGoodie();
-        getWorld()->playSound(SOUND_PLAYER_POWERUP);
+        getWorld()->playSound(SOUND_POWERUP_APPEARS);
         m_goodie = -1;
     }
 
@@ -56,7 +56,7 @@ Pipe::Pipe(StudentWorld * sw, int x, int y) : Immovable(sw, x, y, IID_PIPE, 2)
 {
 }
 
-//Goal class implementation
+//Flag class implementation
 Flag::Flag(StudentWorld * sw, int x, int y, int ID) : Immovable(sw, x, y, ID, 1)
 {
 }
@@ -166,7 +166,7 @@ void Peach::doSomething() {
         return;
     //move if key is pressed
     move();
-
+    //TODO: finish implementing the rest of this function
 }
 
 void Peach::bonk() {

@@ -146,3 +146,15 @@ bool StudentWorld::overlap(Actor * a, Actor * b) {
     }
     return false;
 }
+
+void StudentWorld::addActor(Actor *a) {
+    actors.push_back(a);
+}
+
+Actor* StudentWorld::getActorAt(int x, int y) {
+    for (Actor* n : actors) {
+        if (n->getX() == x && n->getY() == y)
+            return n;
+    }
+    return nullptr;
+}

@@ -23,9 +23,13 @@ public:
     virtual void cleanUp();
     bool overlap(int x, int y);
     bool overlap(Actor * a, Actor * b);
-    Peach* getPeach() {return player;}
+    void addActor(Actor* a);
+    //mutators
     void setStatus(int status) {m_status = status;}
+    //accessors
     int getStatus() {return m_status;}
+    Peach* getPeach() {return player;}
+    Actor* getActorAt(int x, int y);
     
 private:
     Peach* player;

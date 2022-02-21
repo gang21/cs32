@@ -98,4 +98,9 @@ public:
     virtual bool isLastLevel() {return true;}
 };
 
+//Goodies Class
+class Goodies : public Actor {
+    
+};
+
 #endif // ACTOR_H_
