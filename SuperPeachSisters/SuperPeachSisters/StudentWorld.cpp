@@ -41,6 +41,21 @@ int StudentWorld::init()
                 Block * b = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
                 actors.push_back(b);
             }
+            //Star Goodie Block
+            if (lev.getContentsOf(i, j) == Level::star_goodie_block) {
+                Block * s = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT, IID_STAR);
+                actors.push_back(s);
+            }
+            //Mushroom Goodie Block
+            if (lev.getContentsOf(i, j) == Level::mushroom_goodie_block) {
+                Block * m = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT, IID_MUSHROOM);
+                actors.push_back(m);
+            }
+            //Flower Goodie Block
+            if (lev.getContentsOf(i, j) == Level::flower_goodie_block) {
+                Block * f = new Block(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT, IID_FLOWER);
+                actors.push_back(f);
+            }
             //Pipe object
             if (lev.getContentsOf(i, j) == Level::pipe) {
                 Pipe * p = new Pipe(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);

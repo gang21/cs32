@@ -96,7 +96,7 @@ void Peach::jump() {
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
         if (getWorld()->overlap(getX(), getY() + 4)) {
-            getWorld()->playSound(SOUND_PLAYER_BONK);
+            getWorld()->playSound(SOUND_PLAYER_POWERUP); //FIXME: this needs to be specific for every diffent object (so call getBonked() for specific objects)
             //TODO: object.getBonked(); figure out how to do this part
             m_remaining_jump_distance = 0;
         }
@@ -107,7 +107,7 @@ void Peach::jump() {
         }
     }
     //check if she's falling
-    if (m_remaining_jump_distance == 0) {
+    else if (m_remaining_jump_distance == 0) {
         if (!getWorld()->overlap(getX(), getY() - 1)
             && !getWorld()->overlap(getX(), getY() - 2)
             && !getWorld()->overlap(getX(), getY() - 3)) {
@@ -117,9 +117,9 @@ void Peach::jump() {
 }
 
 void Peach::move() {
+    jump();
     int keyPressed;
     getWorld()->getKey(keyPressed);
-        jump();
     switch (keyPressed) {
         case KEY_PRESS_RIGHT:
             setDirection(0);
@@ -137,7 +137,11 @@ void Peach::move() {
                 moveTo(getX() - 4, getY());
             break;
         case KEY_PRESS_UP:
-            m_remaining_jump_distance = 8;
+            if (getWorld()->overlap(getX(), getY() - 1)
+                && getWorld()->overlap(getX(), getY() - 2)
+                && getWorld()->overlap(getX(), getY() - 3)) {
+                m_remaining_jump_distance = 8;
+            }
             getWorld()->playSound(SOUND_PLAYER_JUMP);
             jump();
             break;
@@ -150,7 +154,7 @@ void Peach::doSomething() {
     //checking if she's alive
     if (!isAlive())
         return;
-    //moving if key is pressed
+    //move if key is pressed
     move();
 
 }
