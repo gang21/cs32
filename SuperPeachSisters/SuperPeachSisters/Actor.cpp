@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "StudentWorld.h"
+#include <iostream>
 
 // Students:  Add code to this file, Actor.h, StudentWorld.h, and StudentWorld.cpp
 
@@ -102,7 +103,11 @@ void Peach::jump() {
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
         if (getWorld()->overlap(getX(), getY() + 4)) {
-            getWorld()->playSound(SOUND_POWERUP_APPEARS); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)
+            cout << "X: " << getX() << " Y: " << getY() + 8 << endl;
+            Actor * n = getWorld()->getActorAt(getX(), getY() + 8);
+            if (n != nullptr)
+                n->bonk();
+           //getWorld()->playSound(SOUND_POWERUP_APPEARS); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)wq
             //TODO: object.bonk(); figure out how to do this part
             m_remaining_jump_distance = 0;
         }
@@ -190,8 +195,7 @@ void Peach::bonk() {
     if (m_healthPts >= 1)
         getWorld()->playSound(SOUND_PLAYER_HURT);
     if (m_healthPts == 0) {
-        getWorld()->playSound(SOUND_PLAYER_DIE); //FIXME: idk if this is suppose to be here or in the StudentWorld class
-        getWorld()->setStatus(GWSTATUS_PLAYER_DIED);
+        setState(false);
     }
 }
 

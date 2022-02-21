@@ -77,16 +77,27 @@ int StudentWorld::init()
         }
     }
         
-    return getStatus();
+    return GWSTATUS_CONTINUE_GAME;
 }
 
 int StudentWorld::move()
 {
-    // This code is here merely to allow the game to build, run, and terminate after you hit enter.
-    // Notice that the return value GWSTATUS_PLAYER_DIED will cause our framework to end the current level.
+    //actors do something
+    for (Actor * n : actors) {
+        if (n->getState()) {
+            n->doSomething();
+        }
+    }
+    //peach's move
     player->doSomething();
+    
+    if (!player->getState()) {
+        playSound(SOUND_PLAYER_DIE);
+        m_status = GWSTATUS_PLAYER_DIED;
+    }
+    
 //    decLives();
-    return GWSTATUS_CONTINUE_GAME;
+    return m_status;
 }
 
 void StudentWorld::cleanUp()
@@ -151,10 +162,13 @@ void StudentWorld::addActor(Actor *a) {
     actors.push_back(a);
 }
 
-//Actor* StudentWorld::getActorAt(int x, int y) {
-//    for (Actor* n : actors) {
-//        if (n->getX() == x && n->getY() == y)
-//            return n;
-//    }
-//    return nullptr;
-//}
+Actor* StudentWorld::getActorAt(int x, int y) {
+    cout << "getActorAt: (" << x << ", " << y << ")" << endl;
+    for (Actor* n : actors) {
+        cout << "n: (" << n->getX() << ", " << n->getY() << ")" << endl;
+        if (n->getX() == x && n->getY() == y) {
+            return n;
+        }
+    }
+    return nullptr;
+}
