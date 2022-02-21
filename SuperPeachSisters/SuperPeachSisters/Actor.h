@@ -103,11 +103,17 @@ class Goodies : public Actor {
 public:
     Goodies(StudentWorld * sw, int x, int y, int ID);
     virtual void doSomething();
+    virtual bool isDamagable() {return false;}
+    virtual bool blocksMovement() {return false;}
     void move();
-    void setPointValue(int points) {m_points = points;}
+    
+    //accessors
     int getPointValue() {return m_points;}
-    void setPower(int power) {m_power = power;}
     int getPower() {return m_power;}
+    //mutators
+    void setPointValue(int points) {m_points = points;}
+    void setPower(int power) {m_power = power;}
+    
 private:
     int m_points;
     int m_power;
@@ -115,6 +121,20 @@ private:
 
 //Flower Class
 class Flower : public Goodies {
+public:
     Flower(StudentWorld * sw, int x, int y);
 };
+
+//Mushroom Class
+class Mushroom : public Goodies {
+public:
+    Mushroom(StudentWorld * sw, int x, int y);
+};
+
+//Star Class
+class Star : public Goodies {
+public:
+    Star(StudentWorld * sw, int x, int y);
+};
+
 #endif // ACTOR_H_

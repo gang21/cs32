@@ -135,6 +135,8 @@ void Peach::move() {
                 && getWorld()->overlap(getX(), getY() - 3)) {
                 m_remaining_jump_distance = 8;
             }
+            if (m_jumpPower)
+                m_remaining_jump_distance *= 1.5;
             getWorld()->playSound(SOUND_PLAYER_JUMP);
             jump();
             break;
@@ -231,6 +233,16 @@ void Goodies::move() {
 Flower::Flower(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_FLOWER) {
     setPointValue(50);
     setPower(IID_FLOWER);
-    
-    
+}
+
+//Mushroom class implementation
+Mushroom::Mushroom(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_MUSHROOM) {
+    setPointValue(75);
+    setPower(IID_MUSHROOM);
+}
+
+//Star class implementation
+Star::Star(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_STAR) {
+    setPointValue(100);
+    setPower(IID_STAR);
 }
