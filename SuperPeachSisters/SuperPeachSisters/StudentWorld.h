@@ -29,7 +29,7 @@ public:
     //accessors
     int getStatus() {return m_status;}
     Peach* getPeach() {return player;}
-    Actor* getActorAt(int x, int y);
+//    Actor* getActorAt(int x, int y);
     
 private:
     Peach* player;

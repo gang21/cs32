@@ -19,8 +19,8 @@ public:
     virtual void bonk() = 0;
     virtual bool isDamagable() = 0;
     virtual bool blocksMovement() = 0;
-    void setState(bool state);
-    bool getState();
+    void setState(bool state) {m_state = state;}
+    bool getState() {return m_state;}
 private:
     StudentWorld* m_world;
     int m_imageID;
@@ -38,8 +38,8 @@ public:
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
     void setStarPower(int ticks) {m_starPower = ticks;}
-    void setShootPower(bool shoot) {m_shootPower = shoot; m_healthPts++;}
-    void setJumpPower(bool jump) {m_jumpPower = jump; m_healthPts++;}
+    void setShootPower(bool shoot) {m_shootPower = shoot; m_healthPts = 2;}
+    void setJumpPower(bool jump) {m_jumpPower = jump; m_healthPts = 2;}
 
 private:
     void jump();
@@ -100,7 +100,21 @@ public:
 
 //Goodies Class
 class Goodies : public Actor {
-    
+public:
+    Goodies(StudentWorld * sw, int x, int y, int ID);
+    virtual void doSomething();
+    void move();
+    void setPointValue(int points) {m_points = points;}
+    int getPointValue() {return m_points;}
+    void setPower(int power) {m_power = power;}
+    int getPower() {return m_power;}
+private:
+    int m_points;
+    int m_power;
 };
 
+//Flower Class
+class Flower : public Goodies {
+    Flower(StudentWorld * sw, int x, int y);
+};
 #endif // ACTOR_H_

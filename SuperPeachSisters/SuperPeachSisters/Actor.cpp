@@ -14,13 +14,6 @@ Actor::Actor(StudentWorld * sw, int x, int y, int ID, int depth, bool state) :  
     m_depth = depth;
     m_state = state;
 }
-void Actor::setState(bool state) {
-    m_state = state;
-}
-
-bool Actor::getState() {
-    return m_state;
-}
 
 //Immovable class implementation
 Immovable::Immovable(StudentWorld * sw, int x, int y, int ID, int depth) : Actor(sw, x, y, ID, depth, true) {
@@ -185,4 +178,37 @@ void Peach::bonk() {
         getWorld()->playSound(SOUND_PLAYER_DIE); //FIXME: idk if this is suppose to be here or in the StudentWorld class
         getWorld()->setStatus(GWSTATUS_PLAYER_DIED);
     }
+}
+
+//Goodies class implementation
+Goodies::Goodies(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 1, true)
+{
+}
+
+void Goodies::doSomething() {
+    if (getWorld()->overlap(getWorld()->getPeach(), this)) {
+        getWorld()->increaseScore(getPointValue());
+        if (m_power == IID_FLOWER)
+            getWorld()->getPeach()->setShootPower(true);
+        if (m_power == IID_MUSHROOM)
+            getWorld()->getPeach()->setJumpPower(true);
+        if (m_power == IID_STAR)
+            getWorld()->getPeach()->setStarPower(150);
+        setState(false);
+        getWorld()->playSound(SOUND_PLAYER_POWERUP);
+        return;
+    }
+    move();
+}
+
+void Goodies::move(){
+    
+}
+
+//Flower class implementation
+Flower::Flower(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_FLOWER) {
+    setPointValue(50);
+    setPower(IID_FLOWER);
+    
+    
 }
