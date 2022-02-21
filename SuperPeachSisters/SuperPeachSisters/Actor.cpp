@@ -21,19 +21,11 @@ void Actor::setState(bool state) {
 bool Actor::getState() {
     return m_state;
 }
+
 //Immovable class implementation
 Immovable::Immovable(StudentWorld * sw, int x, int y, int ID, int depth) : Actor(sw, x, y, ID, depth, true) {
     m_damage = false;
 }
-
-bool Immovable::isDamagable() {
-    return m_damage;
-}
-
-bool Immovable::blocksMovement() {
-    return true;
-}
-
 
 void Immovable::getBonked() {
     getWorld()->playSound(SOUND_PLAYER_BONK);
@@ -47,9 +39,16 @@ Block::Block(StudentWorld * sw, int x, int y, int goodie) : Immovable(sw, x, y, 
 void Block::getBonked() {
     if (m_goodie == -1)
         getWorld()->playSound(SOUND_PLAYER_BONK);
-    else
-        //TODO: fix this part lol
+    else {
+        releaseGoodie();
         getWorld()->playSound(SOUND_PLAYER_POWERUP);
+        m_goodie = -1;
+    }
+
+}
+
+void Block::releaseGoodie() {
+    //TODO: implement this
 }
 
 //Pipe class implementation
@@ -58,20 +57,13 @@ Pipe::Pipe(StudentWorld * sw, int x, int y) : Immovable(sw, x, y, IID_PIPE, 2)
 }
 
 //Goal class implementation
-Goal::Goal(StudentWorld * sw, int x, int y, int ID, bool lastLev) : Immovable(sw, x, y, ID, 1)
+Flag::Flag(StudentWorld * sw, int x, int y, int ID) : Immovable(sw, x, y, ID, 1)
 {
-    m_lastLevel = lastLev;
 }
 
-bool Goal::isLastLevel() {
-    return m_lastLevel;
-}
 
-bool Goal::blocksMovement() {
-    return false;
-}
 
-void Goal::doSomething() {
+void Flag::doSomething() {
     if (!isAlive())
         return;
     //TODO: check overlap
@@ -81,13 +73,9 @@ void Goal::doSomething() {
 
 }
 
-//Flag Class Implementation
-Flag::Flag(StudentWorld * sw, int x, int y) : Goal(sw, x, y, IID_FLAG, false)
-{
-}
 
 //Mario Class Implementation
-Mario::Mario(StudentWorld * sw, int x, int y) : Goal(sw, x, y, IID_MARIO, true)
+Mario::Mario(StudentWorld * sw, int x, int y) : Flag(sw, x, y, IID_MARIO)
 {
 }
 
@@ -149,28 +137,6 @@ void Peach::doSomething() {
         return;
     //moving if key is pressed
     move();
-//
-//    //checking current invincibility
-//    if (m_starPower) {
-//        //TODO: decrement tick by 1 (figure out how to do this)
-//        if (/*FIXME: tick == 0*/0 == 1)
-//            m_starPower = false;
-//    }
-//
-//    //checking temporary invincibility
-//    if (m_tempInvincibility) {
-//        //TODO: decrement tick by 1
-//        if (/*FIXME: tick == 0*/0 == 1)
-//            m_tempInvincibility = false;
-//    }
-//
-//    //recharge mode
-//    if (m_shootPower) {
-//        if (m_recharge > 0)
-//            m_recharge--;
-//        //else
-//            //shoot fireball
-//    }
 
 }
 

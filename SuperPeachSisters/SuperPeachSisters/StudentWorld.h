@@ -26,6 +26,7 @@ public:
 private:
     Peach* player;
     vector<Actor*> actors;
+    string levelFile;
     
 };
 #endif // STUDENTWORLD_H_

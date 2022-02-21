@@ -24,7 +24,14 @@ StudentWorld::~StudentWorld() {
 int StudentWorld::init()
 {
     Level lev(assetPath());
-    string levelFile = "level01.txt";
+    //determining level file
+    if (getLevel() == 1)
+        levelFile = "level01.txt";
+    if (getLevel() == 2)
+        levelFile = "level02.txt";
+    if (getLevel() == 3)
+        levelFile = "level03.txt";
+    
     lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {

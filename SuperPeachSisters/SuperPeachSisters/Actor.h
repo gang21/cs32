@@ -17,6 +17,7 @@ public:
     bool isAlive() {return m_state;}
     StudentWorld* getWorld() {return m_world;}
     virtual void getBonked() = 0;
+    virtual bool isDamagable() = 0;
     void setState(bool state);
     bool getState();
 private:
@@ -34,9 +35,10 @@ public:
     bool gainTempInvincibility();
     void jump();
     virtual void getBonked();
-    void move();
+    virtual bool isDamagable() {return true;}
 
 private:
+    void move();
     int m_healthPts;
     bool m_starPower;
     bool m_shootPower;
@@ -52,8 +54,8 @@ public:
     Immovable(StudentWorld * sw, int x, int y, int ID, int depth);
     virtual void doSomething() {return;}
     virtual void getBonked();
-    virtual bool isDamagable();
-    virtual bool blocksMovement();
+    virtual bool isDamagable() {return false;}
+    virtual bool blocksMovement() {return true;}
 private:
     bool m_damage;
     
@@ -64,6 +66,7 @@ class Block : public Immovable {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
     virtual void getBonked();
+    void releaseGoodie();
 private:
     int m_goodie;
 };
@@ -74,27 +77,20 @@ public:
     Pipe(StudentWorld * sw, int x, int y);
 };
 
-//Goal Class
-class Goal : public Immovable {
-public:
-    Goal(StudentWorld * sw, int x, int y, int ID, bool lastLev);
-    virtual void doSomething();
-    virtual bool blocksMovement();
-    bool isLastLevel();
-private:
-    bool m_lastLevel;
-};
-
 //Flag Class
-class Flag : public Goal {
+class Flag : public Immovable {
 public:
-    Flag(StudentWorld * sw, int x, int y);
+    Flag(StudentWorld * sw, int x, int y, int ID = IID_FLAG);
+    virtual void doSomething();
+    virtual bool blocksMovement() {return false;}
+    virtual bool isLastLevel() {return false;}
 };
 
 //Mario Class
-class Mario : public Goal {
+class Mario : public Flag {
 public:
     Mario(StudentWorld * sw, int x, int y);
+    virtual bool isLastLevel() {return true;}
 };
 
 #endif // ACTOR_H_
