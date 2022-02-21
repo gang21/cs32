@@ -201,8 +201,30 @@ void Goodies::doSomething() {
     move();
 }
 
-void Goodies::move(){
-    
+void Goodies::move() {
+    if (!getWorld()->overlap(getX(), getY() - 2)) { //FIXME: overlap with blockMovement function
+        moveTo(getX(), getY() - 2);
+    }
+    //to the right
+    if (getDirection() == 0) {
+        if (getWorld()->overlap(getX() + 2, getY())) {
+            setDirection(180);
+            return;
+        }
+        else {
+            moveTo(getX() + 2, getY());
+        }
+    }
+    //to the left
+    if (getDirection() == 180) {
+        if (getWorld()->overlap(getX() - 2, getY())) {
+            setDirection(0);
+            return;
+        }
+        else {
+            moveTo(getX() - 2, getY());
+        }
+    }
 }
 
 //Flower class implementation
