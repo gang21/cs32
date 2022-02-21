@@ -103,7 +103,6 @@ void Peach::jump() {
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
         if (getWorld()->overlap(getX(), getY() + 4)) {
-            cout << "X: " << getX() << " Y: " << getY() + 8 << endl;
             Actor * n = getWorld()->getActorAt(getX(), getY() + 8);
             if (n != nullptr)
                 n->bonk();
@@ -132,22 +131,28 @@ void Peach::move() {
     int keyPressed;
     getWorld()->getKey(keyPressed);
     switch (keyPressed) {
-        case KEY_PRESS_RIGHT:
+        case KEY_PRESS_RIGHT: {
             setDirection(0);
-            //checking for overlap
-            if (getWorld()->overlap(getX() + 4, getY()))
-                getWorld()->playSound(SOUND_PLAYER_BONK);
+            //checking for overlap and block of movement
+            Actor * n = getWorld()->getActorAt(getX() + 8, getY());
+            if (getWorld()->overlap(getX() + 4, getY()) && n != nullptr && n->blocksMovement()) {
+                    getWorld()->playSound(SOUND_PLAYER_BONK);
+            }
             else
                 moveTo(getX() + 4, getY());
             break;
-        case KEY_PRESS_LEFT:
+        }
+        case KEY_PRESS_LEFT: {
             setDirection(180);
-            if (getWorld()->overlap(getX() - 4, getY()))
-                getWorld()->playSound(SOUND_PLAYER_BONK);
+            Actor * n = getWorld()->getActorAt(getX() - 8, getY());
+            if (getWorld()->overlap(getX() - 4, getY()) && n != nullptr && n->blocksMovement()) {
+                    getWorld()->playSound(SOUND_PLAYER_BONK);
+            }
             else
                 moveTo(getX() - 4, getY());
             break;
-        case KEY_PRESS_UP:
+        }
+        case KEY_PRESS_UP: {
             if (getWorld()->overlap(getX(), getY() - 1)
                 && getWorld()->overlap(getX(), getY() - 2)
                 && getWorld()->overlap(getX(), getY() - 3)) {
@@ -158,7 +163,8 @@ void Peach::move() {
             getWorld()->playSound(SOUND_PLAYER_JUMP);
             jump();
             break;
-        case KEY_PRESS_SPACE:
+        }
+        case KEY_PRESS_SPACE: {
             if (!m_shootPower)
                 break;
             if (m_recharge > 0) {
@@ -169,6 +175,7 @@ void Peach::move() {
             m_recharge = 8;
             //TODO: Create fireball object
             break;
+        }
         default:
             break;
     }

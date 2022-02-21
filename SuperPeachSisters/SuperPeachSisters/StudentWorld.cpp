@@ -163,9 +163,7 @@ void StudentWorld::addActor(Actor *a) {
 }
 
 Actor* StudentWorld::getActorAt(int x, int y) {
-    cout << "getActorAt: (" << x << ", " << y << ")" << endl;
     for (Actor* n : actors) {
-        cout << "n: (" << n->getX() << ", " << n->getY() << ")" << endl;
         if (n->getX() == x && n->getY() == y) {
             return n;
         }
