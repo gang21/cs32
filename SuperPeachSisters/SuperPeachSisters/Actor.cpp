@@ -41,7 +41,20 @@ void Block::bonk() {
 }
 
 void Block::releaseGoodie() {
-    //TODO: implement this
+    if (m_goodie == IID_FLOWER) {
+        Flower * power = new Flower(getWorld(), getX(), getY() + 8);
+        getWorld()->addActor(power);
+    }
+    if (m_goodie == IID_MUSHROOM) {
+        Mushroom * power = new Mushroom(getWorld(), getX(), getY() + 8);
+        getWorld()->addActor(power);
+    }
+    if (m_goodie == IID_STAR) {
+        Star * power = new Star(getWorld(), getX(), getY() + 8);
+        getWorld()->addActor(power);
+    }
+    
+    
 }
 
 //Pipe class implementation
@@ -89,7 +102,7 @@ void Peach::jump() {
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
         if (getWorld()->overlap(getX(), getY() + 4)) {
-            getWorld()->playSound(SOUND_PLAYER_POWERUP); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)
+            getWorld()->playSound(SOUND_POWERUP_APPEARS); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)
             //TODO: object.bonk(); figure out how to do this part
             m_remaining_jump_distance = 0;
         }

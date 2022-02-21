@@ -105,6 +105,7 @@ public:
     virtual void doSomething();
     virtual bool isDamagable() {return false;}
     virtual bool blocksMovement() {return false;}
+    virtual void bonk() {return;}
     void move();
     
     //accessors
