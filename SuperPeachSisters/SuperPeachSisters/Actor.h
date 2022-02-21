@@ -16,8 +16,9 @@ public:
     int getDepth() {return m_depth;}
     bool isAlive() {return m_state;}
     StudentWorld* getWorld() {return m_world;}
-    virtual void getBonked() = 0;
+    virtual void bonk() = 0;
     virtual bool isDamagable() = 0;
+    virtual bool blocksMovement() = 0;
     void setState(bool state);
     bool getState();
 private:
@@ -33,17 +34,21 @@ public:
     Peach(StudentWorld * sw, int x, int y);
     virtual void doSomething();
     bool gainTempInvincibility();
-    virtual void getBonked();
+    virtual void bonk();
     virtual bool isDamagable() {return true;}
+    virtual bool blocksMovement() {return false;}
+    void setStarPower(int ticks) {m_starPower = ticks;}
+    void setShootPower(bool shoot) {m_shootPower = shoot; m_healthPts++;}
+    void setJumpPower(bool jump) {m_jumpPower = jump; m_healthPts++;}
 
 private:
     void jump();
     void move();
     int m_healthPts;
-    bool m_starPower;
+    int m_starPower;
     bool m_shootPower;
     bool m_jumpPower;
-    bool m_tempInvincibility;
+    int m_tempInvincibility;
     int m_recharge;
     int m_remaining_jump_distance;
 };
@@ -53,7 +58,7 @@ class Immovable : public Actor {
 public:
     Immovable(StudentWorld * sw, int x, int y, int ID, int depth);
     virtual void doSomething() {return;}
-    virtual void getBonked();
+    virtual void bonk();
     virtual bool isDamagable() {return false;}
     virtual bool blocksMovement() {return true;}
 private:
@@ -65,7 +70,7 @@ private:
 class Block : public Immovable {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
-    virtual void getBonked();
+    virtual void bonk();
 private:
     void releaseGoodie();
     int m_goodie;

@@ -27,7 +27,7 @@ Immovable::Immovable(StudentWorld * sw, int x, int y, int ID, int depth) : Actor
     m_damage = false;
 }
 
-void Immovable::getBonked() {
+void Immovable::bonk() {
     getWorld()->playSound(SOUND_PLAYER_BONK);
 }
 
@@ -36,7 +36,7 @@ Block::Block(StudentWorld * sw, int x, int y, int goodie) : Immovable(sw, x, y, 
     m_goodie = goodie;
 }
 
-void Block::getBonked() {
+void Block::bonk() {
     if (m_goodie == -1)
         getWorld()->playSound(SOUND_PLAYER_BONK);
     else {
@@ -84,8 +84,8 @@ Mario::Mario(StudentWorld * sw, int x, int y) : Flag(sw, x, y, IID_MARIO)
 //Peach class implementation
 Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, true) {
     m_healthPts = 1;
-    m_tempInvincibility = false;
-    m_starPower = false;
+    m_tempInvincibility = 0;
+    m_starPower = 0;
     m_shootPower = false;
     m_jumpPower = false;
     m_remaining_jump_distance = 0;
@@ -96,8 +96,8 @@ void Peach::jump() {
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
         if (getWorld()->overlap(getX(), getY() + 4)) {
-            getWorld()->playSound(SOUND_PLAYER_POWERUP); //FIXME: this needs to be specific for every diffent object (so call getBonked() for specific objects)
-            //TODO: object.getBonked(); figure out how to do this part
+            getWorld()->playSound(SOUND_PLAYER_POWERUP); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)
+            //TODO: object.bonk(); figure out how to do this part
             m_remaining_jump_distance = 0;
         }
         //move up
@@ -145,7 +145,17 @@ void Peach::move() {
             getWorld()->playSound(SOUND_PLAYER_JUMP);
             jump();
             break;
-            
+        case KEY_PRESS_SPACE:
+            if (!m_shootPower)
+                break;
+            if (m_recharge > 0) {
+                m_recharge--;
+                break;
+            }
+            getWorld()->playSound(SOUND_PLAYER_FIRE);
+            m_recharge = 8;
+            //TODO: Create fireball object
+            break;
         default:
             break;
     }
@@ -159,6 +169,20 @@ void Peach::doSomething() {
 
 }
 
-void Peach::getBonked() {
-    return;
+void Peach::bonk() {
+    //Peach is invincible
+    if(m_starPower > 0|| m_tempInvincibility)
+        return;
+    
+    m_healthPts--;
+    m_tempInvincibility = 10;
+    m_shootPower = false;
+    m_jumpPower = false;
+    
+    if (m_healthPts >= 1)
+        getWorld()->playSound(SOUND_PLAYER_HURT);
+    if (m_healthPts == 0) {
+        getWorld()->playSound(SOUND_PLAYER_DIE); //FIXME: idk if this is suppose to be here or in the StudentWorld class
+        getWorld()->setStatus(GWSTATUS_PLAYER_DIED);
+    }
 }
