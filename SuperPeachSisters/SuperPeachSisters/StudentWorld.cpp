@@ -14,6 +14,7 @@ GameWorld* createStudentWorld(string assetPath)
 StudentWorld::StudentWorld(string assetPath)
 : GameWorld(assetPath)
 {
+    m_status = GWSTATUS_CONTINUE_GAME;
 }
 
 //destructor
@@ -61,7 +62,7 @@ int StudentWorld::init()
         }
     }
         
-    return GWSTATUS_CONTINUE_GAME;
+    return getStatus();
 }
 
 int StudentWorld::move()
@@ -105,6 +106,28 @@ bool StudentWorld::overlap(int x, int y) {
             && y + SPRITE_HEIGHT - 1 >=n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1) {
             return true;
         }
+    }
+    return false;
+}
+
+bool StudentWorld::overlap(Actor * a, Actor * b) {
+    //bottom left corner
+    if (a->getX() >= b->getX() && a->getX() <= b->getX() + SPRITE_WIDTH - 1
+        && a->getY() >= b->getY() && a->getX() <= b->getY() + SPRITE_HEIGHT - 1) {
+        return true;
+    }
+    //bottom right corner
+    if (a->getX() + SPRITE_WIDTH - 1 >= b->getX() && a->getX() + SPRITE_WIDTH - 1 <= b->getX() + SPRITE_WIDTH - 1
+        && a->getY() >= b->getY() && a->getY() <= b->getY() + SPRITE_HEIGHT - 1)
+        return true;
+    //top left corner
+    if (a->getX() >= b->getX() && a->getX() <= b->getX() + SPRITE_WIDTH - 1
+        && a->getY() + SPRITE_HEIGHT - 1 >= b->getY() && a->getY()+ SPRITE_HEIGHT - 1 <= b->getY() + SPRITE_HEIGHT - 1) {
+        return true;
+    }
+    if (a->getX() + SPRITE_WIDTH - 1 >= b->getX() && a->getX() + SPRITE_WIDTH - 1 <= b->getX() + SPRITE_WIDTH - 1
+        && a->getY() + SPRITE_HEIGHT - 1 >= b->getY() && a->getY() + SPRITE_HEIGHT - 1 <= b->getY() + SPRITE_HEIGHT - 1) {
+        return true;
     }
     return false;
 }

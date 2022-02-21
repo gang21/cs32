@@ -33,11 +33,11 @@ public:
     Peach(StudentWorld * sw, int x, int y);
     virtual void doSomething();
     bool gainTempInvincibility();
-    void jump();
     virtual void getBonked();
     virtual bool isDamagable() {return true;}
 
 private:
+    void jump();
     void move();
     int m_healthPts;
     bool m_starPower;
@@ -66,8 +66,8 @@ class Block : public Immovable {
 public:
     Block(StudentWorld * sw, int x, int y, int goodie = -1);
     virtual void getBonked();
-    void releaseGoodie();
 private:
+    void releaseGoodie();
     int m_goodie;
 };
 

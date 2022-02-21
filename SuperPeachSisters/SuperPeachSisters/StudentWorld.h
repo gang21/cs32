@@ -22,11 +22,16 @@ public:
     virtual int move();
     virtual void cleanUp();
     bool overlap(int x, int y);
+    bool overlap(Actor * a, Actor * b);
+    Peach* getPeach() {return player;}
+    void setStatus(int status) {m_status = status;}
+    int getStatus() {return m_status;}
     
 private:
     Peach* player;
     vector<Actor*> actors;
     string levelFile;
+    int m_status;
     
 };
 #endif // STUDENTWORLD_H_

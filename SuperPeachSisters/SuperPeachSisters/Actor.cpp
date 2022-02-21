@@ -61,15 +61,17 @@ Flag::Flag(StudentWorld * sw, int x, int y, int ID) : Immovable(sw, x, y, ID, 1)
 {
 }
 
-
-
 void Flag::doSomething() {
     if (!isAlive())
         return;
-    //TODO: check overlap
-    getWorld()->increaseScore(1000);
-    setState(false);
-//    if (!isLastLevel())
+    if(getWorld()->overlap(this, getWorld()->getPeach())) {
+        getWorld()->increaseScore(1000);
+        setState(false);
+        if (!isLastLevel())
+            getWorld()->setStatus(GWSTATUS_FINISHED_LEVEL);
+        else
+            getWorld()->setStatus(GWSTATUS_PLAYER_WON);
+    }
 
 }
 
@@ -90,22 +92,34 @@ Peach::Peach(StudentWorld * sw, int x, int y) : Actor(sw, x, y, IID_PEACH, 0, tr
 }
 
 void Peach::jump() {
-    if(m_jumpPower)
-        m_remaining_jump_distance += 4;
+    //continue/begin jump
     if (m_remaining_jump_distance > 0) {
-        if (!getWorld()->overlap(getX(), getY() + 4))
-            moveTo(getX(), getY() + 4);
-        else {
+        //check for any blocks in her way
+        if (getWorld()->overlap(getX(), getY() + 4)) {
             getWorld()->playSound(SOUND_PLAYER_BONK);
+            //TODO: object.getBonked(); figure out how to do this part
+            m_remaining_jump_distance = 0;
+        }
+        //move up
+        else {
+            moveTo(getX(), getY() + 4);
+            m_remaining_jump_distance--;
         }
     }
-    m_remaining_jump_distance -= 4;
+    //check if she's falling
+    if (m_remaining_jump_distance == 0) {
+        if (!getWorld()->overlap(getX(), getY() - 1)
+            && !getWorld()->overlap(getX(), getY() - 2)
+            && !getWorld()->overlap(getX(), getY() - 3)) {
+            moveTo(getX(), getY() - 4);
+        }
+    }
 }
 
 void Peach::move() {
     int keyPressed;
     getWorld()->getKey(keyPressed);
-    jump();
+        jump();
     switch (keyPressed) {
         case KEY_PRESS_RIGHT:
             setDirection(0);
@@ -123,7 +137,8 @@ void Peach::move() {
                 moveTo(getX() - 4, getY());
             break;
         case KEY_PRESS_UP:
-            m_remaining_jump_distance = 24;
+            m_remaining_jump_distance = 8;
+            getWorld()->playSound(SOUND_PLAYER_JUMP);
             jump();
             break;
             
