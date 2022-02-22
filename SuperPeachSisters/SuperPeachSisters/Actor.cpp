@@ -169,12 +169,12 @@ void Peach::move() {
             if (!m_shootPower)
                 break;
             if (m_recharge > 0) {
-                m_recharge--;
                 break;
             }
             getWorld()->playSound(SOUND_PLAYER_FIRE);
             m_recharge = 8;
-            //TODO: Create fireball object
+            PeachFireball * peachFire = new PeachFireball(getWorld(), getX(), getY(), getDirection());
+            getWorld()->addActor(peachFire);
             break;
         }
         default:
@@ -186,6 +186,8 @@ void Peach::doSomething() {
     //checking if she's alive
     if (!isAlive())
         return;
+    if (m_recharge > 0)
+        m_recharge--;
     //move if key is pressed
     move();
     //TODO: finish implementing the rest of this function
@@ -355,5 +357,19 @@ Shell::Shell(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, II
 }
 
 bool Shell::causeDamage() {
+    if (getDirection() == 0) {
+        Actor * n = getWorld()->getActorAt(getX() + 8, getY());
+        if (n != nullptr && n->isDamagable()) {
+            n->bonk();
+            return true;
+        }
+    }
+    if (getDirection() == 180) {
+        Actor * n = getWorld()->getActorAt(getX() - 8, getY());
+        if (n != nullptr && n->isDamagable()) {
+            n->bonk();
+            return true;
+        }
+    }
     return false;
 }
