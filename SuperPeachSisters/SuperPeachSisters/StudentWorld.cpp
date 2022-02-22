@@ -75,6 +75,21 @@ int StudentWorld::init()
                 Mario * m = new Mario(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
                 actors.push_back(m);
             }
+            //Goomba object
+            if (lev.getContentsOf(i, j) == Level::goomba) {
+                Goomba * g = new Goomba(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(g);
+            }
+            //Koopa object
+            if (lev.getContentsOf(i, j) == Level::koopa) {
+                Koopa * k = new Koopa(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(k);
+            }
+            //Piranha object
+            if (lev.getContentsOf(i, j) == Level::piranha) {
+                Piranha * p = new Piranha(this, i * SPRITE_WIDTH, j * SPRITE_HEIGHT);
+                actors.push_back(p);
+            }
         }
     }
         

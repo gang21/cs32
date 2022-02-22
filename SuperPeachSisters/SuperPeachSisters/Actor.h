@@ -171,5 +171,37 @@ public:
     virtual bool causeDamage();
 };
 
+//Monster Class
+class Monster : public Actor {
+public:
+    Monster(StudentWorld * sw, int x, int y, int ID);
+    virtual void doSomething();
+    virtual void bonk();
+    virtual bool isDamagable() {return true;}
+    virtual bool blocksMovement() {return false;}
+    bool causeDamage();
+};
+
+//Goomba Class
+class Goomba : public Monster {
+public:
+    Goomba(StudentWorld * sw, int x, int y);
+};
+
+//Koopa Class
+class Koopa : public Monster {
+public:
+    Koopa(StudentWorld * sw, int x, int y);
+};
+
+//Piranha Class
+class Piranha : public Monster {
+public:
+    Piranha(StudentWorld * sw, int x, int y);
+    virtual void doSomething();
+private:
+    int m_firing_delay;
+};
+
 
 #endif // ACTOR_H_

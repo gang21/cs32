@@ -373,3 +373,44 @@ bool Shell::causeDamage() {
     }
     return false;
 }
+
+//Monster class implementation
+Monster::Monster(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 1, true) {
+    int randomize = randInt(0, 1);
+    if (randomize == 1)
+        setDirection(180);
+    else
+        setDirection(0);
+}
+
+void Monster::doSomething() {
+    //TODO: implement this
+}
+
+void Monster::bonk() {
+    //TODO: implement this
+}
+
+bool Monster::causeDamage() {
+    //TODO: implement this
+    return false;
+}
+
+//Goomba class implementation
+Goomba::Goomba(StudentWorld * sw, int x, int y) : Monster(sw, x, y, IID_GOOMBA)
+{
+}
+
+//Koopa class implementation
+Koopa::Koopa(StudentWorld * sw, int x, int y) : Monster(sw, x, y, IID_KOOPA)
+{
+}
+
+//Piranha class implementation
+Piranha::Piranha(StudentWorld * sw, int x, int y) : Monster(sw, x, y, IID_PIRANHA) {
+    m_firing_delay = 0;
+}
+
+void Piranha::doSomething() {
+    //TODO: implement this
+}
