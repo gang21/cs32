@@ -82,7 +82,6 @@ void Flag::doSomething() {
 
 }
 
-
 //Mario Class Implementation
 Mario::Mario(StudentWorld * sw, int x, int y) : Flag(sw, x, y, IID_MARIO)
 {
@@ -182,6 +181,7 @@ void Peach::move() {
             break;
     }
 }
+
 void Peach::doSomething() {
     //checking if she's alive
     if (!isAlive())
@@ -272,4 +272,74 @@ Mushroom::Mushroom(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_MUSH
 Star::Star(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_STAR) {
     setPointValue(100);
     setPower(IID_STAR);
+}
+
+//Projectile class implementation
+Projectile::Projectile(StudentWorld * sw, int x, int y, int ID, int dir) : Actor(sw, x, y, ID, 1, true) {
+    setDirection(dir);
+}
+
+void Projectile::doSomething() {
+    //damaged an actor
+    if (causeDamage()) {
+        setState(false);
+        return;
+    }
+    
+    //move down
+    if (!getWorld()->getActorAt(getX(), getY() - 8)) {
+        moveTo(getX(), getY() - 2);
+    }
+    //to the right
+    else if (getDirection() == 0) {
+        if (getWorld()->getActorAt(getX() + 8, getY())) {
+            setState(false);
+            return;
+        }
+        else {
+            moveTo(getX() + 2, getY());
+        }
+    }
+    //to the left
+    else if (getDirection() == 180) {
+        if (getWorld()->getActorAt(getX() - 8, getY())) {
+            setState(false);
+            return;
+        }
+        else {
+            moveTo(getX() - 2, getY());
+        }
+    }
+    
+}
+
+//Piranha Fireball class implementation
+PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_PIRANHA_FIRE, dir)
+{
+}
+
+bool PiranhaFireball::causeDamage() {
+    if (getWorld()->overlap(this, getWorld()->getPeach())) {
+        getWorld()->getPeach()->bonk();
+        return true;
+    }
+    return false;
+}
+
+//Peach Fireball class implementation
+PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_PEACH_FIRE, dir)
+{
+}
+
+bool PeachFireball::causeDamage() {
+    return false;
+}
+
+//Shell class implementation
+Shell::Shell(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_SHELL, dir)
+{
+}
+
+bool Shell::causeDamage() {
+    return false;
 }

@@ -187,8 +187,8 @@ Actor* StudentWorld::getActorAt(int x, int y) {
             || (n->getX() + 4 == x && n->getY() - 4 == y)
             || (n->getX() - 4 == x && n->getY() + 4 == y)
             || (n->getX() - 4 == x && n->getY() - 4 == y)
-            
-            | (n->getX() + 2 == x && n->getY() == y)
+            //checking at increments of 2
+            || (n->getX() + 2 == x && n->getY() == y)
             || (n->getX() - 2 == x && n->getY() == y)
             || (n->getX() == x && n->getY() + 2 == y)
             || (n->getX() == x && n->getY() - 2 == y)
