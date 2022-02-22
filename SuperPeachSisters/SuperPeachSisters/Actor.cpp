@@ -332,6 +332,20 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 }
 
 bool PeachFireball::causeDamage() {
+    if (getDirection() == 0) {
+        Actor * n = getWorld()->getActorAt(getX() + 8, getY());
+        if (n != nullptr && n->isDamagable()) {
+            n->bonk();
+            return true;
+        }
+    }
+    if (getDirection() == 180) {
+        Actor * n = getWorld()->getActorAt(getX() - 8, getY());
+        if (n != nullptr && n->isDamagable()) {
+            n->bonk();
+            return true;
+        }
+    }
     return false;
 }
 
