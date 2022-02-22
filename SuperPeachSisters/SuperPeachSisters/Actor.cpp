@@ -231,12 +231,12 @@ void Goodies::doSomething() {
 
 void Goodies::move() {
     //move down
-    if (!getWorld()->overlap(getX(), getY() - 2)) {
+    if (!getWorld()->getActorAt(getX(), getY() - 8)) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
     else if (getDirection() == 0) {
-        if (getWorld()->overlap(getX() + 2, getY())) {
+        if (getWorld()->getActorAt(getX() + 8, getY())) {
             setDirection(180);
             return;
         }
@@ -246,7 +246,7 @@ void Goodies::move() {
     }
     //to the left
     else if (getDirection() == 180) {
-        if (getWorld()->overlap(getX() - 2, getY())) {
+        if (getWorld()->getActorAt(getX() - 8, getY())) {
             setDirection(0);
             return;
         }
