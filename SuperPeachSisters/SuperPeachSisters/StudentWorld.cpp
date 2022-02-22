@@ -88,6 +88,16 @@ int StudentWorld::move()
             n->doSomething();
         }
     }
+    //delete any dead objects
+    auto it = actors.begin();
+    while (it != actors.end()) {
+        if (!(*it)->getState()) {
+            delete *it;
+            actors.erase(it);
+        }
+        else
+            ++it;
+    }
     //peach's move
     player->doSomething();
     
@@ -164,9 +174,12 @@ void StudentWorld::addActor(Actor *a) {
 
 Actor* StudentWorld::getActorAt(int x, int y) {
     for (Actor* n : actors) {
-        if (n->getX() == x && n->getY() == y) {
+        if (overlap(n->getX(), n->getY())) {
             return n;
         }
+//        if (n->getX() == x && n->getY() == y) {
+//            return n;
+//        }
     }
     return nullptr;
 }

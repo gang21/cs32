@@ -102,12 +102,9 @@ void Peach::jump() {
     //continue/begin jump
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
-        if (getWorld()->overlap(getX(), getY() + 4)) {
-            Actor * n = getWorld()->getActorAt(getX(), getY() + 8);
-            if (n != nullptr)
+        Actor * n = getWorld()->getActorAt(getX(), getY() + 8);
+        if (getWorld()->overlap(getX(), getY() + 4) && n!= nullptr && n->blocksMovement()) {
                 n->bonk();
-           //getWorld()->playSound(SOUND_POWERUP_APPEARS); //FIXME: this needs to be specific for every diffent object (so call bonk() for specific objects)wq
-            //TODO: object.bonk(); figure out how to do this part
             m_remaining_jump_distance = 0;
         }
         //move up
@@ -118,9 +115,14 @@ void Peach::jump() {
     }
     //check if she's falling
     else if (m_remaining_jump_distance == 0) {
+        Actor * a = getWorld()->getActorAt(getX(), getY() - 8);
         if (!getWorld()->overlap(getX(), getY() - 1)
             && !getWorld()->overlap(getX(), getY() - 2)
             && !getWorld()->overlap(getX(), getY() - 3)) {
+            moveTo(getX(), getY() - 4);
+        }
+        else if (a != nullptr
+                 && !a->blocksMovement()) {
             moveTo(getX(), getY() - 4);
         }
     }
@@ -212,6 +214,7 @@ Goodies::Goodies(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 
 }
 
 void Goodies::doSomething() {
+    move();
     if (getWorld()->overlap(getWorld()->getPeach(), this)) {
         getWorld()->increaseScore(getPointValue());
         if (m_power == IID_FLOWER)
@@ -224,11 +227,10 @@ void Goodies::doSomething() {
         getWorld()->playSound(SOUND_PLAYER_POWERUP);
         return;
     }
-    move();
 }
 
 void Goodies::move() {
-    if (!getWorld()->overlap(getX(), getY() - 2)) { //FIXME: overlap with blockMovement function
+    if (!getWorld()->overlap(getX(), getY() - 2)) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
