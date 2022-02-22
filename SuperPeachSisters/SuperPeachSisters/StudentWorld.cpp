@@ -15,6 +15,7 @@ StudentWorld::StudentWorld(string assetPath)
 : GameWorld(assetPath)
 {
     m_status = GWSTATUS_CONTINUE_GAME;
+    player = nullptr;
 }
 
 //destructor
@@ -112,7 +113,8 @@ int StudentWorld::move()
 
 void StudentWorld::cleanUp()
 {
-    delete player;
+    if (player != nullptr)
+        delete player;
     
     //clear all actors in vector
     for (Actor * n: actors) {
@@ -173,13 +175,20 @@ void StudentWorld::addActor(Actor *a) {
 }
 
 Actor* StudentWorld::getActorAt(int x, int y) {
+    //loop through actors
     for (Actor* n : actors) {
-        if (overlap(n->getX(), n->getY())) {
+        //check for overlap (increments of 4)
+        if ((n->getX() == x && n->getY() == y)
+            || (n->getX() + 4 == x && n->getY() == y)
+            || (n->getX() - 4 == x && n->getY() == y)
+            || (n->getX() == x && n->getY() + 4 == y)
+            || (n->getX() == x && n->getY() - 4 == y)
+            || (n->getX() + 4 == x && n->getY() + 4 == y)
+            || (n->getX() + 4 == x && n->getY() - 4 == y)
+            || (n->getX() - 4 == x && n->getY() + 4 == y)
+            || (n->getX() - 4 == x && n->getY() - 4 == y)) {
             return n;
         }
-//        if (n->getX() == x && n->getY() == y) {
-//            return n;
-//        }
     }
     return nullptr;
 }

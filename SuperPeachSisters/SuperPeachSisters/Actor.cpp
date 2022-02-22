@@ -214,7 +214,6 @@ Goodies::Goodies(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 
 }
 
 void Goodies::doSomething() {
-    move();
     if (getWorld()->overlap(getWorld()->getPeach(), this)) {
         getWorld()->increaseScore(getPointValue());
         if (m_power == IID_FLOWER)
@@ -227,14 +226,16 @@ void Goodies::doSomething() {
         getWorld()->playSound(SOUND_PLAYER_POWERUP);
         return;
     }
+    move();
 }
 
 void Goodies::move() {
+    //move down
     if (!getWorld()->overlap(getX(), getY() - 2)) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
-    if (getDirection() == 0) {
+    else if (getDirection() == 0) {
         if (getWorld()->overlap(getX() + 2, getY())) {
             setDirection(180);
             return;
@@ -244,7 +245,7 @@ void Goodies::move() {
         }
     }
     //to the left
-    if (getDirection() == 180) {
+    else if (getDirection() == 180) {
         if (getWorld()->overlap(getX() - 2, getY())) {
             setDirection(0);
             return;
