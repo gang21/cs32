@@ -39,8 +39,8 @@ public:
     virtual bool blocksMovement() {return false;}
     //mutators
     void setStarPower(int ticks) {m_starPower = ticks;}
-    void setShootPower(bool shoot) {m_shootPower = shoot; m_healthPts = 2;}
-    void setJumpPower(bool jump) {m_jumpPower = jump; m_healthPts = 2;}
+    void setShootPower(bool shoot) {m_shootPower = shoot;}
+    void setJumpPower(bool jump) {m_jumpPower = jump;}
 
 private:
     void jump();
@@ -179,7 +179,7 @@ public:
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
-    bool causeDamage();
+    virtual void move();
 };
 
 //Goomba Class

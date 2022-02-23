@@ -1,6 +1,9 @@
 #include "StudentWorld.h"
 #include "GameConstants.h"
 #include <string>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 GameWorld* createStudentWorld(string assetPath)
@@ -27,12 +30,11 @@ int StudentWorld::init()
 {
     Level lev(assetPath());
     //determining level file
-    if (getLevel() == 1)
-        levelFile = "level01.txt";
-    if (getLevel() == 2)
-        levelFile = "level02.txt";
-    if (getLevel() == 3)
-        levelFile = "level03.txt";
+    int level = getLevel();
+    ostringstream oss;
+    oss.fill('0');
+    oss << "level" << setw(2) << level << ".txt";
+    levelFile = oss.str();
     
     lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
@@ -98,6 +100,10 @@ int StudentWorld::init()
 
 int StudentWorld::move()
 {
+    if (m_status == GWSTATUS_FINISHED_LEVEL)
+        setStatus(GWSTATUS_CONTINUE_GAME);
+    if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0)
+        setStatus(GWSTATUS_CONTINUE_GAME);
     //actors do something
     for (Actor * n : actors) {
         if (n->getState()) {
@@ -120,6 +126,7 @@ int StudentWorld::move()
     if (!player->getState()) {
         playSound(SOUND_PLAYER_DIE);
         m_status = GWSTATUS_PLAYER_DIED;
+        decLives();
     }
     
 //    decLives();
@@ -138,25 +145,30 @@ void StudentWorld::cleanUp()
     actors.clear();
 }
 
-bool StudentWorld::overlap(int x, int y) {
+bool StudentWorld::overlap(int x, int y, Actor* &character) {
     //loop through all the actors
     for (Actor * n: actors) {
         //bottom left corner
         if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1
             && y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
+            character = n;
             return true;
         }
         //bottom right corner
         if (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1
-            && y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1)
+            && y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
+            character = n;
             return true;
+        }
         //top left corner
         if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1
             && y + SPRITE_HEIGHT - 1 >=n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1) {
+            character = n;
             return true;
         }
         if (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1
             && y + SPRITE_HEIGHT - 1 >=n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1) {
+            character = n;
             return true;
         }
     }
@@ -189,30 +201,41 @@ void StudentWorld::addActor(Actor *a) {
     actors.push_back(a);
 }
 
-Actor* StudentWorld::getActorAt(int x, int y) {
-    //loop through actors
-    for (Actor* n : actors) {
-        //check for overlap (increments of 4)
-        if ((n->getX() == x && n->getY() == y)
-            || (n->getX() + 4 == x && n->getY() == y)
-            || (n->getX() - 4 == x && n->getY() == y)
-            || (n->getX() == x && n->getY() + 4 == y)
-            || (n->getX() == x && n->getY() - 4 == y)
-            || (n->getX() + 4 == x && n->getY() + 4 == y)
-            || (n->getX() + 4 == x && n->getY() - 4 == y)
-            || (n->getX() - 4 == x && n->getY() + 4 == y)
-            || (n->getX() - 4 == x && n->getY() - 4 == y)
-            //checking at increments of 2
-            || (n->getX() + 2 == x && n->getY() == y)
-            || (n->getX() - 2 == x && n->getY() == y)
-            || (n->getX() == x && n->getY() + 2 == y)
-            || (n->getX() == x && n->getY() - 2 == y)
-            || (n->getX() + 2 == x && n->getY() + 2 == y)
-            || (n->getX() + 2 == x && n->getY() - 2 == y)
-            || (n->getX() - 2 == x && n->getY() + 2 == y)
-            || (n->getX() - 2 == x && n->getY() - 2 == y)) {
-            return n;
+bool StudentWorld::blockableObject(int x, int y) {
+    for (Actor * n : actors) {
+        if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1 && y >= n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
+            if (n->blocksMovement())
+                return true;
         }
     }
-    return nullptr;
+    return false;
 }
+
+//Actor* StudentWorld::getActorAt(int x, int y) {
+//    //loop through actors
+//    for (Actor* n : actors) {
+//        //check for overlap (increments of 4)
+//        if ((n->getX() == x && n->getY() == y)
+//            || (n->getX() + 4 == x && n->getY() == y)
+//            || (n->getX() - 4 == x && n->getY() == y)
+//            || (n->getX() == x && n->getY() + 4 == y)
+//            || (n->getX() == x && n->getY() - 4 == y)
+//            || (n->getX() + 4 == x && n->getY() + 4 == y)
+//            || (n->getX() + 4 == x && n->getY() - 4 == y)
+//            || (n->getX() - 4 == x && n->getY() + 4 == y)
+//            || (n->getX() - 4 == x && n->getY() - 4 == y)
+//            //checking at increments of 2
+//            || (n->getX() + 2 == x && n->getY() == y)
+//            || (n->getX() - 2 == x && n->getY() == y)
+//            || (n->getX() == x && n->getY() + 2 == y)
+//            || (n->getX() == x && n->getY() - 2 == y)
+//            || (n->getX() + 2 == x && n->getY() + 2 == y)
+//            || (n->getX() + 2 == x && n->getY() - 2 == y)
+//            || (n->getX() - 2 == x && n->getY() + 2 == y)
+//            || (n->getX() - 2 == x && n->getY() - 2 == y)) {
+//            return n;
+//        }
+//
+//    }
+//    return nullptr;
+//}

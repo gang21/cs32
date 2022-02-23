@@ -21,15 +21,16 @@ public:
     virtual int init();
     virtual int move();
     virtual void cleanUp();
-    bool overlap(int x, int y);
+    bool overlap(int x, int y, Actor* &character);
     bool overlap(Actor * a, Actor * b);
-    void addActor(Actor* a);
+    bool blockableObject(int x, int y);
     //mutators
     void setStatus(int status) {m_status = status;}
     //accessors
     int getStatus() {return m_status;}
     Peach* getPeach() {return player;}
-    Actor* getActorAt(int x, int y);
+    void addActor(Actor* a);
+//    Actor* getActorAt(int x, int y);
     
 private:
     Peach* player;

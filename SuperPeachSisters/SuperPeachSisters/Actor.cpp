@@ -101,8 +101,8 @@ void Peach::jump() {
     //continue/begin jump
     if (m_remaining_jump_distance > 0) {
         //check for any blocks in her way
-        Actor * n = getWorld()->getActorAt(getX(), getY() + 8);
-        if (getWorld()->overlap(getX(), getY() + 4) && n!= nullptr && n->blocksMovement()) {
+        Actor * n;
+        if (getWorld()->overlap(getX(), getY() + 4, n) && n!= nullptr && n->blocksMovement()) {
                 n->bonk();
             m_remaining_jump_distance = 0;
         }
@@ -114,10 +114,10 @@ void Peach::jump() {
     }
     //check if she's falling
     else if (m_remaining_jump_distance == 0) {
-        Actor * a = getWorld()->getActorAt(getX(), getY() - 8);
-        if (!getWorld()->overlap(getX(), getY() - 1)
-            && !getWorld()->overlap(getX(), getY() - 2)
-            && !getWorld()->overlap(getX(), getY() - 3)) {
+        Actor * a;
+        if (!getWorld()->overlap(getX(), getY() - 1, a)
+            && !getWorld()->overlap(getX(), getY() - 2, a)
+            && !getWorld()->overlap(getX(), getY() - 3, a)) {
             moveTo(getX(), getY() - 4);
         }
         else if (a != nullptr
@@ -135,8 +135,8 @@ void Peach::move() {
         case KEY_PRESS_RIGHT: {
             setDirection(0);
             //checking for overlap and block of movement
-            Actor * n = getWorld()->getActorAt(getX() + 8, getY());
-            if (getWorld()->overlap(getX() + 4, getY()) && n != nullptr && n->blocksMovement()) {
+            Actor * n;
+            if (getWorld()->overlap(getX() + 4, getY(), n) && n != nullptr && n->blocksMovement()) {
                     getWorld()->playSound(SOUND_PLAYER_BONK);
             }
             else
@@ -145,8 +145,8 @@ void Peach::move() {
         }
         case KEY_PRESS_LEFT: {
             setDirection(180);
-            Actor * n = getWorld()->getActorAt(getX() - 8, getY());
-            if (getWorld()->overlap(getX() - 4, getY()) && n != nullptr && n->blocksMovement()) {
+            Actor * n;
+            if (getWorld()->overlap(getX() - 4, getY(), n) && n != nullptr && n->blocksMovement()) {
                     getWorld()->playSound(SOUND_PLAYER_BONK);
             }
             else
@@ -154,9 +154,10 @@ void Peach::move() {
             break;
         }
         case KEY_PRESS_UP: {
-            if (getWorld()->overlap(getX(), getY() - 1)
-                && getWorld()->overlap(getX(), getY() - 2)
-                && getWorld()->overlap(getX(), getY() - 3)) {
+            Actor * n;
+            if (getWorld()->overlap(getX(), getY() - 1, n)
+                && getWorld()->overlap(getX(), getY() - 2, n)
+                && getWorld()->overlap(getX(), getY() - 3, n)) {
                 m_remaining_jump_distance = 8;
             }
             if (m_jumpPower)
@@ -195,7 +196,7 @@ void Peach::doSomething() {
 
 void Peach::bonk() {
     //Peach is invincible
-    if(m_starPower > 0|| m_tempInvincibility)
+    if(m_starPower > 0 || m_tempInvincibility)
         return;
     
     m_healthPts--;
@@ -232,13 +233,14 @@ void Goodies::doSomething() {
 }
 
 void Goodies::move() {
+    Actor * n;
     //move down
-    if (!getWorld()->getActorAt(getX(), getY() - 8)) {
+    if (!getWorld()->overlap(getX(), getY() - 2, n) && n != nullptr && !n->blocksMovement()) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
     else if (getDirection() == 0) {
-        if (getWorld()->getActorAt(getX() + 8, getY())) {
+        if (getWorld()->overlap(getX() + 2, getY(), n) && n != nullptr && !n->blocksMovement()) {
             setDirection(180);
             return;
         }
@@ -248,7 +250,7 @@ void Goodies::move() {
     }
     //to the left
     else if (getDirection() == 180) {
-        if (getWorld()->getActorAt(getX() - 8, getY())) {
+        if (getWorld()->overlap(getX() - 2, getY(), n) && n != nullptr && !n->blocksMovement()) {
             setDirection(0);
             return;
         }
@@ -288,13 +290,14 @@ void Projectile::doSomething() {
         return;
     }
     
+    Actor * n;
     //move down
-    if (!getWorld()->getActorAt(getX(), getY() - 8)) {
+    if (!getWorld()->overlap(getX(), getY() - 2, n)) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
     else if (getDirection() == 0) {
-        if (getWorld()->getActorAt(getX() + 8, getY())) {
+        if (getWorld()->overlap(getX() + 2, getY(), n)) {
             setState(false);
             return;
         }
@@ -304,7 +307,7 @@ void Projectile::doSomething() {
     }
     //to the left
     else if (getDirection() == 180) {
-        if (getWorld()->getActorAt(getX() - 8, getY())) {
+        if (getWorld()->overlap(getX() - 2, getY(), n)) {
             setState(false);
             return;
         }
@@ -335,14 +338,16 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 
 bool PeachFireball::causeDamage() {
     if (getDirection() == 0) {
-        Actor * n = getWorld()->getActorAt(getX() + 8, getY());
+        Actor * n;
+        getWorld()->overlap(getX(), getY(), n);
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
         }
     }
     if (getDirection() == 180) {
-        Actor * n = getWorld()->getActorAt(getX() - 8, getY());
+        Actor * n;
+        getWorld()->overlap(getX(), getY(), n);
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
@@ -358,14 +363,16 @@ Shell::Shell(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, II
 
 bool Shell::causeDamage() {
     if (getDirection() == 0) {
-        Actor * n = getWorld()->getActorAt(getX() + 8, getY());
+        Actor * n;
+        getWorld()->overlap(getX() + 1, getY(), n);
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
         }
     }
     if (getDirection() == 180) {
-        Actor * n = getWorld()->getActorAt(getX() - 8, getY());
+        Actor * n;
+        getWorld()->overlap(getX() - 1, getY(), n);
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
@@ -384,16 +391,37 @@ Monster::Monster(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 
 }
 
 void Monster::doSomething() {
-    //TODO: implement this
+    //return if not alive
+    if (!getState())
+        return;
+    
+    if (getWorld()->overlap(this, getWorld()->getPeach())) {
+        getWorld()->getPeach()->bonk();
+        return;
+    }
+    move();
+}
+
+void Monster::move() {
+    if (getDirection() == 0) {
+        if (!getWorld()->blockableObject(getX() + 1, getY())
+            && getWorld()->blockableObject(getX() + 1, getY() - 1)) {
+            moveTo(getX() + 1, getY());
+        }
+        else
+            setDirection(180);
+    }
+    if (getDirection() == 180) {
+        if (!getWorld()->blockableObject(getX() - 1, getY())
+            && getWorld()->blockableObject(getX() - 1, getY() - 1))
+            moveTo(getX() - 1, getY());
+        else
+            setDirection(0);
+    }
 }
 
 void Monster::bonk() {
     //TODO: implement this
-}
-
-bool Monster::causeDamage() {
-    //TODO: implement this
-    return false;
 }
 
 //Goomba class implementation
