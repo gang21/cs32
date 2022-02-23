@@ -252,7 +252,6 @@ void Goodies::move() {
     if (!getWorld()->blockableObject(getX(), getY() - 2)
          && !getWorld()->blockableObject(getX(), getY() - 1)) {
         moveTo(getX(), getY() - 2);
-        
     }
     //to the right
     else if (getDirection() == 0) {
@@ -303,6 +302,7 @@ Projectile::Projectile(StudentWorld * sw, int x, int y, int ID, int dir) : Actor
 
 void Projectile::doSomething() {
     //damaged an actor
+    causeDamage();
     if (causeDamage()) {
         setState(false);
         return;
@@ -312,7 +312,6 @@ void Projectile::doSomething() {
     if (!getWorld()->blockableObject(getX(), getY() - 2)
         && !getWorld()->blockableObject(getX(), getY() - 1)) {
         moveTo(getX(), getY() - 2);
-        setState(false);
     }
     //to the right
     else if (getDirection() == 0) {
@@ -361,6 +360,7 @@ bool PeachFireball::causeDamage() {
     if (getDirection() == 0) {
         Actor * n;
         getWorld()->overlap(getX(), getY(), n);
+        n->bonk();
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
@@ -369,6 +369,7 @@ bool PeachFireball::causeDamage() {
     if (getDirection() == 180) {
         Actor * n;
         getWorld()->overlap(getX(), getY(), n);
+        n->bonk();
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
@@ -442,20 +443,21 @@ void Monster::move() {
 }
 
 void Monster::bonk() {
-    Actor * n;
+//    Actor * n;
     //Damaged by Peach with invincibility
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
         getWorld()->playSound(SOUND_PLAYER_KICK);
         getWorld()->increaseScore(100);
         setState(false);
+        return;
     }
     //damaged by Peach fireball
-    else if (getWorld()->overlap(getX(), getY(), n)) {
-        if (n->getImageID() == IID_PEACH_FIRE) {
+//    else if (getWorld()->overlap(getX(), getY(), n)) {
+//        if (n->getImageID() == IID_PEACH_FIRE) {
             getWorld()->increaseScore(100);
             setState(false);
-        }
-    }
+//        }
+//    }
 }
 
 //Goomba class implementation
@@ -506,24 +508,38 @@ void Piranha::doSomething() {
         return;
     }
     //Peach not in range
-    if (!(getWorld()->getPeach()->getY() <= 1.5 * SPRITE_HEIGHT + getY())) {
+    if (!(getWorld()->getPeach()->getY() <= 1.5 * SPRITE_HEIGHT + getY())
+        || !(getWorld()->getPeach()->getY() >= getY() - (1.5 * SPRITE_HEIGHT))) {
         return;
     }
-    //if peach is in range
+    //setting direction to face Peach
     if (getWorld()->getPeach()->getX() > getX())
         setDirection(0);
     else if (getWorld()->getPeach()->getX() < getX())
         setDirection(180);
+    
     //checking if it can fire or not
     if (m_firing_delay > 0) {
         m_firing_delay--;
         return;
     }
     //checking if Peach is in range
-    if (getWorld()->getPeach()->getX() < getX() + 8 * SPRITE_WIDTH) {
-        PiranhaFireball * p = new PiranhaFireball(getWorld(), getX(), getY(), getDirection());
-        getWorld()->addActor(p);
-        getWorld()->playSound(SOUND_PIRANHA_FIRE);
-        m_firing_delay = 40;
+    //peach is on the right
+    if (getDirection() == 0) {
+        if (getWorld()->getPeach()->getX() < getX() + (8 * SPRITE_WIDTH)) {
+            PiranhaFireball * p = new PiranhaFireball(getWorld(), getX(), getY(), getDirection());
+            getWorld()->addActor(p);
+            getWorld()->playSound(SOUND_PIRANHA_FIRE);
+            m_firing_delay = 40;
+        }
+    }
+    //peach is on the left
+    if (getDirection() == 180) {
+        if (getWorld()->getPeach()->getX() > getX() - (8 * SPRITE_WIDTH)) {
+            PiranhaFireball * p = new PiranhaFireball(getWorld(), getX(), getY(), getDirection());
+            getWorld()->addActor(p);
+            getWorld()->playSound(SOUND_PIRANHA_FIRE);
+            m_firing_delay = 40;
+        }
     }
 }
