@@ -37,6 +37,7 @@ public:
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
+    void increaseHitPoints() {m_healthPts++;}
     //mutators
     void setStarPower(int ticks) {m_starPower = ticks;}
     void setShootPower(bool shoot) {m_shootPower = shoot;}

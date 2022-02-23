@@ -189,15 +189,25 @@ void Peach::doSomething() {
         return;
     if (m_recharge > 0)
         m_recharge--;
+    //TODO: finish implementing the rest of this function
+    //bonking actors that overlap with Peach
+    Actor * n;
+    if (getWorld()->overlap(getX(), getY(), n)) {
+        n->bonk();
+    }
     //move if key is pressed
     move();
-    //TODO: finish implementing the rest of this function
+    
+
 }
 
 void Peach::bonk() {
     //Peach is invincible
     if(m_starPower > 0 || m_tempInvincibility) {
-        //TODO: where peach intersects with object: bonk that object (potentially)
+        Actor * n;
+        if (getWorld()->overlap(getX(), getY(), n)) {
+            n->bonk();
+        }
         return;
     }
     
