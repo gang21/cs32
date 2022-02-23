@@ -316,8 +316,8 @@ void Projectile::doSomething() {
     }
     //to the right
     else if (getDirection() == 0) {
-        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 2, getY())
-            && getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())) {
+        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
+            && getWorld()->blockableObject(getX() + SPRITE_WIDTH, getY())) {
             setState(false);
             return;
         }
@@ -420,7 +420,7 @@ void Monster::doSomething() {
         getWorld()->getPeach()->bonk();
         return;
     }
-    move();
+//    move();
 }
 
 void Monster::move() {

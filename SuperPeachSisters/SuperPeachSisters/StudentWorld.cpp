@@ -131,6 +131,7 @@ int StudentWorld::move()
         decLives();
     }
     
+    //setting text
     string text = "Lives: " + to_string(getLives()) + "  Level: " + to_string(getLevel()) + "  Points: " + to_string(getScore());
     if (getPeach()->getStarPower())
         text += " StarPower!";
@@ -169,28 +170,15 @@ bool StudentWorld::overlap(int x, int y, Actor* &character) {
             }
             character = n;
         }
-        
     }
     return false;
 }
 
 bool StudentWorld::overlap(Actor * a, Actor * b) {
-    //bottom left corner
-    if (a->getX() >= b->getX() && a->getX() <= b->getX() + SPRITE_WIDTH - 1
-        && a->getY() >= b->getY() && a->getX() <= b->getY() + SPRITE_HEIGHT - 1) {
-        return true;
-    }
-    //bottom right corner
-    if (a->getX() + SPRITE_WIDTH - 1 >= b->getX() && a->getX() + SPRITE_WIDTH - 1 <= b->getX() + SPRITE_WIDTH - 1
-        && a->getY() >= b->getY() && a->getY() <= b->getY() + SPRITE_HEIGHT - 1)
-        return true;
-    //top left corner
-    if (a->getX() >= b->getX() && a->getX() <= b->getX() + SPRITE_WIDTH - 1
-        && a->getY() + SPRITE_HEIGHT - 1 >= b->getY() && a->getY()+ SPRITE_HEIGHT - 1 <= b->getY() + SPRITE_HEIGHT - 1) {
-        return true;
-    }
-    if (a->getX() + SPRITE_WIDTH - 1 >= b->getX() && a->getX() + SPRITE_WIDTH - 1 <= b->getX() + SPRITE_WIDTH - 1
-        && a->getY() + SPRITE_HEIGHT - 1 >= b->getY() && a->getY() + SPRITE_HEIGHT - 1 <= b->getY() + SPRITE_HEIGHT - 1) {
+    if (((a->getX() >= b->getX() && a->getX() <= b->getX() + SPRITE_WIDTH - 1)
+        || (a->getX() + SPRITE_WIDTH - 1 >= b->getX() && a->getX() + SPRITE_WIDTH - 1 <= b->getX() + SPRITE_WIDTH - 1))
+        && ((a->getY() >=b->getY() && a->getY() <= b->getY() + SPRITE_HEIGHT - 1)
+        || (a->getY() + SPRITE_HEIGHT - 1 >= b->getY() && a->getY() + SPRITE_HEIGHT - 1 <= b->getY() + SPRITE_HEIGHT - 1))) {
         return true;
     }
     return false;
