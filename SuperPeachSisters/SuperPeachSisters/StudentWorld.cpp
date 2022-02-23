@@ -123,6 +123,7 @@ int StudentWorld::move()
     //peach's move
     player->doSomething();
     
+    //peach died
     if (!player->getState()) {
         playSound(SOUND_PLAYER_DIE);
         m_status = GWSTATUS_PLAYER_DIED;

@@ -192,6 +192,7 @@ public:
 class Koopa : public Monster {
 public:
     Koopa(StudentWorld * sw, int x, int y);
+    virtual void bonk();
 };
 
 //Piranha Class
