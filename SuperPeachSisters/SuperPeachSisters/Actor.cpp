@@ -359,8 +359,10 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 bool PeachFireball::causeDamage() {
     if (getDirection() == 0) {
         Actor * n;
-        getWorld()->overlap(getX(), getY(), n);
-        n->bonk();
+        getWorld()->damagableObject(getX(), getY(), n);
+        cout << "Fireball- X: " << getX()/SPRITE_WIDTH << " Y: " << getY()/SPRITE_HEIGHT << endl;
+        if (n!= nullptr)
+            cout << "n- X: " << n->getX()/SPRITE_WIDTH << " Y: " << n->getY()/SPRITE_HEIGHT << endl;
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
@@ -368,8 +370,10 @@ bool PeachFireball::causeDamage() {
     }
     if (getDirection() == 180) {
         Actor * n;
-        getWorld()->overlap(getX(), getY(), n);
-        n->bonk();
+        getWorld()->damagableObject(getX(), getY(), n);
+        cout << "Fireball- X: " << getX()/SPRITE_WIDTH << " Y: " << getY()/SPRITE_HEIGHT << endl;
+        if (n!= nullptr)
+            cout << "n- X: " << n->getX()/SPRITE_WIDTH << " Y: " << n->getY()/SPRITE_HEIGHT << endl;
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;

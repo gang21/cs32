@@ -198,3 +198,17 @@ bool StudentWorld::blockableObject(int x, int y) {
     return false;
 }
 
+bool StudentWorld::damagableObject(int x, int y, Actor* &character) {
+    for (Actor * n : actors) {
+        if (n->getImageID() == IID_PEACH)
+            continue;
+        else if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1 && y >= n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
+            if (n->isDamagable()) {
+                character = n;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+

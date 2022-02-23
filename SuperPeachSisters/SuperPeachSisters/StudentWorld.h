@@ -24,6 +24,7 @@ public:
     bool overlap(int x, int y, Actor* &character);
     bool overlap(Actor * a, Actor * b);
     bool blockableObject(int x, int y);
+    bool damagableObject(int x, int y, Actor* &character);
     //mutators
     void setStatus(int status) {m_status = status;}
     //accessors
