@@ -43,15 +43,15 @@ void Block::bonk() {
 
 void Block::releaseGoodie() {
     if (m_goodie == IID_FLOWER) {
-        Flower * power = new Flower(getWorld(), getX(), getY() + 8);
+        Flower * power = new Flower(getWorld(), getX(), getY() + SPRITE_HEIGHT);
         getWorld()->addActor(power);
     }
     if (m_goodie == IID_MUSHROOM) {
-        Mushroom * power = new Mushroom(getWorld(), getX(), getY() + 8);
+        Mushroom * power = new Mushroom(getWorld(), getX(), getY() + SPRITE_HEIGHT);
         getWorld()->addActor(power);
     }
     if (m_goodie == IID_STAR) {
-        Star * power = new Star(getWorld(), getX(), getY() + 8);
+        Star * power = new Star(getWorld(), getX(), getY() + SPRITE_HEIGHT);
         getWorld()->addActor(power);
     }
     
@@ -203,6 +203,9 @@ void Peach::doSomething() {
 
 void Peach::bonk() {
     //Peach is invincible
+    if (m_tempInvincibility > 0)
+        m_tempInvincibility--;
+    
     if(m_starPower > 0 || m_tempInvincibility) {
         Actor * n;
         if (getWorld()->overlap(getX(), getY(), n)) {

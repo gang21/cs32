@@ -150,28 +150,17 @@ bool StudentWorld::overlap(int x, int y, Actor* &character) {
     //loop through all the actors
     for (Actor * n: actors) {
         //bottom left corner
-        if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1
-            && y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
+        if (((x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1)
+            || (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1))
+            && ((y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1)
+            || (y + SPRITE_HEIGHT - 1 >= n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1))) {
+            if (n != nullptr && n->blocksMovement()) {
+                character = n;
+                return true;
+            }
             character = n;
-            return true;
         }
-        //bottom right corner
-        if (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1
-            && y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
-            character = n;
-            return true;
-        }
-        //top left corner
-        if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1
-            && y + SPRITE_HEIGHT - 1 >=n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1) {
-            character = n;
-            return true;
-        }
-        if (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1
-            && y + SPRITE_HEIGHT - 1 >=n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1) {
-            character = n;
-            return true;
-        }
+        
     }
     return false;
 }
