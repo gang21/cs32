@@ -42,6 +42,10 @@ public:
     void setStarPower(int ticks) {m_starPower = ticks;}
     void setShootPower(bool shoot) {m_shootPower = shoot;}
     void setJumpPower(bool jump) {m_jumpPower = jump;}
+    //accessors
+    bool getStarPower() {return m_starPower;}
+    bool getJumpPower() {return m_jumpPower;}
+    bool getShootPower() {return m_shootPower;}
 
 private:
     void jump();

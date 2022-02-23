@@ -131,10 +131,15 @@ int StudentWorld::move()
         decLives();
     }
     
-//    string text = "Lives: " + static_cast<char>(getLives()) + "  Level: " + static_cast<char>(getLevel()) + "  Points: " << getScore();
-//    setGameStatText(text);
-//
-//    decLives();
+    string text = "Lives: " + to_string(getLives()) + "  Level: " + to_string(getLevel()) + "  Points: " + to_string(getScore());
+    if (getPeach()->getStarPower())
+        text += " StarPower!";
+    if (getPeach()->getShootPower())
+        text += " ShootPower!";
+    if (getPeach()->getJumpPower())
+        text += " JumpPower!";
+    setGameStatText(text);
+
     return m_status;
 }
 
@@ -205,31 +210,3 @@ bool StudentWorld::blockableObject(int x, int y) {
     return false;
 }
 
-//Actor* StudentWorld::getActorAt(int x, int y) {
-//    //loop through actors
-//    for (Actor* n : actors) {
-//        //check for overlap (increments of 4)
-//        if ((n->getX() == x && n->getY() == y)
-//            || (n->getX() + 4 == x && n->getY() == y)
-//            || (n->getX() - 4 == x && n->getY() == y)
-//            || (n->getX() == x && n->getY() + 4 == y)
-//            || (n->getX() == x && n->getY() - 4 == y)
-//            || (n->getX() + 4 == x && n->getY() + 4 == y)
-//            || (n->getX() + 4 == x && n->getY() - 4 == y)
-//            || (n->getX() - 4 == x && n->getY() + 4 == y)
-//            || (n->getX() - 4 == x && n->getY() - 4 == y)
-//            //checking at increments of 2
-//            || (n->getX() + 2 == x && n->getY() == y)
-//            || (n->getX() - 2 == x && n->getY() == y)
-//            || (n->getX() == x && n->getY() + 2 == y)
-//            || (n->getX() == x && n->getY() - 2 == y)
-//            || (n->getX() + 2 == x && n->getY() + 2 == y)
-//            || (n->getX() + 2 == x && n->getY() - 2 == y)
-//            || (n->getX() - 2 == x && n->getY() + 2 == y)
-//            || (n->getX() - 2 == x && n->getY() - 2 == y)) {
-//            return n;
-//        }
-//
-//    }
-//    return nullptr;
-//}
