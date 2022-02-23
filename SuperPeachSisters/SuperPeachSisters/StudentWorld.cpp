@@ -105,6 +105,7 @@ int StudentWorld::move()
     if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0)
         setStatus(GWSTATUS_CONTINUE_GAME);
     //actors do something
+    
     for (Actor * n : actors) {
         if (n->getState()) {
             n->doSomething();
@@ -130,6 +131,9 @@ int StudentWorld::move()
         decLives();
     }
     
+//    string text = "Lives: " + static_cast<char>(getLives()) + "  Level: " + static_cast<char>(getLevel()) + "  Points: " << getScore();
+//    setGameStatText(text);
+//
 //    decLives();
     return m_status;
 }

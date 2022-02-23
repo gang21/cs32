@@ -250,14 +250,14 @@ void Goodies::doSomething() {
 void Goodies::move() {
     //move down
     if (!getWorld()->blockableObject(getX(), getY() - 2)
-        && !getWorld()->blockableObject(getX(), getY() - 1)) {
+        /* && !getWorld()->blockableObject(getX(), getY() - 1)*/) {
         moveTo(getX(), getY() - 2);
         
     }
     //to the right
     else if (getDirection() == 0) {
-        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 2, getY())
-            && getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())) {
+        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 2, getY())
+            /*&& getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())*/) {
             setDirection(180);
             return;
         }
@@ -268,7 +268,7 @@ void Goodies::move() {
     //to the left
     else if (getDirection() == 180) {
         if (getWorld()->blockableObject(getX() - 2, getY())
-            && getWorld()->blockableObject(getX() - 1, getY())){
+            /*&& getWorld()->blockableObject(getX() - 1, getY())*/){
             setDirection(0);
             return;
         }
