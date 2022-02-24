@@ -313,6 +313,7 @@ Star::Star(StudentWorld * sw, int x, int y) : Goodies(sw, x, y, IID_STAR) {
 Projectile::Projectile(StudentWorld * sw, int x, int y, int ID, int dir) : Actor(sw, x, y, ID, 1, true) {
     setDirection(dir);
 }
+
 void Projectile::move() {
     //move down
     if (!getWorld()->blockableObject(getX(), getY() - 2)
@@ -374,18 +375,14 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 bool PeachFireball::causeDamage() {
     if (getDirection() == 0) {
         Actor * n;
-        getWorld()->overlap(getX(), getY(), n);
-        if (n != nullptr && n->isDamagable()) {
+        if (getWorld()->overlap(getX(), getY(), n, this) && n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
         }
     }
     if (getDirection() == 180) {
         Actor * n;
-        getWorld()->overlap(getX(), getY(), n);
-        cout << "Fireball- X: " << getX()/SPRITE_WIDTH << " Y: " << getY()/SPRITE_HEIGHT << endl;
-        if (n!= nullptr)
-            cout << "n- X: " << n->getX()/SPRITE_WIDTH << " Y: " << n->getY()/SPRITE_HEIGHT << endl;
+        getWorld()->overlap(getX(), getY(), n, this);
         if (n != nullptr && n->isDamagable()) {
             n->bonk();
             return true;
