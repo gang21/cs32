@@ -270,7 +270,7 @@ void Goodies::move() {
         moveTo(getX(), getY() - 2);
     }
     //to the right
-    else if (getDirection() == 0) {
+    if (getDirection() == 0) {
         if (getWorld()->overlap(getX() + 2, getY(), n) && n != nullptr && n->blocksMovement()) {
             setDirection(180);
             return;
@@ -280,7 +280,7 @@ void Goodies::move() {
         }
     }
     //to the left
-    else if (getDirection() == 180) {
+    if (getDirection() == 180) {
         if (getWorld()->overlap(getX() - 2, getY(), n) && n != nullptr && n->blocksMovement()){
             setDirection(0);
             return;

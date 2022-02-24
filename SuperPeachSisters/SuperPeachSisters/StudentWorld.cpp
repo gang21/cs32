@@ -132,14 +132,6 @@ int StudentWorld::move()
     }
     
     //setting text
-//    string text = "Lives: " + to_string(getLives()) + "  Level: " + to_string(getLevel()) + "  Points: " + to_string(getScore());
-//    if (getPeach()->getStarPower())
-//        text += " StarPower!";
-//    if (getPeach()->getShootPower())
-//        text += " ShootPower!";
-//    if (getPeach()->getJumpPower())
-//        text += " JumpPower!";
-//    setGameStatText(text);
     ostringstream text;
     text.fill('0');
     text << "Lives: " << getLives() << "  Level: " << getLevel() << "  Points: " << setw(6) << getScore();
