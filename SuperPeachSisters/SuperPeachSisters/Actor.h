@@ -37,13 +37,13 @@ public:
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
-    void increaseHitPoints() {m_healthPts++;}
+    void increaseHitPoints();
     //mutators
     void setStarPower(int ticks) {m_starPower = ticks;}
-    void setShootPower(bool shoot) {m_shootPower = shoot;}
-    void setJumpPower(bool jump) {m_jumpPower = jump;}
+    void setShootPower(bool shoot) {m_shootPower = shoot; increaseHitPoints();}
+    void setJumpPower(bool jump) {m_jumpPower = jump; increaseHitPoints();}
     //accessors
-    bool getStarPower() {return m_starPower;}
+    bool getStarPower();
     bool getJumpPower() {return m_jumpPower;}
     bool getShootPower() {return m_shootPower;}
 
@@ -148,7 +148,7 @@ public:
 class Projectile : public Actor {
 public:
     Projectile(StudentWorld * sw, int x, int y, int ID, int dir);
-    virtual void doSomething() = 0;
+    virtual void doSomething();
     virtual bool isDamagable() {return false;}
     virtual bool blocksMovement() {return false;}
     virtual void bonk() {return;}
@@ -161,8 +161,6 @@ class PiranhaFireball : public Projectile {
 public:
     PiranhaFireball(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
-    virtual void doSomething();
-    
 };
 
 //Peach Fireball Class
@@ -170,7 +168,6 @@ class PeachFireball : public Projectile {
 public:
     PeachFireball(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
-    virtual void doSomething();
     virtual void move();
 };
 
@@ -179,7 +176,6 @@ class Shell : public Projectile {
 public:
     Shell(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
-    virtual void doSomething();
 };
 
 //Monster Class

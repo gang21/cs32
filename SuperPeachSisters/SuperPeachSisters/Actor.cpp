@@ -189,9 +189,14 @@ void Peach::doSomething() {
         return;
     if (m_recharge > 0)
         m_recharge--;
-    Actor * n;
-    if (getWorld()->overlap(getX(), getY(), n)) {
-        n->bonk();
+    if (m_starPower > 0)
+        m_starPower--;
+    if(m_tempInvincibility > 0) {
+        m_tempInvincibility--;
+        Actor * n;
+        if (getWorld()->overlap(getX(), getY(), n) && n != nullptr) {
+            n->bonk();
+        }
     }
     //move if key is pressed
     move();
@@ -201,27 +206,40 @@ void Peach::doSomething() {
 
 void Peach::bonk() {
     //Peach is invincible
-    if (m_tempInvincibility > 0)
-        m_tempInvincibility--;
-    
-    if(m_starPower > 0 || m_tempInvincibility) {
-        Actor * n;
-        if (getWorld()->overlap(getX(), getY(), n)) {
-            n->bonk();
-        }
+    if (m_tempInvincibility > 0) {
         return;
     }
     
-    m_healthPts--;
-    m_tempInvincibility = 10;
-    m_shootPower = false;
-    m_jumpPower = false;
-    
-    if (m_healthPts >= 1)
-        getWorld()->playSound(SOUND_PLAYER_HURT);
-    if (m_healthPts == 0) {
-        setState(false);
+    //TODO: fix this
+    Actor * n;
+    if (m_starPower > 0 || m_tempInvincibility > 0) {
+        if (getWorld()->overlap(getX(), getY(), n) && n != nullptr) {
+            n->bonk();
+            return;
+        }
     }
+    m_healthPts--;
+    
+    if (m_healthPts == 1)  {
+        getWorld()->playSound(SOUND_PLAYER_HURT);
+        m_tempInvincibility = 10;
+        m_shootPower = false;
+        m_jumpPower = false;
+        return;
+    }
+    else
+        setState(false);
+}
+
+void Peach::increaseHitPoints() {
+    if (m_healthPts == 2)
+        return;
+    m_healthPts++;
+}
+bool Peach::getStarPower() {
+    if (m_starPower > 0)
+        return true;
+    return false;
 }
 
 //Goodies class implementation
@@ -325,13 +343,7 @@ void Projectile::move() {
     }
 }
 
-
-//Piranha Fireball class implementation
-PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_PIRANHA_FIRE, dir)
-{
-}
-
-void PiranhaFireball::doSomething() {
+void Projectile::doSomething() {
     //damaged an actor
     if (causeDamage()) {
         setState(false);
@@ -341,9 +353,14 @@ void PiranhaFireball::doSomething() {
     
 }
 
+//Piranha Fireball class implementation
+PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_PIRANHA_FIRE, dir)
+{
+}
+
 bool PiranhaFireball::causeDamage() {
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
-//        getWorld()->getPeach()->bonk();
+        getWorld()->getPeach()->bonk();
         return true;
     }
     return false;
@@ -352,16 +369,6 @@ bool PiranhaFireball::causeDamage() {
 //Peach Fireball class implementation
 PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, IID_PEACH_FIRE, dir)
 {
-}
-
-void PeachFireball::doSomething() {
-    //damaged an actor
-    if (causeDamage()) {
-        setState(false);
-        return;
-    }
-    move();
-    
 }
 
 bool PeachFireball::causeDamage() {
@@ -443,16 +450,6 @@ bool Shell::causeDamage() {
     return false;
 }
 
-void Shell::doSomething() {
-    //damaged an actor
-    if (causeDamage()) {
-        setState(false);
-        return;
-    }
-    move();
-    
-}
-
 //Monster class implementation
 Monster::Monster(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 1, true) {
     int randomize = randInt(0, 1);
@@ -471,7 +468,7 @@ void Monster::doSomething() {
         getWorld()->getPeach()->bonk();
         return;
     }
-//    move();
+    move();
 }
 
 void Monster::move() {
@@ -493,6 +490,8 @@ void Monster::move() {
 }
 
 void Monster::bonk() {
+    getWorld()->increaseScore(100);
+    setState(false);
 //    Actor * n;
     //Damaged by Peach with invincibility
 //    if (getWorld()->overlap(this, getWorld()->getPeach())) {
@@ -504,8 +503,8 @@ void Monster::bonk() {
     //damaged by Peach fireball
 //    else if (getWorld()->overlap(getX(), getY(), n)) {
 //        if (n->getImageID() == IID_PEACH_FIRE) {
-            getWorld()->increaseScore(100);
-            setState(false);
+//            getWorld()->increaseScore(100);
+//            setState(false);
     
 //        }
 //    }
