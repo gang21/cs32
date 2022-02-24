@@ -148,11 +148,12 @@ public:
 class Projectile : public Actor {
 public:
     Projectile(StudentWorld * sw, int x, int y, int ID, int dir);
-    virtual void doSomething();
+    virtual void doSomething() = 0;
     virtual bool isDamagable() {return false;}
     virtual bool blocksMovement() {return false;}
     virtual void bonk() {return;}
     virtual bool causeDamage() = 0;
+    virtual void move();
 };
 
 //Piranha Fireball Class
@@ -160,6 +161,8 @@ class PiranhaFireball : public Projectile {
 public:
     PiranhaFireball(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+    virtual void doSomething();
+    
 };
 
 //Peach Fireball Class
@@ -167,6 +170,8 @@ class PeachFireball : public Projectile {
 public:
     PeachFireball(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+    virtual void doSomething();
+    virtual void move();
 };
 
 //Shell Class
@@ -174,6 +179,7 @@ class Shell : public Projectile {
 public:
     Shell(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+    virtual void doSomething();
 };
 
 //Monster Class

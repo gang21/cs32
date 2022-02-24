@@ -159,7 +159,7 @@ void StudentWorld::cleanUp()
 bool StudentWorld::overlap(int x, int y, Actor* &character) {
     //loop through all the actors
     for (Actor * n: actors) {
-        //bottom left corner
+        //skip if actor given is itself
         if (((x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1)
             || (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1))
             && ((y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1)
@@ -200,6 +200,7 @@ bool StudentWorld::blockableObject(int x, int y) {
 
 bool StudentWorld::damagableObject(int x, int y, Actor* &character) {
     for (Actor * n : actors) {
+        //skip Peach object
         if (n->getImageID() == IID_PEACH)
             continue;
         else if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1 && y >= n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
