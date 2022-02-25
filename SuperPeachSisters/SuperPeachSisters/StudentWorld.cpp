@@ -35,7 +35,7 @@ int StudentWorld::init()
     oss.fill('0');
     oss << "level" << setw(2) << level << ".txt";
     levelFile = oss.str();
-    levelFile = "level02.txt";
+//    levelFile = "level02.txt";
     lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {
@@ -102,8 +102,10 @@ int StudentWorld::move()
 {
     if (m_status == GWSTATUS_FINISHED_LEVEL)
         setStatus(GWSTATUS_CONTINUE_GAME);
-    if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0)
+    if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0) {
+        playSound(GWSTATUS_PLAYER_DIED);
         setStatus(GWSTATUS_CONTINUE_GAME);
+    }
     if (getLives() == 0) {
         setStatus(GWSTATUS_PLAYER_DIED);
         playSound(SOUND_GAME_OVER);

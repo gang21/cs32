@@ -210,17 +210,11 @@ void Peach::doSomething() {
 
 void Peach::bonk() {
     //Peach is invincible
-    if (m_tempInvincibility > 0) {
-        return;
-    }
-    
-    //TODO: fix this
     Actor * n;
     if (m_starPower > 0 || m_tempInvincibility > 0) {
-        if (getWorld()->overlap(getX(), getY(), n) && n != nullptr) {
+        getWorld()->overlap(getX(), getY(), n);
             n->bonk();
             return;
-        }
     }
     m_healthPts--;
     
@@ -259,7 +253,7 @@ void Goodies::doSomething() {
         if (m_power == IID_MUSHROOM)
             getWorld()->getPeach()->setJumpPower(true);
         if (m_power == IID_STAR)
-            getWorld()->getPeach()->setStarPower(150);
+            getWorld()->getPeach()->setStarPower(1000);
         setState(false);
         getWorld()->playSound(SOUND_PLAYER_POWERUP);
         return;
@@ -326,8 +320,8 @@ void Projectile::move() {
     }
     //to the right
     if (getDirection() == 0) {
-        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
-            && getWorld()->blockableObject(getX() + SPRITE_WIDTH, getY())) {
+        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 2, getY())
+            && getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 1, getY())) {
             setState(false);
             return;
         }
@@ -365,7 +359,7 @@ PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Pro
 
 bool PiranhaFireball::causeDamage() {
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
-        getWorld()->getPeach()->bonk();
+//        getWorld()->getPeach()->bonk();
         return true;
     }
     return false;
@@ -479,8 +473,8 @@ void Monster::doSomething() {
 
 void Monster::move() {
     if (getDirection() == 0) {
-        if (!getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
-            && getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY() - 1)) {
+        if (!getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 1, getY())
+            && getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 1, getY() - 1)) {
             moveTo(getX() + 1, getY());
         }
         else
@@ -519,23 +513,12 @@ Koopa::Koopa(StudentWorld * sw, int x, int y) : Monster(sw, x, y, IID_KOOPA)
 
 void Koopa::bonk() {
     //Damaged by Peach with invincibility
-//    if (getWorld()->overlap(this, getWorld()->getPeach())) {
     if (getWorld()->overlap(this, getWorld()->getPeach()))
             getWorld()->playSound(SOUND_PLAYER_KICK);
     getWorld()->increaseScore(100);
     Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
     getWorld()->addActor(s);
     setState(false);
-//    }
-    //damaged by Peach fireball
-//    else if (getWorld()->overlap(getX(), getY(), n)) {
-//        if (n->getImageID() == IID_PEACH_FIRE) {
-//            getWorld()->increaseScore(100);
-//            Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
-//            getWorld()->addActor(s);
-//            setState(false);
-//        }
-//    }
 }
 
 //Piranha class implementation
