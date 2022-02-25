@@ -200,8 +200,9 @@ void StudentWorld::addActor(Actor *a) {
 bool StudentWorld::blockableObject(int x, int y) {
     for (Actor * n : actors) {
         if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1 && y >= n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
-            if (n->blocksMovement())
+            if (n->blocksMovement()) {
                 return true;
+            }
         }
     }
     return false;

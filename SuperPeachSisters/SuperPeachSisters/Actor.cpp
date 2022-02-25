@@ -253,7 +253,7 @@ void Goodies::doSomething() {
         if (m_power == IID_MUSHROOM)
             getWorld()->getPeach()->setJumpPower(true);
         if (m_power == IID_STAR)
-            getWorld()->getPeach()->setStarPower(1000);
+            getWorld()->getPeach()->setStarPower(150);
         setState(false);
         getWorld()->playSound(SOUND_PLAYER_POWERUP);
         return;
@@ -359,7 +359,7 @@ PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Pro
 
 bool PiranhaFireball::causeDamage() {
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
-//        getWorld()->getPeach()->bonk();
+        getWorld()->getPeach()->bonk();
         return true;
     }
     return false;
@@ -381,19 +381,19 @@ bool PeachFireball::causeDamage() {
 
 void PeachFireball::move() {
     //move down
-    if (!getWorld()->blockableObject(getX(), getY() - 2)
-        && !getWorld()->blockableObject(getX(), getY() - 1)) {
-        //setState(false);
+    if (!(getWorld()->blockableObject(getX(), getY() - 2))
+        && !(getWorld()->blockableObject(getX(), getY() - 1))) {
         moveTo(getX(), getY() - 2);
     }
     //to the right
     if (getDirection() == 0) {
-        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
-            && getWorld()->blockableObject(getX() + SPRITE_WIDTH, getY())) {
+        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 2, getY())
+            && getWorld()->blockableObject(getX() + SPRITE_WIDTH - 1 + 1, getY())) {
             setState(false);
             return;
         }
         else {
+            cout << "Fireball: (" << getX() << ", " << getY() << ")" << endl;
             moveTo(getX() + 2, getY());
         }
     }
@@ -490,7 +490,6 @@ void Monster::move() {
 }
 
 void Monster::bonk() {
-//   cout << "This function runs properly" << endl;
 
     //Damaged by Peach with invincibility
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
