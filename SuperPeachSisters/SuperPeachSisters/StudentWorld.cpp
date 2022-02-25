@@ -35,7 +35,7 @@ int StudentWorld::init()
     oss.fill('0');
     oss << "level" << setw(2) << level << ".txt";
     levelFile = oss.str();
-    
+    levelFile = "level02.txt";
     lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {

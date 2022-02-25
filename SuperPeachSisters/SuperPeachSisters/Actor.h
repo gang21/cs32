@@ -176,6 +176,7 @@ class Shell : public Projectile {
 public:
     Shell(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+    virtual void move();
 };
 
 //Monster Class

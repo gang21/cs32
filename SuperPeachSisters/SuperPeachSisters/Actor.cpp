@@ -192,8 +192,9 @@ void Peach::doSomething() {
         return;
     if (m_recharge > 0)
         m_recharge--;
-    if (m_starPower > 0)
+    if (m_starPower > 0) {
         m_starPower--;
+    }
     if(m_tempInvincibility > 0) {
         m_tempInvincibility--;
         Actor * n;
@@ -324,7 +325,7 @@ void Projectile::move() {
         moveTo(getX(), getY() - 2);
     }
     //to the right
-    else if (getDirection() == 0) {
+    if (getDirection() == 0) {
         if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
             && getWorld()->blockableObject(getX() + SPRITE_WIDTH, getY())) {
             setState(false);
@@ -335,7 +336,7 @@ void Projectile::move() {
         }
     }
     //to the left
-    else if (getDirection() == 180) {
+    if (getDirection() == 180) {
         if (getWorld()->blockableObject(getX() - 2, getY())
             && getWorld()->blockableObject(getX() - 1, getY())) {
             setState(false);
@@ -364,7 +365,7 @@ PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Pro
 
 bool PiranhaFireball::causeDamage() {
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
-//        getWorld()->getPeach()->bonk();
+        getWorld()->getPeach()->bonk();
         return true;
     }
     return false;
@@ -378,9 +379,6 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 bool PeachFireball::causeDamage() {
     Actor * n;
     if (getWorld()->damagableObject(getX(), getY(), n)) {
-        cout << "AHHHHHHHHHHHHHHH" << endl;
-        cout << n->getImageID() << endl;
-        cout << "AHHHHHHHHHHHHHHH" << endl;
         n->bonk();
         return true;
     }
@@ -424,28 +422,43 @@ Shell::Shell(StudentWorld * sw, int x, int y, int dir) : Projectile(sw, x, y, II
 }
 
 bool Shell::causeDamage() {
-    if (getDirection() == 0) {
-        Actor * n;
-        getWorld()->overlap(getX() + 1, getY(), n);
-        if (n != nullptr && n->isDamagable()) {
-            n->bonk();
-            return true;
-        }
-    }
-    if (getDirection() == 180) {
-        Actor * n;
-        getWorld()->overlap(getX() - 1, getY(), n);
-        if (n != nullptr && n->isDamagable()) {
-            n->bonk();
-            return true;
-        }
+    Actor * n;
+    if(getWorld()->damagableObject(getX(), getY(), n)) {
+        n->bonk();
+        return true;
     }
     return false;
 }
 
+void Shell::move() {
+    //to the right
+    if (getDirection() == 0) {
+        if (getWorld()->blockableObject(getX() + SPRITE_WIDTH + 1, getY())
+            && getWorld()->blockableObject(getX() + SPRITE_WIDTH, getY())) {
+            setState(false);
+            return;
+        }
+        else {
+            moveTo(getX() + 2, getY());
+        }
+    }
+    //to the left
+    if (getDirection() == 180) {
+        if (getWorld()->blockableObject(getX() - 2, getY())
+            && getWorld()->blockableObject(getX() - 1, getY())) {
+            setState(false);
+            return;
+        }
+        else {
+            moveTo(getX() - 2, getY());
+        }
+    }
+}
+
+
 //Monster class implementation
 Monster::Monster(StudentWorld * sw, int x, int y, int ID) : Actor(sw, x, y, ID, 1, true) {
-    int randomize = randInt(0, 1);
+    int randomize = randInt(0, 180);
     if (randomize == 1)
         setDirection(180);
     else
@@ -473,7 +486,7 @@ void Monster::move() {
         else
             setDirection(180);
     }
-    if (getDirection() == 180) {
+    else if (getDirection() == 180) {
         if (!getWorld()->blockableObject(getX() - 1, getY())
             && getWorld()->blockableObject(getX() - 1, getY() - 1))
             moveTo(getX() - 1, getY());
@@ -483,25 +496,15 @@ void Monster::move() {
 }
 
 void Monster::bonk() {
-    cout << "This function runs properly" << endl;
+//   cout << "This function runs properly" << endl;
+
+    //Damaged by Peach with invincibility
+    if (getWorld()->overlap(this, getWorld()->getPeach())) {
+        getWorld()->playSound(SOUND_PLAYER_KICK);
+    }
+    //damaged by Peach fireball
     getWorld()->increaseScore(100);
     setState(false);
-//    Actor * n;
-    //Damaged by Peach with invincibility
-//    if (getWorld()->overlap(this, getWorld()->getPeach())) {
-//        getWorld()->playSound(SOUND_PLAYER_KICK);
-//        getWorld()->increaseScore(100);
-//        setState(false);
-//        return;
-//    }
-    //damaged by Peach fireball
-//    else if (getWorld()->overlap(getX(), getY(), n)) {
-//        if (n->getImageID() == IID_PEACH_FIRE) {
-//            getWorld()->increaseScore(100);
-//            setState(false);
-    
-//        }
-//    }
 }
 
 //Goomba class implementation
