@@ -104,6 +104,10 @@ int StudentWorld::move()
         setStatus(GWSTATUS_CONTINUE_GAME);
     if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0)
         setStatus(GWSTATUS_CONTINUE_GAME);
+    if (getLives() == 0) {
+        setStatus(GWSTATUS_PLAYER_DIED);
+        playSound(SOUND_GAME_OVER);
+    }
     //actors do something
     
     for (Actor * n : actors) {
@@ -202,12 +206,14 @@ bool StudentWorld::blockableObject(int x, int y) {
 }
 
 bool StudentWorld::damagableObject(int x, int y, Actor* &character) {
-    for (Actor * n : actors) {
-        //skip Peach object
-        if (n->getImageID() == IID_PEACH)
-            continue;
-        else if (x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1 && y >= n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1) {
-            if (n->isDamagable()) {
+    //loop through all the actors
+    for (Actor * n: actors) {
+        //skip if actor given is itself
+        if (((x >= n->getX() && x <= n->getX() + SPRITE_WIDTH - 1)
+            || (x + SPRITE_WIDTH - 1 >= n->getX() && x + SPRITE_WIDTH - 1 <= n->getX() + SPRITE_WIDTH - 1))
+            && ((y >=n->getY() && y <= n->getY() + SPRITE_HEIGHT - 1)
+            || (y + SPRITE_HEIGHT - 1 >= n->getY() && y + SPRITE_HEIGHT - 1 <= n->getY() + SPRITE_HEIGHT - 1))) {
+            if (n != nullptr && n->isDamagable()) {
                 character = n;
                 return true;
             }

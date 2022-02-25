@@ -38,7 +38,6 @@ void Block::bonk() {
         getWorld()->playSound(SOUND_POWERUP_APPEARS);
         m_goodie = -1;
     }
-
 }
 
 void Block::releaseGoodie() {
@@ -74,10 +73,14 @@ void Flag::doSomething() {
     if(getWorld()->overlap(this, getWorld()->getPeach())) {
         getWorld()->increaseScore(1000);
         setState(false);
-        if (!isLastLevel())
+        if (!isLastLevel()) {
             getWorld()->setStatus(GWSTATUS_FINISHED_LEVEL);
-        else
+            getWorld()->playSound(SOUND_FINISHED_LEVEL);
+        }
+        else {
             getWorld()->setStatus(GWSTATUS_PLAYER_WON);
+            getWorld()->playSound(SOUND_FINISHED_LEVEL);
+        }
     }
 
 }
@@ -361,7 +364,7 @@ PiranhaFireball::PiranhaFireball(StudentWorld * sw, int x, int y, int dir) : Pro
 
 bool PiranhaFireball::causeDamage() {
     if (getWorld()->overlap(this, getWorld()->getPeach())) {
-        getWorld()->getPeach()->bonk();
+//        getWorld()->getPeach()->bonk();
         return true;
     }
     return false;
@@ -373,20 +376,13 @@ PeachFireball::PeachFireball(StudentWorld * sw, int x, int y, int dir) : Project
 }
 
 bool PeachFireball::causeDamage() {
-    if (getDirection() == 0) {
-        Actor * n;
-        if (getWorld()->overlap(getX(), getY(), n, this) && n != nullptr && n->isDamagable()) {
-            n->bonk();
-            return true;
-        }
-    }
-    if (getDirection() == 180) {
-        Actor * n;
-        getWorld()->overlap(getX(), getY(), n, this);
-        if (n != nullptr && n->isDamagable()) {
-            n->bonk();
-            return true;
-        }
+    Actor * n;
+    if (getWorld()->damagableObject(getX(), getY(), n)) {
+        cout << "AHHHHHHHHHHHHHHH" << endl;
+        cout << n->getImageID() << endl;
+        cout << "AHHHHHHHHHHHHHHH" << endl;
+        n->bonk();
+        return true;
     }
     return false;
 }
@@ -487,6 +483,7 @@ void Monster::move() {
 }
 
 void Monster::bonk() {
+    cout << "This function runs properly" << endl;
     getWorld()->increaseScore(100);
     setState(false);
 //    Actor * n;
@@ -518,24 +515,24 @@ Koopa::Koopa(StudentWorld * sw, int x, int y) : Monster(sw, x, y, IID_KOOPA)
 }
 
 void Koopa::bonk() {
-    Actor * n;
     //Damaged by Peach with invincibility
-    if (getWorld()->overlap(this, getWorld()->getPeach())) {
-        getWorld()->playSound(SOUND_PLAYER_KICK);
-        getWorld()->increaseScore(100);
-        Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
-        getWorld()->addActor(s);
-        setState(false);
-    }
+//    if (getWorld()->overlap(this, getWorld()->getPeach())) {
+    if (getWorld()->overlap(this, getWorld()->getPeach()))
+            getWorld()->playSound(SOUND_PLAYER_KICK);
+    getWorld()->increaseScore(100);
+    Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
+    getWorld()->addActor(s);
+    setState(false);
+//    }
     //damaged by Peach fireball
-    else if (getWorld()->overlap(getX(), getY(), n)) {
-        if (n->getImageID() == IID_PEACH_FIRE) {
-            getWorld()->increaseScore(100);
-            Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
-            getWorld()->addActor(s);
-            setState(false);
-        }
-    }
+//    else if (getWorld()->overlap(getX(), getY(), n)) {
+//        if (n->getImageID() == IID_PEACH_FIRE) {
+//            getWorld()->increaseScore(100);
+//            Shell * s = new Shell(getWorld(), getX(), getY(), getDirection());
+//            getWorld()->addActor(s);
+//            setState(false);
+//        }
+//    }
 }
 
 //Piranha class implementation
