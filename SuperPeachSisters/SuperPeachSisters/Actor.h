@@ -36,7 +36,6 @@ public:
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
-    void increaseHitPoints();
     //mutators
     void setStarPower(int ticks) {m_starPower = ticks;}
     void setShootPower(bool shoot) {m_shootPower = shoot; increaseHitPoints();}
@@ -47,6 +46,7 @@ public:
     bool getShootPower() {return m_shootPower;}
 
 private:
+    void increaseHitPoints();
     void jump();
     void move();
     int m_healthPts;
@@ -111,7 +111,6 @@ public:
     virtual bool isDamagable() {return false;}
     virtual bool blocksMovement() {return false;}
     virtual void bonk() {return;}
-    void move();
     
     //accessors
     int getPointValue() {return m_points;}
@@ -121,6 +120,7 @@ public:
     void setPower(int power) {m_power = power;}
     
 private:
+    void move();
     int m_points;
     int m_power;
 };
@@ -152,6 +152,7 @@ public:
     virtual bool blocksMovement() {return false;}
     virtual void bonk() {return;}
     virtual bool causeDamage() = 0;
+private:
     virtual void move();
 };
 
@@ -167,6 +168,7 @@ class PeachFireball : public Projectile {
 public:
     PeachFireball(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+private:
     virtual void move();
 };
 
@@ -175,6 +177,7 @@ class Shell : public Projectile {
 public:
     Shell(StudentWorld * sw, int x, int y, int dir);
     virtual bool causeDamage();
+private:
     virtual void move();
 };
 
@@ -186,6 +189,7 @@ public:
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}
+private:
     virtual void move();
 };
 
