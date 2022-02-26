@@ -143,8 +143,14 @@ void Peach::move() {
             }
             getWorld()->playSound(SOUND_PLAYER_FIRE);
             m_recharge = 8;
-            PeachFireball * peachFire = new PeachFireball(getWorld(), getX(), getY(), getDirection());
-            getWorld()->addActor(peachFire);
+            if (getDirection() == 0) {
+                PeachFireball * peachFire = new PeachFireball(getWorld(), getX() + 4, getY(), getDirection());
+                getWorld()->addActor(peachFire);
+            }
+            if (getDirection() == 180) {
+                PeachFireball * peachFire = new PeachFireball(getWorld(), getX() - 4, getY(), getDirection());
+                getWorld()->addActor(peachFire);
+            }
             break;
         }
         case KEY_PRESS_RIGHT: {
