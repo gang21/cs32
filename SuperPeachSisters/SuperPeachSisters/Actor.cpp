@@ -79,7 +79,7 @@ void Flag::doSomething() {
         }
         else {
             getWorld()->setStatus(GWSTATUS_PLAYER_WON);
-            getWorld()->playSound(SOUND_FINISHED_LEVEL);
+            getWorld()->playSound(SOUND_GAME_OVER);
         }
     }
 
@@ -399,7 +399,6 @@ void PeachFireball::move() {
             return;
         }
         else {
-            cout << "Fireball: (" << getX() << ", " << getY() << ")" << endl;
             moveTo(getX() + 2, getY());
         }
     }

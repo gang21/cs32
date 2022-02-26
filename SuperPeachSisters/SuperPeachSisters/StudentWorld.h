@@ -31,7 +31,6 @@ public:
     int getStatus() {return m_status;}
     Peach* getPeach() {return player;}
     void addActor(Actor* a);
-//    Actor* getActorAt(int x, int y);
     
 private:
     Peach* player;

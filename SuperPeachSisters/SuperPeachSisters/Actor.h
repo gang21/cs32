@@ -33,7 +33,6 @@ class Peach:public Actor {
 public:
     Peach(StudentWorld * sw, int x, int y);
     virtual void doSomething();
-    bool gainTempInvincibility();
     virtual void bonk();
     virtual bool isDamagable() {return true;}
     virtual bool blocksMovement() {return false;}

@@ -35,7 +35,6 @@ int StudentWorld::init()
     oss.fill('0');
     oss << "level" << setw(2) << level << ".txt";
     levelFile = oss.str();
-//    levelFile = "level02.txt";
     lev.loadLevel(levelFile);
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {
@@ -100,6 +99,7 @@ int StudentWorld::init()
 
 int StudentWorld::move()
 {
+    //reset status
     if (m_status == GWSTATUS_FINISHED_LEVEL)
         setStatus(GWSTATUS_CONTINUE_GAME);
     if (m_status == GWSTATUS_PLAYER_DIED && getLives() > 0) {
@@ -110,13 +110,14 @@ int StudentWorld::move()
         setStatus(GWSTATUS_PLAYER_DIED);
         playSound(SOUND_GAME_OVER);
     }
-    //actors do something
     
+    //actors do something
     for (Actor * n : actors) {
         if (n->getState()) {
             n->doSomething();
         }
     }
+    
     //delete any dead objects
     auto it = actors.begin();
     while (it != actors.end()) {
@@ -127,6 +128,7 @@ int StudentWorld::move()
         else
             ++it;
     }
+    
     //peach's move
     player->doSomething();
     
@@ -155,6 +157,7 @@ int StudentWorld::move()
 
 void StudentWorld::cleanUp()
 {
+    //delete Peach
     if (player != nullptr)
         delete player;
     
