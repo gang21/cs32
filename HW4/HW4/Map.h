@@ -99,52 +99,58 @@ class Map
 };
 
 // Declarations of non-member functions
-
+template <class Map, typename KeyType, typename ValueType>
 bool merge(const Map& m1, const Map& m2, Map& result);
       // If a key/value pair occurs in m1 or m2 or both, then it will occur in
       // result upon return from this function.  Return true unless m1 and m2
       // have a pair with the same key but different values; neither such pair
       // will occur in result upon return.
 
+template <class Map, typename KeyType, typename ValueType>
 void reassign(const Map& m, Map& result);
       // Upon return, result contains for each pair p in m, a pair with p's
       // key and the value from a different pair in m.
 
 // Inline implementations
 
-inline
-int Map::size() const
+template <typename KeyType, typename ValueType>
+int Map<KeyType, ValueType>::size() const
 {
     return m_size;
 }
 
-inline
-bool Map::empty() const
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::empty() const
 {
     return size() == 0;
 }
 
-inline
-bool Map::contains(const KeyType& key) const
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::contains(const KeyType& key) const
 {
     Node* p = findFirstAtLeast(key);
     return p != m_head  &&  p->m_key == key;
 }
 
-inline
-bool Map::insert(const KeyType& key, const ValueType& value)
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::insert(const KeyType& key, const ValueType& value)
 {
     return doInsertOrUpdate(key, value, true /* insert */, false /* no update */);
 }
 
-inline
-bool Map::update(const KeyType& key, const ValueType& value)
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::update(const KeyType& key, const ValueType& value)
 {
     return doInsertOrUpdate(key, value, false /* no insert */, true /* update */);
 }
 
-inline
-bool Map::insertOrUpdate(const KeyType& key, const ValueType& value)
+
+template <typename KeyType, typename ValueType>
+bool Map<KeyType, ValueType>::insertOrUpdate(const KeyType& key, const ValueType& value)
 {
     return doInsertOrUpdate(key, value, true /* insert */, true /* update */);
 }
@@ -210,7 +216,7 @@ Map<KeyType, ValueType>::Map(const Map& other)
 }
 
 template <typename KeyType, typename ValueType>
-Map& Map<KeyType, ValueType>::operator=(const Map& rhs)
+Map<KeyType, ValueType>& Map<KeyType, ValueType>::operator=(const Map& rhs)
 {
     if (this != &rhs)
     {
@@ -292,7 +298,7 @@ void Map<KeyType, ValueType>::swap(Map& other)
 }
 
 template <typename KeyType, typename ValueType>
-Map::Node* Map<KeyType, ValueType>::findFirstAtLeast(const KeyType& key) const
+typename Map<KeyType, ValueType>::Node* Map<KeyType, ValueType>::findFirstAtLeast(const KeyType& key) const
 {
       // Do a linear search through the list
 
@@ -337,12 +343,12 @@ bool Map<KeyType, ValueType>::doInsertOrUpdate(const KeyType& key, const ValueTy
     return true;
 }
 
-bool merge(const Map& m1, const Map& m2, Map& result)
+template <class Map>
+bool merge(const Map& m1, const Map& m2,  Map& result)
 {
       // For better performance, the bigger map should be the basis for
       // the result, and we should iterate over the elements of the
       // smaller one, adjusting the result as required.
-
     const Map* bigger;
     const Map* smaller;
     if (m1.size() >= m2.size())
@@ -382,6 +388,7 @@ bool merge(const Map& m1, const Map& m2, Map& result)
     return status;
 }
 
+template<class Map, typename KeyType, typename ValueType>
 void reassign(const Map& m, Map& result)
 {
       // Guard against the case that result is an alias for m (i.e., that
