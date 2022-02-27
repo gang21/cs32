@@ -343,14 +343,15 @@ bool Map<KeyType, ValueType>::doInsertOrUpdate(const KeyType& key, const ValueTy
     return true;
 }
 
-template <class Map>
-bool merge(const Map& m1, const Map& m2,  Map& result)
+
+template <typename KeyType, typename ValueType>
+bool merge(const Map<KeyType, ValueType>& m1, const Map<KeyType, ValueType>& m2,  Map<KeyType, ValueType>& result)
 {
       // For better performance, the bigger map should be the basis for
       // the result, and we should iterate over the elements of the
       // smaller one, adjusting the result as required.
-    const Map* bigger;
-    const Map* smaller;
+    const Map<KeyType, ValueType>* bigger;
+    const Map<KeyType, ValueType>* smaller;
     if (m1.size() >= m2.size())
     {
         bigger = &m1;
@@ -388,8 +389,8 @@ bool merge(const Map& m1, const Map& m2,  Map& result)
     return status;
 }
 
-template<class Map, typename KeyType, typename ValueType>
-void reassign(const Map& m, Map& result)
+template<typename KeyType, typename ValueType>
+void reassign(const Map<KeyType, ValueType>& m, Map<KeyType, ValueType>& result)
 {
       // Guard against the case that result is an alias for m (i.e., that
       // result is a reference to the same map that m refers to) by building
@@ -397,7 +398,7 @@ void reassign(const Map& m, Map& result)
       // the old value of result (now in res) will be destroyed when res is
       // destroyed.
 
-    Map res;
+    Map<KeyType, ValueType> res;
 
     if (!m.empty())
     {
