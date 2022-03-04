@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF63736027B61FF40033980D /* map.h in Sources */ = {isa = PBXBuildFile; fileRef = AF63735F27B61FF40033980D /* map.h */; };
+		AF63736027B61FF40033980D /* Map.h in Sources */ = {isa = PBXBuildFile; fileRef = AF63735F27B61FF40033980D /* Map.h */; };
+		AF81BD3E27CACD0B009429FC /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD3D27CACD0B009429FC /* Map.cpp */; };
+		AF81BD4027CB3CBF009429FC /* oddlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD3F27CB3CBF009429FC /* oddlist.cpp */; };
+		AF81BD4227CB41D5009429FC /* oddvector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD4127CB41D5009429FC /* oddvector.cpp */; };
+		AF81BD4427CB5D48009429FC /* badlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD4327CB5D48009429FC /* badlist.cpp */; };
+		AF81BD4727CD4A6A009429FC /* badvector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD4527CD4A6A009429FC /* badvector.cpp */; };
+		AF81BD4927CD4B60009429FC /* list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD4827CD4B60009429FC /* list.cpp */; };
+		AF81BD4B27CDDADC009429FC /* sorts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD4A27CDDADC009429FC /* sorts.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +31,14 @@
 
 /* Begin PBXFileReference section */
 		AF63735C27B61FF40033980D /* HW4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HW4; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF63735F27B61FF40033980D /* map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		AF63735F27B61FF40033980D /* Map.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		AF81BD3D27CACD0B009429FC /* Map.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
+		AF81BD3F27CB3CBF009429FC /* oddlist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = oddlist.cpp; sourceTree = "<group>"; };
+		AF81BD4127CB41D5009429FC /* oddvector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = oddvector.cpp; sourceTree = "<group>"; };
+		AF81BD4327CB5D48009429FC /* badlist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = badlist.cpp; sourceTree = "<group>"; };
+		AF81BD4527CD4A6A009429FC /* badvector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = badvector.cpp; sourceTree = "<group>"; };
+		AF81BD4827CD4B60009429FC /* list.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = list.cpp; sourceTree = "<group>"; };
+		AF81BD4A27CDDADC009429FC /* sorts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sorts.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +71,14 @@
 		AF63735E27B61FF40033980D /* HW4 */ = {
 			isa = PBXGroup;
 			children = (
-				AF63735F27B61FF40033980D /* map.h */,
+				AF63735F27B61FF40033980D /* Map.h */,
+				AF81BD3D27CACD0B009429FC /* Map.cpp */,
+				AF81BD3F27CB3CBF009429FC /* oddlist.cpp */,
+				AF81BD4127CB41D5009429FC /* oddvector.cpp */,
+				AF81BD4327CB5D48009429FC /* badlist.cpp */,
+				AF81BD4527CD4A6A009429FC /* badvector.cpp */,
+				AF81BD4827CD4B60009429FC /* list.cpp */,
+				AF81BD4A27CDDADC009429FC /* sorts.cpp */,
 			);
 			path = HW4;
 			sourceTree = "<group>";
@@ -119,7 +140,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF63736027B61FF40033980D /* map.h in Sources */,
+				AF81BD4727CD4A6A009429FC /* badvector.cpp in Sources */,
+				AF81BD4427CB5D48009429FC /* badlist.cpp in Sources */,
+				AF81BD4227CB41D5009429FC /* oddvector.cpp in Sources */,
+				AF81BD4927CD4B60009429FC /* list.cpp in Sources */,
+				AF81BD4027CB3CBF009429FC /* oddlist.cpp in Sources */,
+				AF81BD4B27CDDADC009429FC /* sorts.cpp in Sources */,
+				AF81BD3E27CACD0B009429FC /* Map.cpp in Sources */,
+				AF63736027B61FF40033980D /* Map.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

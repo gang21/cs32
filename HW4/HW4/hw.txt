@@ -1,0 +1,27 @@
+﻿Gabriella Ang
+Carey Nachenberg
+005677251
+
+
+HW4
+
+
+2. The program doesn’t compile because the Coord class didn’t overload the < operator and thus the template doesn’t know what to do for the operators for a defined class. 
+
+
+3e. The iterator is invalidated everytime you add/delete an object which is why test 3 fails since when it pushes back an item, the iterator isn’t reset. 
+
+
+4b. For this recursive function, I had to save the path and reinsert it into itself. Thus because the path would have had to have been saved and added to itself and because the class parameter is still required , it wouldn’t be able to be used without two parameters. 
+
+
+5a. O(N^3) - There are three nested for loops that loop through N times. Thus the time complexity is N * N * N or N^3.
+
+
+5b.O(N^3) - There are three nested for loops, two of which loop through N times. The other loop loops through i, and since i can be a maximum of N, the time complexity is N * N * N or N^3. 
+
+
+6a. O(N^2) - The function reassign loops through the linked list N times. Additionally, it has to loop through the get function i times since it’s a linked list. Since i goes through the loop a maximum of N times, the time complexity is N * N or N^2.
+
+
+6b. O(N) - The function only has one for loop that goes through the loop a maximum of N times.
