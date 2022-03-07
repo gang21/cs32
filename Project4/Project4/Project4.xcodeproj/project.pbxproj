@@ -12,7 +12,6 @@
 		AF81BD6927D19C86009429FC /* MemberDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD6727D19C86009429FC /* MemberDatabase.cpp */; };
 		AF81BD6C27D19C98009429FC /* AttributeTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD6A27D19C98009429FC /* AttributeTranslator.cpp */; };
 		AF81BD6F27D19CA4009429FC /* MatchMaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD6D27D19CA4009429FC /* MatchMaker.cpp */; };
-		AF81BD7227D19CB4009429FC /* RadixTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF81BD7027D19CB4009429FC /* RadixTree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,7 +40,6 @@
 		AF81BD6B27D19C98009429FC /* AttributeTranslator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeTranslator.h; sourceTree = "<group>"; };
 		AF81BD6D27D19CA4009429FC /* MatchMaker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MatchMaker.cpp; sourceTree = "<group>"; };
 		AF81BD6E27D19CA4009429FC /* MatchMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchMaker.h; sourceTree = "<group>"; };
-		AF81BD7027D19CB4009429FC /* RadixTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RadixTree.cpp; sourceTree = "<group>"; };
 		AF81BD7127D19CB4009429FC /* RadixTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadixTree.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +85,6 @@
 				AF81BD6B27D19C98009429FC /* AttributeTranslator.h */,
 				AF81BD6D27D19CA4009429FC /* MatchMaker.cpp */,
 				AF81BD6E27D19CA4009429FC /* MatchMaker.h */,
-				AF81BD7027D19CB4009429FC /* RadixTree.cpp */,
 				AF81BD7127D19CB4009429FC /* RadixTree.h */,
 			);
 			path = Project4;
@@ -154,7 +151,6 @@
 				AF81BD6327D199CE009429FC /* main.cpp in Sources */,
 				AF81BD6F27D19CA4009429FC /* MatchMaker.cpp in Sources */,
 				AF81BD6C27D19C98009429FC /* AttributeTranslator.cpp in Sources */,
-				AF81BD7227D19CB4009429FC /* RadixTree.cpp in Sources */,
 				AF81BD6927D19C86009429FC /* MemberDatabase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

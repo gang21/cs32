@@ -6,6 +6,7 @@
 //
 
 #include "PersonProfile.h"
+#include <vector>
 
 PersonProfile::PersonProfile(string name, string email) {
     m_name = name;
@@ -25,12 +26,17 @@ string PersonProfile::GetEmail() const {
 }
 
 void PersonProfile::AddAttValPair(const AttValPair& attval) {
-    m_profile.insert(attribute, value);
+    //TODO: check for repeats
+    m_attVal->push_back(attval);
 }
 
 int PersonProfile::GetNumAttValPairs() const {
-    
+    return m_attVal->size();
 }
 bool PersonProfile::GetAttVal(int attribute_num, AttValPair& attval) const {
-    
+    //TODO: fix this for radixTree
+    if (attribute_num < 0 || attribute_num >= m_attVal->size())
+        return false;
+    attval = m_attVal[attribute_num];
+    return true;
 }

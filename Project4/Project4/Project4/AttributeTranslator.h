@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+#include "provided.h"
 
 using namespace std;
 
@@ -19,6 +20,8 @@ public:
     ~AttributeTranslator();
     bool Load(string filename);
     vector<AttValPair> FindCompatibleAttValPairs(const AttValPair& source) const;
+private:
+    vector<AttValPair> * m_translation;
 };
 
 #endif /* AttributeTranslator_h */

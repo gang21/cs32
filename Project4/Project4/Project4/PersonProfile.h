@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <vector>
 #include "RadixTree.h"
 #include "provided.h"
 
@@ -27,7 +28,8 @@ public:
 private:
     string m_name;
     string m_email;
-    RadixTree<string> m_profile;
+    RadixTree<AttValPair> m_tree;
+    vector<AttValPair> * m_attVal;
 };
 
 #endif /* PersonProfile_h */

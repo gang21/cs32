@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include <string>
+#include "provided.h"
+#include "MemberDatabase.h"
+#include "AttributeTranslator.h"
 
 using namespace std;
 

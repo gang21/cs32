@@ -6,3 +6,27 @@
 //
 
 #include "AttributeTranslator.h"
+#include <vector>
+#include <fstream>
+
+AttributeTranslator::AttributeTranslator() {
+    //constructor
+}
+AttributeTranslator::~AttributeTranslator() {
+    //destructor
+}
+bool AttributeTranslator::Load(string filename) {
+    ifstream file;
+    int i;
+    file.open(filename);
+    
+    if(!file)
+        return false;
+    
+    while (file >> i) {
+        
+    }
+}
+vector<AttValPair> AttributeTranslator::FindCompatibleAttValPairs(const AttValPair& source) const {
+    
+}
