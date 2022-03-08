@@ -8,6 +8,10 @@
 #include "AttributeTranslator.h"
 #include <vector>
 #include <fstream>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
 
 AttributeTranslator::AttributeTranslator() {
     //constructor
@@ -16,16 +20,32 @@ AttributeTranslator::~AttributeTranslator() {
     //destructor
 }
 bool AttributeTranslator::Load(string filename) {
-    ifstream file;
-    int i;
-    file.open(filename);
+    ifstream infile;
+    infile.open(filename);
     
-    if(!file)
-        return false;
-    
-    while (file >> i) {
-        
+    string line;
+    string att1;
+    string val1;
+    string att2;
+    string val2;
+    char comma;
+    while (getline(infile, line)) {
+        istringstream iss(line);
+        iss >> att1;
+        iss.get(comma);
+        iss >> val1;
+        iss.get(comma);
+        iss >> att2;
+        iss.get(comma);
+        iss >> val2;
     }
+    
+    
+    
+    
+    
+    
+    
 }
 vector<AttValPair> AttributeTranslator::FindCompatibleAttValPairs(const AttValPair& source) const {
     

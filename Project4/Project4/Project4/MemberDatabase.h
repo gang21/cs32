@@ -21,6 +21,7 @@ public:
     bool LoadDatabase(string filename);
     std::vector<string> FindMatchingMembers(const AttValPair& input) const;
     const PersonProfile* GetMemberByEmail(string email) const;
+private:
     
 };
 

@@ -27,6 +27,11 @@ string PersonProfile::GetEmail() const {
 
 void PersonProfile::AddAttValPair(const AttValPair& attval) {
     //TODO: check for repeats
+    
+    for (int i = 0; i < m_attVal->size(); i++) {
+        if (m_attVal[i] == attval)
+            return;
+    }
     m_attVal->push_back(attval);
 }
 

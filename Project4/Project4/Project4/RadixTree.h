@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -63,8 +64,8 @@ private:
 //    };
 //    Node * m_head;
     struct Pair {
-            string m_key;
-            ValueType m_value;
+        string m_key;
+        ValueType m_value;
     };
     
     vector<Pair> * keys;
