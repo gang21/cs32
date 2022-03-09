@@ -23,53 +23,50 @@ MemberDatabase::~MemberDatabase() {
 bool MemberDatabase::LoadDatabase(string filename) {
     ifstream infile;
     infile.open(filename);
-    string line;
-    string name;
-    string email;
-    int attCount = 0;
-    int nameEmail = 0;
+
     //file not uploaded properly
     if (!infile) {
-        cout << "failureeeee";
+        cout << "failureeeee" << endl;
         return false;
     }
-    //TODO: delete all the cout statements
-    while (getline(infile, line)) {
-        stringstream iss(line);
-        if (nameEmail == 0 && attCount == 0) {
-            iss >> name;
-            nameEmail = 1;
-            cout << name << " - " << nameEmail << endl;
-        }
-        if (nameEmail == 1 && attCount == 0) {
+        //looping through each member's data
+        while (!(infile.eof())) {
+            string line;
+            string name;
+            string email;
+            
+            //get name
+            getline(infile, line);
+            name = line;
+            
+            //get email
+            getline(infile, line);
             email = line;
-            nameEmail = 2;
+            
+            //create a new member for the database
             PersonProfile * person = new PersonProfile(name, email);
             m_members->insert(email, person);
-            cout << email << " - " << nameEmail << endl;
+            
+            //get the number of attVal pairs
+            int n;
+            cin >> n;
+            cin.ignore(10000, '\n');
+            //adding all attVal pairs
+            for (int i = 0; i < n; i++) {
+                getline(infile, line);
+                istringstream iss(line);
+                string att;
+                string val;
+                char comma;
+                iss >> att;
+                iss.get(comma);
+                iss >> val;
+                AttValPair pair(att, val);
+                m_pairs->insert(email, pair);
+            }
+            //getting the empty line
+            getline(infile, line);
         }
-        if (nameEmail == 2 && attCount == 0) {
-            int num;
-            stringstream convert(line);
-            if ( !(convert >> num)
-                num = 0;
-            attCount = num;
-            nameEmail = 0;
-            cout << num << " - " << nameEmail << endl;
-        }
-        if (attCount > 0) {
-            cout << line << " - " << attCount << endl;
-            string att;
-            string val;
-            char comma;
-            iss >> att;
-            iss.get(comma);
-            iss >> val;
-            AttValPair * pair = new AttValPair(att, val);
-            m_pairs->insert(email, *pair);
-            attCount--;
-        }
-    }
     return true;
 }
 

@@ -1,0 +1,58 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "2bf195d1732ff414d09acdfc1a8bd6bcb84fb03cb696badfb7a0926045c6f141"
+    }
+  ],
+  "containerPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/Project4.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx11.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData/Project4/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData/Project4/Build/Products",
+      "derivedDataPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData/Project4/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData/Project4/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/gabriellaang/Desktop/cs32/Project4/Project4/DerivedData/Project4/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
