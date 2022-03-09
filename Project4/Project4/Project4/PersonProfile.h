@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <set>
 #include "RadixTree.h"
 #include "provided.h"
 
@@ -28,8 +29,9 @@ public:
 private:
     string m_name;
     string m_email;
-    RadixTree<AttValPair> m_tree;
-    vector<AttValPair> * m_attVal;
+    RadixTree<set<std::string>> * m_attVal;
+    vector<AttValPair> m_pairVector;
+    
 };
 
 #endif /* PersonProfile_h */

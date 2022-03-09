@@ -20,8 +20,8 @@ class RadixTree {
 public:
     RadixTree();
     ~RadixTree();
-    void insert(string key, const ValueType& value);
-    ValueType* search(string key) const;
+    void insert(std::string key, const ValueType& value);
+    ValueType* search(std::string key) const;
 private:
 //    class Node {
 //    public:
@@ -63,12 +63,9 @@ private:
 //        bool isLeaf;
 //    };
 //    Node * m_head;
-    struct Pair {
-        string m_key;
-        ValueType m_value;
-    };
+
     
-    vector<Pair> * keys;
+    map<std::string, ValueType> * m_map;
 };
 
 #endif /* RadixTree_h */
@@ -77,16 +74,19 @@ template<typename ValueType>
 RadixTree<ValueType>::RadixTree() {
     //dummy node
 //    m_head = new Node();
-    keys = nullptr;
+    m_map = nullptr;
 }
 
 template<typename ValueType>
 RadixTree<ValueType>::~RadixTree() {
-    
+    typename map<string, ValueType>::iterator it;
+    for (it = m_map->begin(); it != m_map->end(); it++) {
+        m_map->erase(it);
+    }
 }
 
 template<typename ValueType>
-void RadixTree<ValueType>::insert(string key, const ValueType& value) {
+void RadixTree<ValueType>::insert(std::string key, const ValueType& value) {
 //    string prefix = key;
 //    //insert into empty tree
 //    if (m_head->getCount() == 0) {
@@ -110,17 +110,12 @@ void RadixTree<ValueType>::insert(string key, const ValueType& value) {
     //The prefix has a mismatch with the word
     //Prefix and the word fully match and both lengths are the same
     
-    Pair * n;
-    n->m_key = key;
-    n->m_value = value;
-    keys->push_back(n);
-    
+    pair<string, ValueType> keyVal (key, value);
+    m_map->insert(keyVal);
 }
 
 template<typename ValueType>
-ValueType* RadixTree<ValueType>::search(string key) const {
-    for (int i = 0; i < keys->size(); i++) {
-        if (keys[i]->m_key == key)
-            return keys[i]->m_value;
-    }
+ValueType* RadixTree<ValueType>::search(std::string key) const {
+    ValueType* valuecopyptr = new ValueType(m_map->find(key)->second);
+    return valuecopyptr;
 }
