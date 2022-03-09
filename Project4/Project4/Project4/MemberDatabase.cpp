@@ -29,8 +29,10 @@ bool MemberDatabase::LoadDatabase(string filename) {
     int attCount = 0;
     int nameEmail = 0;
     //file not uploaded properly
-    if (!infile)
+    if (!infile) {
+        cout << "failureeeee";
         return false;
+    }
     //TODO: delete all the cout statements
     while (getline(infile, line)) {
         stringstream iss(line);
@@ -48,7 +50,9 @@ bool MemberDatabase::LoadDatabase(string filename) {
         }
         if (nameEmail == 2 && attCount == 0) {
             int num;
-            iss.get(num);
+            stringstream convert(line);
+            if ( !(convert >> num)
+                num = 0;
             attCount = num;
             nameEmail = 0;
             cout << num << " - " << nameEmail << endl;
@@ -62,7 +66,7 @@ bool MemberDatabase::LoadDatabase(string filename) {
             iss.get(comma);
             iss >> val;
             AttValPair * pair = new AttValPair(att, val);
-            m_pairs->insert(email, pair);
+            m_pairs->insert(email, *pair);
             attCount--;
         }
     }
