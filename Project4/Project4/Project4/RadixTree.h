@@ -32,7 +32,7 @@ template<typename ValueType>
 RadixTree<ValueType>::RadixTree() {
     //dummy node
 //    m_head = new Node();
-//    m_map = nullptr;
+    m_map = nullptr;
 }
 
 template<typename ValueType>
@@ -45,7 +45,12 @@ RadixTree<ValueType>::~RadixTree() {
 
 template<typename ValueType>
 void RadixTree<ValueType>::insert(std::string key, const ValueType& value) {
-    m_map->insert_or_assign(key, value);
+    if (m_map->size() == 0) {
+        pair<string, ValueType> pair(key, value);
+        m_map->insert(pair);
+    }
+    else
+        m_map->insert_or_assign(key, value);
 }
 
 template<typename ValueType>
