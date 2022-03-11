@@ -87,31 +87,7 @@ RadixTree<ValueType>::~RadixTree() {
 
 template<typename ValueType>
 void RadixTree<ValueType>::insert(std::string key, const ValueType& value) {
-//    string prefix = key;
-//    //insert into empty tree
-//    if (m_head->getCount() == 0) {
-//        Node * n = new Node();
-//        n->setValue(key);
-//        m_head->addNode(n, value);
-//        m_head->setLeaf(false);
-//    }
-//    //node has no edges that have a prefix to the word
-//    else if (m_head->getCount() != 0) {
-//        //loop through array
-//        for (int i = 0; i < m_head->getCount(); i++) {
-//            //loop through value in that position
-//            for (int j = 0; j < getValAt(i).size(); j++) {
-//                if (key[i] == getVal)
-//            }
-//        }
-//    }
-    //The prefix completely matches the first part of the word, but there are still leftover parts to the word
-    //The word matches the prefix but the prefix has leftover parts (the word is shorter than the prefix)
-    //The prefix has a mismatch with the word
-    //Prefix and the word fully match and both lengths are the same
-    
-    pair<string, ValueType> keyVal (key, value);
-    m_map->insert(keyVal);
+    m_map->insert_or_assign(key, value);
 }
 
 template<typename ValueType>

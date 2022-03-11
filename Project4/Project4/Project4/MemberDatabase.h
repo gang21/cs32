@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <vector>
 #include "PersonProfile.h"
 
 using namespace std;
@@ -23,7 +24,7 @@ public:
     const PersonProfile* GetMemberByEmail(string email) const;
 private:
     RadixTree<PersonProfile*> * m_members; //email addresses - personProfile
-    RadixTree<AttValPair> * m_pairs; //email addresses - attValPairs
+    RadixTree<vector<string>> * m_pairs; //attValPairs - string
     
     
     
