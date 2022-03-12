@@ -37,10 +37,10 @@ RadixTree<ValueType>::RadixTree() {
 
 template<typename ValueType>
 RadixTree<ValueType>::~RadixTree() {
-//    typename map<string, ValueType>::iterator it;
-//    for (it = m_map.begin(); it != m_map.end(); it++) {
-//        m_map.erase(it);
-//    }
+    typename map<string, ValueType>::iterator it;
+    for (it = m_map.begin(); it != m_map.end(); it++) {
+        m_map.erase(it);
+    }
 }
 
 template<typename ValueType>

@@ -27,11 +27,11 @@ std::string PersonProfile::GetEmail() const {
 }
 
 void PersonProfile::AddAttValPair(const AttValPair& attval) {
-    set<string> * values = m_attVal->search(attval.attribute);
-    if (values == nullptr) {
+    set<string> values = *m_attVal.search(attval.attribute);
+    if (values.size() == 0) {
         m_pairVector.push_back(attval);
     }
-    values->insert(attval.value);
+    values.insert(attval.value);
 }
 
 int PersonProfile::GetNumAttValPairs() const {

@@ -29,7 +29,7 @@ public:
 private:
     string m_name;
     string m_email;
-    RadixTree<set<std::string>> * m_attVal;
+    RadixTree<set<std::string>> m_attVal;
     vector<AttValPair> m_pairVector;
     
 };
