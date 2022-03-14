@@ -6,9 +6,11 @@
 //
 
 #include <iostream>
+#include <map>
+#include <set>
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    map<string, int> * a;
+    cout << a->size();
 }

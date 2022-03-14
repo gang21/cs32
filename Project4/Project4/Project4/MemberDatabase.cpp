@@ -13,14 +13,9 @@
 using namespace std;
 
 MemberDatabase::MemberDatabase() {
-
 }
 
 MemberDatabase::~MemberDatabase() {
-    //TODO: implement this destructor
-//    auto it = m_members.begin();
-//    for (; it != m_members.end(); it++)
-//        delete (*it);
 }
 
 bool MemberDatabase::LoadDatabase(string filename) {
@@ -65,13 +60,14 @@ bool MemberDatabase::LoadDatabase(string filename) {
                 vector<string> tempEmails;
                 tempEmails.push_back(email);
                 m_pairs.insert(pair, tempEmails);
+                cout << pair << endl;
             }
             //add to the vector
             else {
                 vector<string> tempEmails = *search;
                 tempEmails.push_back(email);
                 m_pairs.insert(pair, tempEmails);
-    
+                cout << pair << endl;
             }
         }
         //getting the empty line
@@ -82,28 +78,22 @@ bool MemberDatabase::LoadDatabase(string filename) {
 
 std::vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input) const {
     string pair = input.attribute + "," + input.value;
-    vector<string> a = *(m_pairs.search(pair));
-    for (int i = 0; i < a.size(); i++) {
-        cout << a[i] << " ";
-    }
-    cout << endl;
-    return a;
+    vector<string> * b = m_pairs.search(pair);
+    vector<string> a;
+    return *b;
 }
 
 const PersonProfile* MemberDatabase::GetMemberByEmail(string email) const {
-    //return m_members.search(email);
-    PersonProfile * a = m_members.search(email);
-    cout << a->GetName();
-    return a;
+    return m_members.search(email);
 }
 
 int main() {
     MemberDatabase a;
     a.LoadDatabase("members.txt");
     AttValPair b("job","curator");
-    a.FindMatchingMembers(b);
+//    a.FindMatchingMembers(b);
     a.GetMemberByEmail("ArTerr1@yandex.com");
-    
+
     cerr << "all tests suceeded" << endl;
 }
 

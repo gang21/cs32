@@ -9,8 +9,9 @@
 #define AttributeTranslator_h
 
 #include <stdio.h>
-#include <string>
 #include "provided.h"
+#include "PersonProfile.h"
+//#include "RadixTree.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
     bool Load(string filename);
     vector<AttValPair> FindCompatibleAttValPairs(const AttValPair& source) const;
 private:
-    vector<AttValPair> * m_translation;
+    RadixTree<string> m_compatiblePairs;
 };
 
 #endif /* AttributeTranslator_h */

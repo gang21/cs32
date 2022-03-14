@@ -85,7 +85,7 @@
 #include <iostream>
 using namespace std;
 int main() {
-    RadixTree<int> * a;
-    a->insert("a", 1);
+    RadixTree<int> a;
+    a.insert("a", 1);
     cerr << "all tests succeeded" << endl;
 }
