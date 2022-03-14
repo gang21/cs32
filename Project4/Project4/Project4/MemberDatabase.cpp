@@ -86,14 +86,3 @@ std::vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input)
 const PersonProfile* MemberDatabase::GetMemberByEmail(string email) const {
     return m_members.search(email);
 }
-
-int main() {
-    MemberDatabase a;
-    a.LoadDatabase("members.txt");
-    AttValPair b("job","curator");
-    a.FindMatchingMembers(b);
-    a.GetMemberByEmail("ArTerr1@yandex.com");
-
-    cerr << "all tests suceeded" << endl;
-}
-

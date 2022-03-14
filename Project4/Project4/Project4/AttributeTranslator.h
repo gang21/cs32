@@ -11,6 +11,10 @@
 #include <stdio.h>
 #include "provided.h"
 #include "PersonProfile.h"
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include <set>
 //#include "RadixTree.h"
 
 using namespace std;
@@ -22,7 +26,7 @@ public:
     bool Load(string filename);
     vector<AttValPair> FindCompatibleAttValPairs(const AttValPair& source) const;
 private:
-    RadixTree<string> m_compatiblePairs;
+    RadixTree<set<string>> m_compatiblePairs;
 };
 
 #endif /* AttributeTranslator_h */
