@@ -60,14 +60,11 @@ bool MemberDatabase::LoadDatabase(string filename) {
                 vector<string> tempEmails;
                 tempEmails.push_back(email);
                 m_pairs.insert(pair, tempEmails);
-                cout << pair << endl;
             }
             //add to the vector
             else {
-                vector<string> tempEmails = *search;
-                tempEmails.push_back(email);
-                m_pairs.insert(pair, tempEmails);
-                cout << pair << endl;
+                vector<string> * tempEmails = search;
+                tempEmails->push_back(email);
             }
         }
         //getting the empty line
@@ -78,9 +75,12 @@ bool MemberDatabase::LoadDatabase(string filename) {
 
 std::vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input) const {
     string pair = input.attribute + "," + input.value;
-    vector<string> * b = m_pairs.search(pair);
-    vector<string> a;
-    return *b;
+    vector<string> * matches = m_pairs.search(pair);
+    if (matches == nullptr) {
+        vector<string> empty = {};
+        return empty;
+    }
+    return *matches;
 }
 
 const PersonProfile* MemberDatabase::GetMemberByEmail(string email) const {
@@ -91,7 +91,7 @@ int main() {
     MemberDatabase a;
     a.LoadDatabase("members.txt");
     AttValPair b("job","curator");
-//    a.FindMatchingMembers(b);
+    a.FindMatchingMembers(b);
     a.GetMemberByEmail("ArTerr1@yandex.com");
 
     cerr << "all tests suceeded" << endl;
