@@ -26,7 +26,7 @@ public:
     bool Load(string filename);
     vector<AttValPair> FindCompatibleAttValPairs(const AttValPair& source) const;
 private:
-    RadixTree<set<string>> m_compatiblePairs;
+    RadixTree<vector<AttValPair>> m_compatiblePairs;
 };
 
 #endif /* AttributeTranslator_h */
