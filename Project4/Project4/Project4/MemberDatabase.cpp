@@ -45,15 +45,23 @@ bool MemberDatabase::LoadDatabase(string filename) {
         }
         //create a new member for the database
         PersonProfile person(name, email);
-        m_members.insert(email, person);
+//        m_members.insert(email, *person);
             
         //get the number of attVal pairs
         getline(infile, line);
         int n = stoi(line);
         //adding all attVal pairs
         for (int i = 0; i < n; i++) {
+            string att;
+            string val;
             getline(infile, line);
+            istringstream iss(line);
+            getline(iss, att, ',');
+            getline(iss, val, ',');
             string pair = line;
+            //insert AttValPair into m_members attributes
+            AttValPair attval(att, val);
+            person.AddAttValPair(attval);
             vector<string> * search = m_pairs.search(pair);
             //no pairs in the vector (make a new vector)
             if (search == nullptr) {
@@ -67,6 +75,9 @@ bool MemberDatabase::LoadDatabase(string filename) {
                 tempEmails->push_back(email);
             }
         }
+        //inserting the PersonProfile into the member database
+        m_members.insert(email, person);
+        
         //getting the empty line
         getline(infile, line);
     }
@@ -86,3 +97,16 @@ std::vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input)
 const PersonProfile* MemberDatabase::GetMemberByEmail(string email) const {
     return m_members.search(email);
 }
+
+//int main() {
+//    MemberDatabase a;
+//    a.LoadDatabase("members.txt");
+//    const PersonProfile * b = a.GetMemberByEmail("MHa7@sky.com");
+//    cout << b->GetName() << endl;
+//    cout << b->GetEmail() << endl;
+//    cout << b->GetNumAttValPairs() << endl;
+//    AttValPair at("job", "architect");
+//    vector<string> be = a.FindMatchingMembers(at);
+//    cout << be.size() << endl;
+//    
+//}

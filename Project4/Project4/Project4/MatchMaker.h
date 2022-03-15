@@ -21,8 +21,9 @@ public:
     MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at);
     ~MatchMaker();
     vector<EmailCount> IdentifyRankedMatches(string email, int threshold) const;
-    
-    
+private:
+    MemberDatabase m_database;
+    AttributeTranslator m_translator;
 };
 
 #endif /* MatchMaker_hpp */
