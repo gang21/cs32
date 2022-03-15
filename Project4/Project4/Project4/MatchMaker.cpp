@@ -44,12 +44,7 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
         copy(temp.begin(), temp.end(), inserter(compatibles, compatibles.begin()));
         
     }
-    //PRINT STATEMENTS
-//    cout << compatibles.size() << endl;
-//    set<AttValPair>::iterator it;
-//    for (it = compatibles.begin(); it != compatibles.end(); it++) {
-//        cout << (*it).attribute << "," << (*it).value << endl;
-//    }
+
     //finding matching members and make EmailCounts objects
     set<string> matchMembers;
     map<string, int> emailCount;
@@ -89,15 +84,4 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
     sort(ec.begin(), ec.end());
     return ec;
     
-}
-
-int main() {
-    MemberDatabase a;
-    a.LoadDatabase("members.txt");
-    AttributeTranslator b;
-    b.Load("translator.txt");
-    MatchMaker c(a, b);
-    c.IdentifyRankedMatches("ElliotVega17@juno.com", 7);
-    
-    cerr << "all tests succeeded" << endl;
 }

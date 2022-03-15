@@ -66,7 +66,6 @@ bool AttributeTranslator::Load(string filename) {
 }
 vector<AttValPair> AttributeTranslator::FindCompatibleAttValPairs(const AttValPair& source) const {
     string attval = source.attribute + "," + source.value;
-//    string attval = "job,lawyer";
     vector<AttValPair> * compatibles = m_compatiblePairs.search(attval);
     //no compatibles found
     if (compatibles == nullptr) {
@@ -75,16 +74,3 @@ vector<AttValPair> AttributeTranslator::FindCompatibleAttValPairs(const AttValPa
     }
     return *compatibles;
 }
-
-//int main() {
-//    AttributeTranslator a;
-//    a.Load("translator.txt");
-//    AttValPair b("job", "lawyer");
-//    vector<AttValPair> c = a.FindCompatibleAttValPairs(b);
-//    cout << c.size() << endl;
-//    for (int i = 0; i < c.size(); i++) {
-//        cout << c[i].attribute << ", " << c[i].value << endl;
-//    }
-//
-//    cerr << "all tests succeeded" << endl;
-//}

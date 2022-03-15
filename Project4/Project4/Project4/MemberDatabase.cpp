@@ -97,16 +97,3 @@ std::vector<string> MemberDatabase::FindMatchingMembers(const AttValPair& input)
 const PersonProfile* MemberDatabase::GetMemberByEmail(string email) const {
     return m_members.search(email);
 }
-
-//int main() {
-//    MemberDatabase a;
-//    a.LoadDatabase("members.txt");
-//    const PersonProfile * b = a.GetMemberByEmail("MHa7@sky.com");
-//    cout << b->GetName() << endl;
-//    cout << b->GetEmail() << endl;
-//    cout << b->GetNumAttValPairs() << endl;
-//    AttValPair at("job", "architect");
-//    vector<string> be = a.FindMatchingMembers(at);
-//    cout << be.size() << endl;
-//    
-//}

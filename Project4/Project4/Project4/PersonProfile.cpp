@@ -55,23 +55,3 @@ bool PersonProfile::GetAttVal(int attribute_num, AttValPair& attval) const {
     return true;
     
 }
-
-//int main() {
-//    PersonProfile a("Gabby Ang", "gabriella90631@gmail.com");
-//    cout << a.GetName() << endl;
-//    cout << a.GetEmail() << endl;
-//    AttValPair one("hobby", "baking");
-//    AttValPair two("job", "curator");
-//    a.AddAttValPair(one);
-//    a.AddAttValPair(two);
-//    AttValPair three("hobby", "fun");
-//    a.AddAttValPair(three);
-//    AttValPair four("job", "curator");
-//    a.AddAttValPair(four);
-//    cout << a.GetNumAttValPairs() << endl;
-//    for (int i = 0; i < a.GetNumAttValPairs(); i++) {
-//        AttValPair temp;
-//        a.GetAttVal(i, temp);
-//        cout << temp.attribute << ", " << temp.value << endl;
-//    }
-//}
