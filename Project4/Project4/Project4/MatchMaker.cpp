@@ -9,6 +9,7 @@
 #include "utilities.h"
 #include <set>
 #include <map>
+#include <algorithm>
 
 MatchMaker::MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at) {
     m_database = mdb;
@@ -20,13 +21,15 @@ MatchMaker::~MatchMaker() {
 }
 
 vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold) const {
+    
     const PersonProfile* profile = m_database.GetMemberByEmail(email);
+    //no profile is found
     if (profile == nullptr) {
         vector<EmailCount> notfound = {};
         return notfound;
     }
-    vector<AttValPair> sourceAttributes;
     //get the attVal pairs given a specific email
+    vector<AttValPair> sourceAttributes;
     for (int i = 0; i < profile->GetNumAttValPairs(); i++) {
         AttValPair attval;
         profile->GetAttVal(i, attval);
@@ -50,6 +53,7 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
     //finding matching members and make EmailCounts objects
     set<string> matchMembers;
     map<string, int> emailCount;
+    vector<EmailCount> ec;
     set<AttValPair>::iterator it;
     for (it = compatibles.begin(); it != compatibles.end(); it++) {
         vector<string> match = m_database.FindMatchingMembers(*it);
@@ -58,32 +62,32 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
             if (match[i] == email)
                 continue;
             map<string,int>::iterator find = emailCount.find(match[i]);
-            //insert new EmailCount
-            if (find == emailCount.end()) {
-                emailCount.insert(pair<string,int>(match[i], 1));
+            //reassign existing EmailCount
+            if (find != emailCount.end()) {
+                find->second++;
             }
             //reassign existing EmailCount
             else {
-                find->second++;
+                emailCount.insert(pair<string,int>(match[i], 1));
             }
         }
+        //TODO: WHAT WAS THIS FOR AGAIN???
+//        copy(match.begin(), match.end(), inserter(matchMembers, matchMembers.begin()));
+//        matchMembers.erase(email);
         
-        copy(match.begin(), match.end(), inserter(matchMembers, matchMembers.begin()));
-        matchMembers.erase(email);
+        
     }
-    
-    map<string, int>::iterator bleh;
-    for (bleh = emailCount.begin(); bleh != emailCount.end(); bleh++) {
-        cout << (*bleh).first << "," << (*bleh).second << endl;
+    //reinserting the map into a vector and checking if it's above the threshold
+    map<string, int>::iterator mit;
+    for (mit = emailCount.begin(); mit != emailCount.end(); mit++) {
+        if ((*mit).second >= threshold) {
+            EmailCount emCo((*mit).first, (*mit).second);
+            ec.push_back(emCo);
+        }
     }
-    //PRINT STATEMENTS
-    cout << matchMembers.size() << endl;
-//    set<string>::iterator be;
-//    for (be = matchMembers.begin(); be != matchMembers.end(); be++) {
-//        cout << (*be) << endl;
-//    }
-    vector<EmailCount> a;
-    return a;
+    //sort the vector
+    sort(ec.begin(), ec.end());
+    return ec;
     
 }
 
@@ -93,7 +97,7 @@ int main() {
     AttributeTranslator b;
     b.Load("translator.txt");
     MatchMaker c(a, b);
-    c.IdentifyRankedMatches("AbFow2483@charter.net", 2);
+    c.IdentifyRankedMatches("ElliotVega17@juno.com", 7);
     
     cerr << "all tests succeeded" << endl;
 }

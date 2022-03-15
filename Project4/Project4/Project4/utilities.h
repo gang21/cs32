@@ -11,5 +11,6 @@
 #include "provided.h"
 
 bool operator<(const AttValPair& pair1, const AttValPair& pair2);
+bool operator<(const EmailCount& c1, const EmailCount& c2);
 
 #endif /* utilities_h */
