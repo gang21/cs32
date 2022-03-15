@@ -6,6 +6,7 @@
 //
 
 #include "MatchMaker.h"
+#include "utilities.h"
 #include <set>
 
 MatchMaker::MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at) {
@@ -19,6 +20,10 @@ MatchMaker::~MatchMaker() {
 
 vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold) const {
     const PersonProfile* profile = m_database.GetMemberByEmail(email);
+    if (profile == nullptr) {
+        vector<EmailCount> notfound = {};
+        return notfound;
+    }
     vector<AttValPair> sourceAttributes;
     //get the attVal pairs given a specific email
     for (int i = 0; i < profile->GetNumAttValPairs(); i++) {
@@ -28,14 +33,22 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
         sourceAttributes.push_back(attval);
     }
     //find attributes that are compatible with sourceAttributes
-    vector<AttValPair> compatibles;
+    //TODO: make this work
+    set<AttValPair> compatibles = {};
     for (int j = 0; j < sourceAttributes.size(); j++) {
-        compatibles = m_translator.FindCompatibleAttValPairs(sourceAttributes[0]);
-//        cout << compatibles.size() << endl;
+        
+        //TODO: check for duplicates
+        vector<AttValPair> temp =  m_translator.FindCompatibleAttValPairs(sourceAttributes[j]);
+        //add to compatibles
+        copy(temp.begin(), temp.end(), inserter(compatibles, compatibles.begin()));
+        
     }
-    for (int k = 0; k < compatibles.size(); k++) {
-        cout << compatibles[k].attribute + "," << compatibles[k].value << endl;
-    }
+//    cout << compatibles.size() << endl;
+//    set<AttValPair>::iterator it;
+//    for (it = compatibles.begin(); it != compatibles.end(); it++) {
+//        cout << (*it).attribute << "," << (*it).value << endl;
+//    }
+
     vector<EmailCount> a;
     return a;
 }
@@ -46,5 +59,5 @@ int main() {
     AttributeTranslator b;
     b.Load("translator.txt");
     MatchMaker c(a, b);
-    c.IdentifyRankedMatches("AbFow2483@charter.net", 2);
+    c.IdentifyRankedMatches("AlfrPate600@comcast.net", 2);
 }

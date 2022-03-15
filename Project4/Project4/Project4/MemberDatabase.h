@@ -25,9 +25,6 @@ public:
 private:
     RadixTree<PersonProfile> m_members; //email addresses - personProfile
     RadixTree<vector<string>> m_pairs; //attValPairs - string
-    
-    
-    
 };
 
 #endif /* MemberDatabase_h */
