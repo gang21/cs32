@@ -43,14 +43,25 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
         copy(temp.begin(), temp.end(), inserter(compatibles, compatibles.begin()));
         
     }
-//    cout << compatibles.size() << endl;
-//    set<AttValPair>::iterator it;
-//    for (it = compatibles.begin(); it != compatibles.end(); it++) {
-//        cout << (*it).attribute << "," << (*it).value << endl;
-//    }
-
+    cout << compatibles.size() << endl;
+    set<AttValPair>::iterator it;
+    for (it = compatibles.begin(); it != compatibles.end(); it++) {
+        cout << (*it).attribute << "," << (*it).value << endl;
+    }
+    //finding matching members
+    set<string> matchMembers;
+    for (it = compatibles.begin(); it != compatibles.end(); it++) {
+        vector<string> match = m_database.FindMatchingMembers(*it);
+        copy(match.begin(), match.end(), inserter(matchMembers, matchMembers.begin()));
+    }
+    cout << matchMembers.size() << endl;
+    set<string>::iterator be;
+    for (be = matchMembers.begin(); be != matchMembers.end(); be++) {
+        cout << (*be) << endl;
+    }
     vector<EmailCount> a;
     return a;
+    
 }
 
 int main() {
@@ -59,5 +70,5 @@ int main() {
     AttributeTranslator b;
     b.Load("translator.txt");
     MatchMaker c(a, b);
-    c.IdentifyRankedMatches("AlfrPate600@comcast.net", 2);
+    c.IdentifyRankedMatches("AbFow2483@charter.net", 2);
 }

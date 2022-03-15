@@ -70,7 +70,6 @@ vector<AttValPair> AttributeTranslator::FindCompatibleAttValPairs(const AttValPa
     vector<AttValPair> * compatibles = m_compatiblePairs.search(attval);
     //no compatibles found
     if (compatibles == nullptr) {
-        cout << "This fails" << endl;
         vector<AttValPair> empty = {};
         return empty;
     }
