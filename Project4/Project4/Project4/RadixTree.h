@@ -38,17 +38,15 @@ RadixTree<ValueType>::RadixTree() {
 
 template<typename ValueType>
 RadixTree<ValueType>::~RadixTree() {
-    typename unordered_map<string, ValueType*>::iterator it;
-    for (it = m_map.begin(); it != m_map.end(); it++) {
-        m_map.erase(it);
-    }
+//    typename unordered_map<string, ValueType*>::iterator it;
+//    for (it = m_map.begin(); it != m_map.end(); it++) {
+//        m_map.erase(it);
+//    }
 }
 
 template<typename ValueType>
 void RadixTree<ValueType>::insert(string key, const ValueType& value) {
-    ValueType * val = new ValueType(value);
-    pair<string, ValueType*> pair(key, val);
-    m_map.insert(pair);
+    m_map.insert(std::pair<std::string, ValueType*>(key, new ValueType(value)));
 }
 
 template<typename ValueType>

@@ -85,3 +85,12 @@ vector<EmailCount> MatchMaker::IdentifyRankedMatches(string email, int threshold
     return ec;
     
 }
+
+//int main() {
+//    RadixTree<int> a;
+//    a.insert("hi", 3);
+//    a.insert("bruh", 4);
+//    a.search("hi");
+//    a.search("yo");
+//    cout << "all test succeeded" << endl;
+//}

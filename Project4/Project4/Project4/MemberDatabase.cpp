@@ -45,7 +45,6 @@ bool MemberDatabase::LoadDatabase(string filename) {
         }
         //create a new member for the database
         PersonProfile person(name, email);
-//        m_members.insert(email, *person);
             
         //get the number of attVal pairs
         getline(infile, line);
